@@ -1,6 +1,6 @@
 import { ArrowRight, ChefHat, User } from 'lucide-react';
 import FeaturedCard from '../components/home/FeaturedCard/FeaturedCard';
-import InfoCard from '../components/home/InfoCard/infoCard';
+import InfoCard from '../components/home/InfoCard/InfoCard'
 import { Link } from 'react-router';
 
 export default function Home() {
@@ -65,8 +65,8 @@ export default function Home() {
 						<FeaturedCard />
 					</div>
 				</section>
-				<section className='bg-slate-900/96 border-b border-gray-800 py-8'>
-					<div className='flex items-center justify-center flex-col gap-4 p-4 sm:p-6 mx-auto max-w-7xl h-[30vh] md:h-[35vh]'>
+				<section className='bg-slate-900/96 border-b border-gray-800 p-4 py-6'>
+					<div className='flex items-center justify-center flex-col gap-4 mx-auto max-w-7xl h-[30vh] md:h-[35vh]'>
 						<h1 className='text-center text-2xl md:text-4xl text-gray-200 font-bold'>Pronto para começar sua jornada culinária?</h1>
 						<p className='text-lg md:text-xl text-center text-gray-300'>Junte-se à nossa comunidade e comece a compartilhar suas receitas hoje mesmo!</p>
 						<button className='flex items-center gap-2 border border-white/20 font-semibold text-white text-lg py-4 px-8 mt-4 rounded-2xl hover:bg-white/10 hover:text-emerald-500 transition ease-in duration-150 cursor-pointer'>
