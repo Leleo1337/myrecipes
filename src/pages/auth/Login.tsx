@@ -4,11 +4,11 @@ import { Link } from 'react-router';
 export default function Login() {
 	return (
 		<>
-			<div className='w-full h-screen bg-gradient-to-br from-emerald-500/40 via-teal-600/60 to-cyan-700/40'></div>
+			<div className='w-full h-screen bg-gradient-to-br from-emerald-500 via-teal-600 to-cyan-700'></div>
 			<div className='absolute top-1/2 left-1/2 -translate-1/2 w-[95%] max-w-[450px] bg-white rounded-xl py-6 shadow-md'>
 				<div className='px-6 py-4'>
 					<Link to={'/'}>
-						<ArrowLeft className='cursor-pointer hover:text-emerald-500 hover:scale-120 transition ease duration-75' />
+						<ArrowLeft className='cursor-pointer hover:text-emerald-600 hover:scale-120 transition ease duration-75' />
 					</Link>
 					<div className='flex flex-col items-center'>
 						<div className='relative py-2'>
@@ -17,7 +17,7 @@ export default function Login() {
 								size={24}
 							/>
 							<h1 className='text-center text-4xl font-bold'>Entrar</h1>
-							<p className='text-lg text-emerald-500 font-semibold'>Bem vindo de volta chefe!</p>
+							<p className='text-lg text-emerald-600 font-semibold'>Bem vindo de volta chefe!</p>
 						</div>
 					</div>
 					<div className='space-y-1.5'>
