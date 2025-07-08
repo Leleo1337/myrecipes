@@ -1,11 +1,10 @@
 import { ChefHat, LogOut, User, X } from 'lucide-react';
-import { useState } from 'react';
 import AuthButtons from './AuthButtons';
 import image from '../../assets/anime.png';
 import { Link } from 'react-router';
 
 export default function SideBar({ toggle, open }: { toggle: () => void; open: boolean }) {
-	const [isAuth, setIsAuth] = useState(true);
+	const isAuth = true;
 	return (
 		<>
 			<header>

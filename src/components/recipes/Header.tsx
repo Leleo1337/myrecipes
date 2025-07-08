@@ -1,11 +1,10 @@
-import { useState } from 'react';
 import { Link, useLocation } from 'react-router';
 import { ChefHat, HomeIcon, LogOut, Menu, Plus, Search, User } from 'lucide-react';
 import AuthButtons from './AuthButtons';
 import image from '../../assets/anime.png';
 
 export default function Header({ toggleSide }: any) {
-	const [isAuth, setIsAuth] = useState(true);
+	const isAuth = true;
 	const location = useLocation();
 
 	function getActiveTabIndex() {
