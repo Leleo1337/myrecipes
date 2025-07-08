@@ -1,0 +1,100 @@
+import { ArrowLeft, ChefHat, LockKeyholeIcon, Mail, User } from 'lucide-react';
+import { Link } from 'react-router';
+
+export default function Login() {
+	return (
+		<>
+			<div className='w-full h-screen bg-gradient-to-br from-emerald-500/40 via-teal-600/60 to-cyan-700/40'></div>
+			<div className='absolute top-1/2 left-1/2 -translate-1/2 w-[95%] max-w-[450px] bg-white rounded-xl py-6 shadow-md'>
+				<div className='px-6 py-4'>
+					<Link to={'/'}>
+						<ArrowLeft className='cursor-pointer hover:text-emerald-500 hover:scale-120 transition ease duration-75' />
+					</Link>
+					<div className='flex flex-col items-center'>
+						<div className='relative py-2'>
+							<ChefHat
+								className='absolute bottom-16.5 left-13 text-emerald-500 my-1'
+								size={24}
+							/>
+							<h1 className='text-center text-4xl font-bold'>Entrar</h1>
+							<p className='text-lg text-emerald-500 font-semibold'>Bem vindo de volta chefe!</p>
+						</div>
+					</div>
+					<div className='space-y-1.5'>
+						<div>
+							<label
+								className='text-gray-500 font-semibold text-sm'
+								htmlFor='name'
+							>
+								Nome
+							</label>
+							<div className='relative'>
+								<input
+									type='text'
+									name='name'
+									id='name'
+									autoComplete='off'
+									className='w-full border border-gray-400 rounded-md pl-12 py-2 outline-0 focus:ring ring-emerald-500'
+									placeholder='Nome de usuário'
+								/>
+								<User className='absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5' />
+							</div>
+						</div>
+						<div>
+							<label
+								className='text-gray-500 font-semibold text-sm'
+								htmlFor='email'
+							>
+								email
+							</label>
+							<div className='relative'>
+								<input
+									type='email'
+									name='email'
+									id='email'
+									autoComplete='off'
+									className='w-full border border-gray-400 rounded-md pl-12 py-2 outline-0 focus:ring ring-emerald-500'
+									placeholder='seu@email.com'
+								/>
+								<Mail className='absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5' />
+							</div>
+						</div>
+						<div>
+							<label
+								className='text-gray-500 font-semibold text-sm'
+								htmlFor='password'
+							>
+								Senha
+							</label>
+							<div className='relative'>
+								<input
+									type='password'
+									name='password'
+									id='password'
+									autoComplete='off'
+									className='w-full border border-gray-400 rounded-md pl-12 py-2 outline-0 focus:ring ring-emerald-500'
+									placeholder='••••••••'
+								/>
+								<LockKeyholeIcon className='absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5' />
+							</div>
+							<div className='flex justify-between pt-2'>
+								<div className='flex gap-1.5 items-center justify-center'>
+									<input
+										type='checkbox'
+										name='remember'
+										id='remember'
+									/>
+									<label htmlFor='remember'>Lembrar-me</label>
+								</div>
+								<Link to={'/forgot'} className='text-emerald-700 hover:underline'>Esqueci minha senha</Link>
+							</div>
+						</div>
+						<button className='w-full mt-4 bg-emerald-500 hover:bg-emerald-600 cursor-pointer py-3 px-4 text-white font-semibold rounded-md transition ease duration-75'>
+							Entrar
+						</button>
+					</div>
+				</div>
+			</div>
+		</>
+	);
+}
