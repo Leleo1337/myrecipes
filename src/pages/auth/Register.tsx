@@ -24,8 +24,7 @@ export default function Register() {
 						<div>
 							<label
 								className='text-gray-500 font-semibold text-sm'
-								htmlFor='name'
-							>
+								htmlFor='name'>
 								Nome
 							</label>
 							<div className='relative'>
@@ -43,8 +42,7 @@ export default function Register() {
 						<div>
 							<label
 								className='text-gray-500 font-semibold text-sm'
-								htmlFor='email'
-							>
+								htmlFor='email'>
 								email
 							</label>
 							<div className='relative'>
@@ -62,8 +60,7 @@ export default function Register() {
 						<div>
 							<label
 								className='text-gray-500 font-semibold text-sm'
-								htmlFor='password'
-							>
+								htmlFor='password'>
 								Senha
 							</label>
 							<div className='relative'>
@@ -81,8 +78,7 @@ export default function Register() {
 						<div>
 							<label
 								className='text-gray-500 font-semibold text-sm'
-								htmlFor='name'
-							>
+								htmlFor='name'>
 								Confirme a senha
 							</label>
 							<div className='relative'>

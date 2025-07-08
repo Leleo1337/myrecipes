@@ -2,7 +2,7 @@ type FeaturedCardProps = {
 	icon: any;
 	title: string;
 	text: string;
-	color: 'darkgreen' | 'green' | 'orange'
+	color: 'darkgreen' | 'green' | 'orange';
 };
 
 const colorClasses = {
@@ -27,11 +27,10 @@ export default function FeaturedCardItem({ icon, title, text, color }: FeaturedC
 	const selectedColor = colorClasses[color];
 
 	return (
-		<div className={`${selectedColor.bg} ${selectedColor.border} w-full border p-4 rounded-xl py-8 lg:py-12 shadow-xs hover:shadow-xl transition ease-in duration-100`}>
+		<div
+			className={`${selectedColor.bg} ${selectedColor.border} w-full border p-4 rounded-xl py-8 lg:py-12 shadow-xs hover:shadow-xl transition ease-in duration-100`}>
 			<div className='flex flex-col items-center justify-center space-y-2'>
-				<div className={`flex items-center justify-center w-16 h-16 ${selectedColor.iconBg} rounded-2xl shadow-md`}>
-					{icon}
-				</div>
+				<div className={`flex items-center justify-center w-16 h-16 ${selectedColor.iconBg} rounded-2xl shadow-md`}>{icon}</div>
 				<p className='font-semibold text-gray-900 text-center text-xl'>{title}</p>
 			</div>
 			<p className='text-gray-600 text-center mt-2 lg:text-lg'>{text}</p>

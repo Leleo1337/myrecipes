@@ -24,8 +24,7 @@ export default function Login() {
 						<div>
 							<label
 								className='text-gray-500 font-semibold text-sm'
-								htmlFor='name'
-							>
+								htmlFor='name'>
 								Nome
 							</label>
 							<div className='relative'>
@@ -43,8 +42,7 @@ export default function Login() {
 						<div>
 							<label
 								className='text-gray-500 font-semibold text-sm'
-								htmlFor='email'
-							>
+								htmlFor='email'>
 								email
 							</label>
 							<div className='relative'>
@@ -62,8 +60,7 @@ export default function Login() {
 						<div>
 							<label
 								className='text-gray-500 font-semibold text-sm'
-								htmlFor='password'
-							>
+								htmlFor='password'>
 								Senha
 							</label>
 							<div className='relative'>
@@ -86,7 +83,11 @@ export default function Login() {
 									/>
 									<label htmlFor='remember'>Lembrar-me</label>
 								</div>
-								<Link to={'/forgot'} className='text-emerald-700 hover:underline'>Esqueci minha senha</Link>
+								<Link
+									to={'/forgot'}
+									className='text-emerald-700 hover:underline'>
+									Esqueci minha senha
+								</Link>
 							</div>
 						</div>
 						<button className='w-full mt-4 bg-emerald-500 hover:bg-emerald-600 cursor-pointer py-3 px-4 text-white font-semibold rounded-md transition ease duration-75'>
