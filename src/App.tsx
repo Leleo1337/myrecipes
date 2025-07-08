@@ -6,6 +6,7 @@ import Register from './pages/auth/Register';
 import Login from './pages/auth/Login';
 import Recipe from './pages/recipes/Recipe';
 import Recipes from './pages/recipes/Recipes';
+import Create from './pages/recipes/Create';
 
 function App() {
 	return (
@@ -19,6 +20,10 @@ function App() {
 					<Route
 						path='/recipes'
 						element={<Recipes />}
+					/>
+					<Route
+						path='/recipes/create'
+						element={<Create />}
 					/>
 					<Route
 						path='/recipe/:id'
