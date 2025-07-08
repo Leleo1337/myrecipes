@@ -8,7 +8,7 @@ type FeaturedCardProps = {
 const colorClasses = {
 	darkgreen: {
 		bg: 'bg-emerald-500/10',
-		border: 'border-emerald-500/20',
+		border: 'border-emerald-600/20',
 		iconBg: 'bg-emerald-600',
 	},
 	green: {
