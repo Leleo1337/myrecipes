@@ -18,7 +18,7 @@ export default function Header({ toggleSide }: any) {
 	console.log(activeTab);
 
 	return (
-		<div className='fixed top-0 block w-full px-4 py-2 bg-white drop-shadow-sm'>
+		<div className='fixed top-0 block w-full px-4 bg-white drop-shadow'>
 			<div className='container max-w-[1400px] mx-auto md:flex justify-between items-center py-1'>
 				<div className='flex items-center justify-between gap-2'>
 					<div className='flex items-center'>
@@ -28,15 +28,14 @@ export default function Header({ toggleSide }: any) {
 								size={24}
 							/>
 						</div>
-						<div className='flex flex-col px-2'>
+						<Link to={'/'} className='flex flex-col px-2'>
 							<span className='text-xl font-bold'>myRecipes</span>
 							<p className='hidden text-xs text-gray-600 md:block'>Nossa comunidade de receitas!</p>
-						</div>
+						</Link>
 					</div>
-					<div className='p-1 bg-gray-100 rounded-md shadow'>
+					<div className='p-1 bg-gray-100 rounded-md shadow md:hidden'>
 						<Menu
 							size={24}
-							className='md:hidden'
 							onClick={toggleSide}
 						/>
 					</div>
