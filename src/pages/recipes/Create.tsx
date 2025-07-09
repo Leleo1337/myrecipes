@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import Header from '../../components/recipes/Header';
+import Header from '../../components/ui/Header';
 
 export default function Create() {
 
