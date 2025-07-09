@@ -18,9 +18,9 @@ export default function Header({ toggleSide }: any) {
 	console.log(activeTab);
 
 	return (
-		<div className='block fixed w-full top-0 bg-white px-4 py-2 drop-shadow-sm'>
+		<div className='fixed top-0 block w-full px-4 py-2 bg-white drop-shadow-sm'>
 			<div className='container max-w-[1400px] mx-auto md:flex justify-between items-center py-1'>
-				<div className='flex justify-between items-center gap-2'>
+				<div className='flex items-center justify-between gap-2'>
 					<div className='flex items-center'>
 						<div className='p-2 bg-emerald-600 rounded-xl'>
 							<ChefHat
@@ -29,11 +29,11 @@ export default function Header({ toggleSide }: any) {
 							/>
 						</div>
 						<div className='flex flex-col px-2'>
-							<span className='font-bold text-xl'>myRecipes</span>
-							<p className='text-gray-600 text-xs hidden md:block'>Nossa comunidade de receitas!</p>
+							<span className='text-xl font-bold'>myRecipes</span>
+							<p className='hidden text-xs text-gray-600 md:block'>Nossa comunidade de receitas!</p>
 						</div>
 					</div>
-					<div className='bg-gray-100 p-1 rounded-md shadow'>
+					<div className='p-1 bg-gray-100 rounded-md shadow'>
 						<Menu
 							size={24}
 							className='md:hidden'
@@ -41,7 +41,7 @@ export default function Header({ toggleSide }: any) {
 						/>
 					</div>
 				</div>
-				<div className='hidden md:flex gap-4'>
+				<div className='hidden gap-4 md:flex'>
 					<Link
 						to={'/'}
 						className={`${
@@ -89,25 +89,25 @@ export default function Header({ toggleSide }: any) {
 				</div>
 				<div className='hidden md:flex'>
 					{isAuth ? (
-						<div className='flex gap-4 items-center'>
-							<div className='h-9 px-2 lg:flex items-center w-full bg-emerald-600/10 border border-emerald-600/10 rounded-xl'>
+						<div className='flex items-center gap-4'>
+							<div className='items-center w-full px-3 border h-9 lg:flex bg-emerald-600/10 border-emerald-600/10 rounded-xl'>
 								<div>
 									<img
 										src={image}
 										alt='pfp'
-										className='w-6 mr-2 text-xs rounded-full outline-1 outline-green-500/80'
+										className='w-6 h-6 mr-2 text-xs rounded-full outline-1 outline-green-500/80'
 									/>
 								</div>
 								<div className='flex flex-col'>
-									<span className='font-semibold text-sm'>admin</span>
+									<span className='text-sm font-semibold'>admin</span>
 								</div>
 							</div>
-							<Link to={'/user/profile'} className='flex gap-2 items-center justify-center text-gray-60 font-semibold cursor-pointer'>
+							<Link to={'/user/profile'} className='flex items-center justify-center gap-2 font-semibold text-gray-600 cursor-pointer hover:text-gray-700'>
 								<User />
 								<span>Perfil</span>
 							</Link>
 							<div>
-								<div className='flex gap-2 items-center justify-center text-red-700 my-2 p-2 cursor-pointer'>
+								<div className='flex items-center justify-center gap-2 p-2 my-2 text-red-700 cursor-pointer hover:text-red-800'>
 									<LogOut />
 									<span>Sair</span>
 								</div>

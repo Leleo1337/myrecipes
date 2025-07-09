@@ -8,7 +8,7 @@ export default function Login() {
 			<div className='absolute top-1/2 left-1/2 -translate-1/2 w-[95%] max-w-[450px] bg-white rounded-xl py-6 shadow-md'>
 				<div className='px-6 py-4'>
 					<Link to={'/'}>
-						<ArrowLeft className='cursor-pointer hover:text-emerald-600 hover:scale-120 transition ease duration-75' />
+						<ArrowLeft className='transition duration-75 cursor-pointer hover:text-emerald-600 hover:scale-120 ease' />
 					</Link>
 					<div className='flex flex-col items-center'>
 						<div className='relative py-2'>
@@ -16,14 +16,14 @@ export default function Login() {
 								className='absolute bottom-16.5 left-13 text-emerald-500 my-1'
 								size={24}
 							/>
-							<h1 className='text-center text-4xl font-bold'>Entrar</h1>
-							<p className='text-lg text-emerald-600 font-semibold'>Bem vindo de volta chefe!</p>
+							<h1 className='text-4xl font-bold text-center'>Entrar</h1>
+							<p className='text-lg font-semibold text-emerald-600'>Bem vindo de volta chefe!</p>
 						</div>
 					</div>
 					<div className='space-y-1.5'>
 						<div>
 							<label
-								className='text-gray-500 font-semibold text-sm'
+								className='text-sm font-semibold text-gray-500'
 								htmlFor='name'>
 								Nome
 							</label>
@@ -33,15 +33,15 @@ export default function Login() {
 									name='name'
 									id='name'
 									autoComplete='off'
-									className='w-full border border-gray-400 rounded-md pl-12 py-2 outline-0 focus:ring ring-emerald-500'
+									className='w-full py-2 pl-12 border border-gray-400 rounded-md outline-0 focus:ring ring-emerald-500'
 									placeholder='Nome de usuário'
 								/>
-								<User className='absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5' />
+								<User className='absolute w-5 h-5 -translate-y-1/2 left-3 top-1/2 text-slate-400' />
 							</div>
 						</div>
 						<div>
 							<label
-								className='text-gray-500 font-semibold text-sm'
+								className='text-sm font-semibold text-gray-500'
 								htmlFor='email'>
 								email
 							</label>
@@ -51,15 +51,15 @@ export default function Login() {
 									name='email'
 									id='email'
 									autoComplete='off'
-									className='w-full border border-gray-400 rounded-md pl-12 py-2 outline-0 focus:ring ring-emerald-500'
+									className='w-full py-2 pl-12 border border-gray-400 rounded-md outline-0 focus:ring ring-emerald-500'
 									placeholder='seu@email.com'
 								/>
-								<Mail className='absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5' />
+								<Mail className='absolute w-5 h-5 -translate-y-1/2 left-3 top-1/2 text-slate-400' />
 							</div>
 						</div>
 						<div>
 							<label
-								className='text-gray-500 font-semibold text-sm'
+								className='text-sm font-semibold text-gray-500'
 								htmlFor='password'>
 								Senha
 							</label>
@@ -69,10 +69,10 @@ export default function Login() {
 									name='password'
 									id='password'
 									autoComplete='off'
-									className='w-full border border-gray-400 rounded-md pl-12 py-2 outline-0 focus:ring ring-emerald-500'
+									className='w-full py-2 pl-12 border border-gray-400 rounded-md outline-0 focus:ring ring-emerald-500'
 									placeholder='••••••••'
 								/>
-								<LockKeyholeIcon className='absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5' />
+								<LockKeyholeIcon className='absolute w-5 h-5 -translate-y-1/2 left-3 top-1/2 text-slate-400' />
 							</div>
 							<div className='flex justify-between pt-2'>
 								<div className='flex gap-1.5 items-center justify-center'>
@@ -90,7 +90,7 @@ export default function Login() {
 								</Link>
 							</div>
 						</div>
-						<button className='w-full mt-4 bg-emerald-500 hover:bg-emerald-600 cursor-pointer py-3 px-4 text-white font-semibold rounded-md transition ease duration-75'>
+						<button className='w-full px-4 py-3 mt-4 font-semibold text-white transition duration-75 rounded-md cursor-pointer bg-emerald-500 hover:bg-emerald-600 ease'>
 							Entrar
 						</button>
 					</div>

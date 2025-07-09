@@ -20,9 +20,9 @@ const colorClasses = {
 export default function InfoCardItem({ icon, stats, paragraph, textColor }: infoCardProps) {
 	const selectedColor = colorClasses[textColor];
 	return (
-		<div className='bg-white/30 rounded-2xl p-4 space-y-1'>
+		<div className='p-4 space-y-1 bg-white/30 rounded-2xl'>
 			{icon}
-			<p className='font-bold text-lg'>{stats}</p>
+			<p className='text-lg font-bold'>{stats}</p>
 			<span className={`${selectedColor}`}>{paragraph}</span>
 		</div>
 	);

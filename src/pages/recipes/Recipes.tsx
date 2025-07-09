@@ -18,7 +18,7 @@ export default function Recipes() {
 
 	return (
 		<>
-			{sidebarOpen && <div className='absolute z-2 w-screen h-screen bg-black/70 md:hidden'></div>}
+			{sidebarOpen && <div className='absolute w-screen h-screen z-2 bg-black/70 md:hidden'></div>}
 			<main>
 				<header>
 					{/* Mobile Sidebar */}

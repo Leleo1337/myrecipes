@@ -7,20 +7,20 @@ export default function Home() {
 	return (
 		<>
 			<main>
-				<section className='relative bg-gradient-to-br from-emerald-600 via-teal-600 to-cyan-700 text-white overflow-hidden'>
+				<section className='relative overflow-hidden text-white bg-gradient-to-br from-emerald-600 via-teal-600 to-cyan-700'>
 					<div className='p-4 sm:p-6 mx-auto max-w-7xl h-[85vh] sm:h-[68vh]'>
 						<header className='flex justify-between'>
 							<div className='flex items-center gap-2'>
 								<div className='p-2 bg-white/20 rounded-xl'>
 									<ChefHat />
 								</div>
-								<span className='font-bold text-lg sm:text-xl text-white'>myRecipes</span>
+								<span className='text-lg font-bold text-white sm:text-xl'>myRecipes</span>
 							</div>
 							<ul className='flex items-center gap-2 sm:gap-4'>
 								<li>
 									<Link
 										to={'/login'}
-										className='md:text-lg hover:text-emerald-300 transition ease-in duration-150 cursor-pointer'>
+										className='transition duration-150 ease-in cursor-pointer md:text-lg hover:text-emerald-300'>
 										Entrar
 									</Link>
 								</li>
@@ -35,22 +35,22 @@ export default function Home() {
 						</header>
 						<div className='mt-20 lg:flex'>
 							<div className='lg:mr-36'>
-								<div className='text-5xl sm:text-6xl font-bold pb-8'>
+								<div className='pb-8 text-5xl font-bold sm:text-6xl'>
 									<div>Descubra o</div>
-									<div className='bg-gradient-to-r from-yellow-200 via-emerald-300 to-cyan-100 text-transparent bg-clip-text'>Sabor Perfeito</div>
+									<div className='text-transparent bg-gradient-to-r from-yellow-200 via-emerald-300 to-cyan-100 bg-clip-text'>Sabor Perfeito</div>
 								</div>
-								<p className='text-xl md:text-2xl leading-8 font-thin'>
+								<p className='text-xl font-thin leading-8 md:text-2xl'>
 									Compartilhe suas receitas favoritas, descubra novos sabores e conecte-se com uma comunidade apaixonada por culinária.
 								</p>
-								<div className='flex flex-col sm:flex-row gap-4 mt-12'>
+								<div className='flex flex-col gap-4 mt-12 sm:flex-row'>
 									<Link
 										to={'/recipes'}
-										className='flex justify-center gap-2 items-center w-full sm:w-auto px-8 py-4 bg-white text-lg text-emerald-800 font-semibold rounded-2xl hover:bg-green-50 transition ease-in duration-150 cursor-pointer'>
+										className='flex items-center justify-center w-full gap-2 px-8 py-4 text-lg font-semibold transition duration-150 ease-in bg-white cursor-pointer sm:w-auto text-emerald-800 rounded-2xl hover:bg-green-50'>
 										Explorar receitas <ArrowRight />
 									</Link>
 									<Link
 										to={'/register'}
-										className='flex justify-center gap-2 items-center w-full sm:w-auto px-8 py-4 border-2 border-white text-lg text-white font-semibold rounded-2xl hover:bg-white hover:text-emerald-800 transition ease-in duration-150 cursor-pointer'>
+										className='flex items-center justify-center w-full gap-2 px-8 py-4 text-lg font-semibold text-white transition duration-150 ease-in border-2 border-white cursor-pointer sm:w-auto rounded-2xl hover:bg-white hover:text-emerald-800'>
 										Junte-se a nós <User />
 									</Link>
 								</div>
@@ -60,31 +60,31 @@ export default function Home() {
 					</div>
 				</section>
 				<section>
-					<div className='p-4 sm:p-6 mx-auto max-w-7xl mb-12'>
+					<div className='p-4 mx-auto mb-12 sm:p-6 max-w-7xl'>
 						<div className='flex flex-col items-center justify-center mt-4 md:mt-16'>
-							<h2 className='font-bold text-3xl text-center text-gray-800'>Por que escolher o myRecipes</h2>
-							<p className='mt-8 text-center text-gray-500 text-xl'>Uma plataforma completa para compartilhar, descobrir e gerenciar suas receitas favoritas</p>
+							<h2 className='text-3xl font-bold text-center text-gray-800'>Por que escolher o myRecipes</h2>
+							<p className='mt-8 text-xl text-center text-gray-500'>Uma plataforma completa para compartilhar, descobrir e gerenciar suas receitas favoritas</p>
 						</div>
 						<FeaturedCard />
 					</div>
 				</section>
-				<section className='bg-slate-900/96 border-b border-gray-800 p-4 py-6'>
+				<section className='p-4 py-6 border-b border-gray-800 bg-slate-900/96'>
 					<div className='flex items-center justify-center flex-col gap-4 mx-auto max-w-7xl h-[30vh] md:h-[35vh]'>
-						<h1 className='text-center text-2xl md:text-4xl text-gray-200 font-bold'>Pronto para começar sua jornada culinária?</h1>
-						<p className='text-lg md:text-xl text-center text-gray-300'>Junte-se à nossa comunidade e comece a compartilhar suas receitas hoje mesmo!</p>
+						<h1 className='text-2xl font-bold text-center text-gray-200 md:text-4xl'>Pronto para começar sua jornada culinária?</h1>
+						<p className='text-lg text-center text-gray-300 md:text-xl'>Junte-se à nossa comunidade e comece a compartilhar suas receitas hoje mesmo!</p>
 						<Link
 							to={'/register'}
-							className='flex items-center gap-2 border border-white/20 font-semibold text-white text-lg py-4 px-8 mt-4 rounded-2xl hover:bg-white/10 hover:text-emerald-500 transition ease-in duration-150 cursor-pointer'>
+							className='flex items-center gap-2 px-8 py-4 mt-4 text-lg font-semibold text-white transition duration-150 ease-in border cursor-pointer border-white/20 rounded-2xl hover:bg-white/10 hover:text-emerald-500'>
 							Criar Conta Gratuita <ArrowRight />
 						</Link>
 					</div>
 				</section>
 			</main>
-			<footer className='flex justify-center items-center w-full bg-slate-900 p-4'>
+			<footer className='flex items-center justify-center w-full p-4 bg-slate-900'>
 				<span className='text-center text-gray-300'>
 					© 2025 myRecipes. Projeto feito para fins de estudo por
 					<a
-						className='underline text-emerald-400 hover:text-emerald-600 transition ease-in duration-75'
+						className='underline transition duration-75 ease-in text-emerald-400 hover:text-emerald-600'
 						href='https://github.com/leleo1337'
 						target='_blank'>
 						Leleo1337

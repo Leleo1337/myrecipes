@@ -4,7 +4,7 @@ import InfoCardItem from "./InfoCardItem";
 
 export default function InfoCard() {
 	return (
-		<div className='hidden lg:grid grid-cols-2 bg-white/10 border backdrop:blur-2xl border-white/20 rounded-3xl w-full p-8 gap-4 hover:scale-102 transition ease-in duration-150'>
+		<div className='hidden w-full grid-cols-2 gap-4 p-8 transition duration-150 ease-in border lg:grid bg-white/10 backdrop:blur-2xl border-white/20 rounded-3xl hover:scale-102'>
 			<InfoCardItem
 				icon={
 					<Stars

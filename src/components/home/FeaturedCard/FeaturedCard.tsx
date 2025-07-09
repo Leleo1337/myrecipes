@@ -3,7 +3,7 @@ import FeaturedCardItem from './FeaturedCardItem';
 
 export default function FeaturedCard() {
 	return (
-		<div className='flex flex-col items-center justify-center lg:flex-row gap-4 mt-12'>
+		<div className='flex flex-col items-center justify-center gap-4 mt-12 lg:flex-row'>
 			<FeaturedCardItem
 				icon={
 					<Users2
