@@ -1,13 +1,17 @@
-import { ArrowLeft, ChefHat, LockKeyholeIcon, Mail, User } from 'lucide-react';
+import { ArrowLeft, ChefHat, Eye, EyeOff, LockKeyholeIcon, User } from 'lucide-react';
+import { useState } from 'react';
 import { Link } from 'react-router';
 
 export default function Login() {
+	const [inputType, setInputType] = useState<'password' | 'text'>('password');
+	
+
 	return (
 		<>
 			<div className='w-full h-screen bg-gradient-to-br from-emerald-500 via-teal-600 to-cyan-700'></div>
-			<div className='absolute top-1/2 left-1/2 -translate-1/2 w-[95%] max-w-[450px] bg-white rounded-xl py-6 shadow-md'>
+			<div className='absolute top-1/2 left-1/2 -translate-1/2 w-[95%] max-w-[450px] bg-white rounded-xl py-4 shadow-md'>
 				<div className='px-6 py-4'>
-					<Link to={'/'}>
+					<Link to={'/'} className='inline-block'>
 						<ArrowLeft className='transition duration-75 cursor-pointer hover:text-emerald-600 hover:scale-120 ease' />
 					</Link>
 					<div className='flex flex-col items-center'>
@@ -24,37 +28,19 @@ export default function Login() {
 						<div>
 							<label
 								className='text-sm font-semibold text-gray-500'
-								htmlFor='name'>
-								Nome
+								htmlFor='user'>
+								Usuario
 							</label>
 							<div className='relative'>
 								<input
 									type='text'
-									name='name'
-									id='name'
+									name='user'
+									id='user'
 									autoComplete='off'
 									className='w-full py-2 pl-12 border border-gray-400 rounded-md outline-0 focus:ring ring-emerald-500'
-									placeholder='Nome de usuário'
+									placeholder='Usuario ou e-mail'
 								/>
 								<User className='absolute w-5 h-5 -translate-y-1/2 left-3 top-1/2 text-slate-400' />
-							</div>
-						</div>
-						<div>
-							<label
-								className='text-sm font-semibold text-gray-500'
-								htmlFor='email'>
-								email
-							</label>
-							<div className='relative'>
-								<input
-									type='email'
-									name='email'
-									id='email'
-									autoComplete='off'
-									className='w-full py-2 pl-12 border border-gray-400 rounded-md outline-0 focus:ring ring-emerald-500'
-									placeholder='seu@email.com'
-								/>
-								<Mail className='absolute w-5 h-5 -translate-y-1/2 left-3 top-1/2 text-slate-400' />
 							</div>
 						</div>
 						<div>
@@ -65,7 +51,7 @@ export default function Login() {
 							</label>
 							<div className='relative'>
 								<input
-									type='password'
+									type={inputType}
 									name='password'
 									id='password'
 									autoComplete='off'
@@ -73,6 +59,11 @@ export default function Login() {
 									placeholder='••••••••'
 								/>
 								<LockKeyholeIcon className='absolute w-5 h-5 -translate-y-1/2 left-3 top-1/2 text-slate-400' />
+								<div
+									className='absolute bottom-2.5 right-4 hover:scale-105 cursor-pointer transition ease-in duration-75 text-gray-600'
+									onClick={() => setInputType((inputType) => (inputType === 'password' ? 'text' : 'password'))}>
+									{inputType === 'text' ? <EyeOff size={20} /> : <Eye size={20} />}
+								</div>
 							</div>
 							<div className='flex justify-between pt-2'>
 								<div className='flex gap-1.5 items-center justify-center'>
