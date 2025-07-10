@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import SideBar from '../../components/ui/sideBar';
 import Header from '../../components/ui/Header';
-import { Filter, Search, TrendingUpIcon } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Filter, Search, TrendingUpIcon } from 'lucide-react';
 
 import LargeFeaturedRecipe from '../../components/recipes/LargeFeaturedRecipe';
 import SmallFeaturedRecipeCard from '../../components/recipes/SmallFeaturedRecipe';
@@ -9,6 +9,7 @@ import RecipeCard from '../../components/recipes/RecipeCard';
 
 export default function Recipes() {
 	const [sidebarOpen, setSidebarOpen] = useState(true);
+	const pageIndex = 1
 
 	function handleSideBarToggle() {
 		setSidebarOpen(!sidebarOpen);
@@ -32,7 +33,7 @@ export default function Recipes() {
 				/>
 				<Header toggleSide={handleSideBarToggle} />
 			</header>
-			<main className='container max-w-[1400px] mx-auto px-4 pb-24 pt-18'>
+			<main className='container max-w-[1400px] mx-auto px-4 pt-18'>
 				<section className='pb-8'>
 					<div className='flex items-center gap-1 py-4'>
 						<div className='relative p-2 text-white bg-emerald-600 bottom-1 rounded-xl'>
@@ -109,6 +110,17 @@ export default function Recipes() {
 						<RecipeCard />
 						<RecipeCard />
 						<RecipeCard />
+					</div>
+					<div className='flex items-center justify-center py-8'>
+						<div className='flex gap-4'>
+							<div className='bg-emerald-600 rounded-xl text-white p-1 cursor-pointer hover:bg-emerald-700'>
+								<ArrowLeft size={30} />
+							</div>
+							<div className='text-2xl font-semibold'>{pageIndex}</div>
+							<div className='bg-emerald-600 rounded-xl text-white p-1 cursor-pointer hover:bg-emerald-700'>
+								<ArrowRight size={30} />
+							</div>
+						</div>
 					</div>
 				</section>
 			</main>
