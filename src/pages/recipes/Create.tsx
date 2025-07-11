@@ -1,17 +1,23 @@
-import { useEffect } from 'react';
+import { useState } from 'react';
 import Header from '../../components/ui/Header';
+import SideBar from '../../components/ui/sideBar';
 
 export default function Create() {
+	const [sidebarOpen, setSidebarOpen] = useState(false);
 
-	useEffect(() => {
-		document.body.style.backgroundColor = '#f3f4f6';
-		return () => {
-			document.body.style.backgroundColor = 'white';
-		};
-	}, []);
+	function handleSideBarToggle() {
+		setSidebarOpen(!sidebarOpen);
+	}
+
 	return (
 		<>
-			<Header />
+			<header>
+				<Header toggleSide={handleSideBarToggle} />
+				<SideBar
+					toggle={handleSideBarToggle}
+					open={sidebarOpen}
+				/>
+			</header>
 			<div>oi</div>
 		</>
 	);
