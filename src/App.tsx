@@ -26,8 +26,12 @@ function App() {
 						element={<Create />}
 					/>
 					<Route
-						path='/recipe/:id'
+						path='/recipes/:id'
 						element={<Recipe />}
+					/>
+					<Route
+						path='/recipes/my-recipes'
+						element={''}
 					/>
 					<Route
 						path='/login'
