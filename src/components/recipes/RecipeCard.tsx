@@ -1,11 +1,12 @@
 import { Clock, Heart, MessageCircleIcon, Users2 } from 'lucide-react';
 import pizza from '../../assets/pizza.jpg';
 import pfp from '../../assets/anime.png';
+import { Link } from 'react-router';
 
 export default function RecipeCard() {
 	return (
 		<>
-			<div className='w-full h-full overflow-hidden transition duration-150 ease-in bg-white border-white shadow cursor-pointer group relateive lg:h-full hover:outline outline-white rounded-xl hover:outline-emerald-200 hover:shadow-lg shadow-gray-600/10'>
+			<Link to={'/recipes/312das'} className='w-full h-full overflow-hidden transition duration-150 ease-in bg-white border-white shadow cursor-pointer group relateive lg:h-full hover:outline outline-white rounded-xl hover:outline-emerald-200 hover:shadow-lg shadow-gray-600/10'>
 				<div className='relative rounded-xl'>
 					<div className='absolute flex justify-between w-full px-2 top-4 z-1'>
 						<div className='px-4 py-0.5 text-red-700 bg-red-300/90 font-semibold text-sm rounded-xl'>Dificil</div>
@@ -61,7 +62,7 @@ export default function RecipeCard() {
 						</div>
 					</div>
 				</div>
-			</div>
+			</Link>
 		</>
 	);
 }
