@@ -8,7 +8,7 @@ import SmallFeaturedRecipeCard from '../../components/recipes/SmallFeaturedRecip
 import RecipeCard from '../../components/recipes/RecipeCard';
 
 export default function Recipes() {
-	const [sidebarOpen, setSidebarOpen] = useState(true);
+	const [sidebarOpen, setSidebarOpen] = useState(false);
 	const pageIndex = 1;
 
 	function handleSideBarToggle() {
