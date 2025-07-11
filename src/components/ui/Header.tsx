@@ -1,10 +1,11 @@
 import { Link, useLocation } from 'react-router';
 import { ChefHat, HomeIcon, LogOut, Menu, Plus, Search, User } from 'lucide-react';
+import type { headerProps } from '../../types/UI';
 import AuthButtons from '../recipes/AuthButtons';
 import image from '../../assets/anime.png';
 
-export default function Header({ toggleSide }: any) {
-	const isAuth = false;
+export default function Header({ toggleSide }: headerProps) {
+	const isAuth = true;
 	const location = useLocation();
 
 	function getActiveTabIndex() {
@@ -28,7 +29,9 @@ export default function Header({ toggleSide }: any) {
 								size={24}
 							/>
 						</div>
-						<Link to={'/'} className='flex flex-col px-2'>
+						<Link
+							to={'/'}
+							className='flex flex-col px-2'>
 							<span className='text-xl font-bold'>myRecipes</span>
 							<p className='hidden text-xs text-gray-600 md:block'>Nossa comunidade de receitas!</p>
 						</Link>
@@ -43,10 +46,8 @@ export default function Header({ toggleSide }: any) {
 				<div className='hidden gap-4 md:flex'>
 					<Link
 						to={'/'}
-						className={`${
-							activeTab === 0
-								? 'flex items-center gap-1 bg-emerald-600 font-semibold text-white px-4 py-2 rounded-xl shadow-md cursor-pointer'
-								: 'flex items-center gap-1 font-semibold text-gray-500 hover:text-gray-600 transition ease-in duration-100 cursor-pointer'
+						className={`
+								flex items-center gap-1 font-semibold text-gray-500 hover:text-gray-600 transition ease-in duration-100 cursor-pointer'
 						}`}>
 						<HomeIcon size={16} />
 						<span>Início</span>
@@ -101,7 +102,9 @@ export default function Header({ toggleSide }: any) {
 									<span className='text-sm font-semibold'>admin</span>
 								</div>
 							</div>
-							<Link to={'/user/profile'} className='flex items-center justify-center gap-2 font-semibold text-gray-600 cursor-pointer hover:text-gray-700'>
+							<Link
+								to={'/user/profile'}
+								className='flex items-center justify-center gap-2 font-semibold text-gray-600 cursor-pointer hover:text-gray-700'>
 								<User />
 								<span>Perfil</span>
 							</Link>
