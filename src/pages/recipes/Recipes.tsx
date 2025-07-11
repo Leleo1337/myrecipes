@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import SideBar from '../../components/ui/sideBar';
 import Header from '../../components/ui/Header';
 import { ArrowLeft, ArrowRight, Filter, Search, TrendingUpIcon } from 'lucide-react';
@@ -9,18 +9,11 @@ import RecipeCard from '../../components/recipes/RecipeCard';
 
 export default function Recipes() {
 	const [sidebarOpen, setSidebarOpen] = useState(true);
-	const pageIndex = 1
+	const pageIndex = 1;
 
 	function handleSideBarToggle() {
 		setSidebarOpen(!sidebarOpen);
 	}
-
-	useEffect(() => {
-		document.body.style.backgroundColor = '#f9fafb';
-		return () => {
-			document.body.style.backgroundColor = 'white';
-		};
-	}, []);
 
 	return (
 		<>
