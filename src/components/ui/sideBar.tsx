@@ -1,10 +1,23 @@
-import { ChefHat, LogOut, User, X } from 'lucide-react';
+import { ChefHat, HomeIcon, LogOut, Plus, Search, User, X } from 'lucide-react';
+import type { sideBarProps } from '../../types/UI';
 import AuthButtons from '../recipes/AuthButtons';
 import image from '../../assets/anime.png';
-import { Link } from 'react-router';
+import { Link, useLocation } from 'react-router';
 
-export default function SideBar({ toggle, open }: { toggle: () => void; open: boolean }) {
-	const isAuth = false;
+export default function SideBar({ toggle, open }: sideBarProps) {
+	const isAuth = true;
+
+	const location = useLocation();
+
+	function getActiveTabIndex() {
+		if (location.pathname === '/recipes') return 1;
+		if (location.pathname === '/recipes/create') return 2;
+		if (location.pathname === '/my-recipes') return 3;
+		return 0;
+	}
+
+	const activeTab = getActiveTabIndex();
+
 	return (
 		<>
 			<header>
@@ -31,10 +44,59 @@ export default function SideBar({ toggle, open }: { toggle: () => void; open: bo
 							</div>
 						</div>
 					</div>
-					<div>
-						<Link to={'/'}>Inicio</Link>
-						<Link to={'/recipes'}></Link>
-						{isAuth && <Link to={'/my-recipes'}></Link>}
+					<div className='flex flex-col mt-8 gap-4'>
+						<Link
+							to={'/'}
+							className={`${
+								activeTab === 0
+									? 'bg-emerald-600 w-full text-white font-semibold text-xl ml-2 rounded-l-2xl px-4 py-2'
+									: 'w-full text-gray-600 border border-gray-300 font-semibold text-xl ml-2 rounded-l-2xl px-4 py-2'
+							}`}>
+							<div className='flex gap-2 items-center'>
+								<HomeIcon size={20} />
+								<span>Início</span>
+							</div>
+						</Link>
+						<Link
+							to={'/recipes'}
+							className={`${
+								activeTab === 1
+									? 'bg-emerald-600 w-full text-white font-semibold text-xl ml-2 rounded-l-2xl px-4 py-2'
+									: 'w-full text-gray-600 border border-gray-300 font-semibold text-xl ml-2 rounded-l-2xl px-4 py-2'
+							}`}>
+							<div className='flex gap-2 items-center'>
+								<ChefHat size={20} />
+								<span>Receitas</span>
+							</div>
+						</Link>
+						{isAuth && (
+							<>
+								<Link
+									to={'/recipes/create'}
+									className={`${
+										activeTab === 2
+											? 'bg-emerald-600 w-full text-white font-semibold text-xl ml-2 rounded-l-2xl px-4 py-2'
+											: 'w-full text-gray-600 border border-gray-300 font-semibold text-xl ml-2 rounded-l-2xl px-4 py-2'
+									}`}>
+									<div className='flex gap-2 items-center'>
+										<Plus size={20} />
+										<span>Criar</span>
+									</div>
+								</Link>
+								<Link
+									to={'/recipes/my-recipes'}
+									className={`${
+										activeTab === 3
+											? 'bg-emerald-600 w-full text-white font-semibold text-xl ml-2 rounded-l-2xl px-4 py-2'
+											: 'w-full text-gray-600 border border-gray-300 font-semibold text-xl ml-2 rounded-l-2xl px-4 py-2'
+									}`}>
+									<div className='flex gap-2 items-center'>
+										<Search size={20} />
+										<span>Minhas receitas</span>
+									</div>
+								</Link>
+							</>
+						)}
 					</div>
 					<div className='absolute bottom-0 w-full py-3 border-t z-2 border-t-gray-500/20'>
 						<div className='flex flex-col px-2'>
