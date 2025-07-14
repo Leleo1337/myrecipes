@@ -1,9 +1,6 @@
-export type ingredientProps = {
-	unity: string;
-	ingredient: string;
-};
+import type { ingredientListProps } from "../../types/recipe";
 
-export default function IngredientItem({ unity, ingredient }: ingredientProps) {
+export default function IngredientListItem({ unity, ingredient }: ingredientListProps) {
 	return (
 		<>
 			<li className='flex items-center gap-2 px-2 py-3 bg-slate-50 rounded-2xl'>
