@@ -1,9 +1,6 @@
+import type { StepListItemProps } from "../../types/recipe";
 
-export type stepsItemProps = {
-    step: number
-    instructions: string
-}
-export default function StepsItem({step, instructions}: stepsItemProps) {
+export default function StepListItem({step, instructions}: StepListItemProps) {
 	return (
 		<li className='flex'>
 			<div className='flex items-center justify-center flex-shrink-0 w-8 h-8 text-sm font-semibold text-white rounded-full bg-emerald-600'>{step}</div>
