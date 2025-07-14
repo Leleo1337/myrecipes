@@ -44,15 +44,15 @@ export default function SideBar({ toggle, open }: sideBarProps) {
 							</div>
 						</div>
 					</div>
-					<div className='flex flex-col mt-8 gap-4'>
+					<div className='flex flex-col gap-4 mt-8'>
 						<Link
 							to={'/'}
 							className={`${
-								activeTab === 0
+								activeTab === 1
 									? 'bg-emerald-600 w-full text-white font-semibold text-xl ml-2 rounded-l-2xl px-4 py-2'
 									: 'w-full text-gray-600 border border-gray-300 font-semibold text-xl ml-2 rounded-l-2xl px-4 py-2'
 							}`}>
-							<div className='flex gap-2 items-center'>
+							<div className='flex items-center gap-2'>
 								<HomeIcon size={20} />
 								<span>Início</span>
 							</div>
@@ -64,7 +64,7 @@ export default function SideBar({ toggle, open }: sideBarProps) {
 									? 'bg-emerald-600 w-full text-white font-semibold text-xl ml-2 rounded-l-2xl px-4 py-2'
 									: 'w-full text-gray-600 border border-gray-300 font-semibold text-xl ml-2 rounded-l-2xl px-4 py-2'
 							}`}>
-							<div className='flex gap-2 items-center'>
+							<div className='flex items-center gap-2'>
 								<ChefHat size={20} />
 								<span>Receitas</span>
 							</div>
@@ -78,7 +78,7 @@ export default function SideBar({ toggle, open }: sideBarProps) {
 											? 'bg-emerald-600 w-full text-white font-semibold text-xl ml-2 rounded-l-2xl px-4 py-2'
 											: 'w-full text-gray-600 border border-gray-300 font-semibold text-xl ml-2 rounded-l-2xl px-4 py-2'
 									}`}>
-									<div className='flex gap-2 items-center'>
+									<div className='flex items-center gap-2'>
 										<Plus size={20} />
 										<span>Criar</span>
 									</div>
@@ -90,7 +90,7 @@ export default function SideBar({ toggle, open }: sideBarProps) {
 											? 'bg-emerald-600 w-full text-white font-semibold text-xl ml-2 rounded-l-2xl px-4 py-2'
 											: 'w-full text-gray-600 border border-gray-300 font-semibold text-xl ml-2 rounded-l-2xl px-4 py-2'
 									}`}>
-									<div className='flex gap-2 items-center'>
+									<div className='flex items-center gap-2'>
 										<Search size={20} />
 										<span>Minhas receitas</span>
 									</div>
