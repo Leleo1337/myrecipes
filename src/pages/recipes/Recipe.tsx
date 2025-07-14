@@ -5,9 +5,9 @@ import { useState } from 'react';
 import { ArrowLeft, ChefHat, Clock, Heart, MessageCircleIcon, Send, Share2, Shield, Star, Users2 } from 'lucide-react';
 import pizza from '../../assets/pizza.jpg';
 import image from '../../assets/anime.png';
-import IngredientItem from '../../components/recipe/IngredientItem';
-import StepsItem from '../../components/recipe/stepsItem';
 import Comment from '../../components/recipe/Comment';
+import StepListItem from '../../components/recipe/StepListItem';
+import IngredientListItem from '../../components/recipe/IngredientListItem';
 
 export default function Recipe() {
 	const [like, setLike] = useState(false);
@@ -144,19 +144,19 @@ export default function Recipe() {
 								</div>
 								<div>
 									<ul className='pt-4 space-y-2'>
-										<IngredientItem
+										<IngredientListItem
 											unity='300g'
 											ingredient='bosta'
 										/>
-										<IngredientItem
+										<IngredientListItem
 											unity='300g'
 											ingredient='bosta'
 										/>
-										<IngredientItem
+										<IngredientListItem
 											unity='300g'
 											ingredient='bosta'
 										/>
-										<IngredientItem
+										<IngredientListItem
 											unity='300g'
 											ingredient='bosta'
 										/>
@@ -172,11 +172,11 @@ export default function Recipe() {
 								</div>
 								<div>
 									<ul className='pt-4 space-y-2'>
-										<StepsItem
+										<StepListItem
 											step={1}
 											instructions='bla blabla faz assim e tal faz do seu jeito'
 										/>
-										<StepsItem
+										<StepListItem
 											step={2}
 											instructions='bla blabla faz assim e tal faz do seu jeito'
 										/>
