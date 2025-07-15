@@ -19,7 +19,7 @@ export default function Header({ toggleSide }: headerProps) {
 	console.log(activeTab);
 
 	return (
-		<div className='fixed top-0 w-full bg-white z-2 drop-shadow-xs'>
+		<div className='fixed top-0 w-full bg-white z-2 drop-shadow'>
 			<div className='container max-w-[1400px] mx-auto md:flex justify-between items-center py-1 px-4'>
 				<div className='flex items-center justify-between gap-2'>
 					<div className='flex items-center'>
