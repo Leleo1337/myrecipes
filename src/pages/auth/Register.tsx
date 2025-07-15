@@ -7,7 +7,9 @@ export default function Register() {
 			<div className='w-full h-screen bg-gradient-to-br from-emerald-500 via-teal-600 to-cyan-700'></div>
 			<div className='absolute top-1/2 left-1/2 -translate-1/2 w-[95%] max-w-[450px] bg-white rounded-xl py-4 shadow-md'>
 				<div className='px-6 py-4'>
-					<Link to={'/'} className='inline-block'>
+					<Link
+						to={'/'}
+						className='inline-block'>
 						<ArrowLeft className='transition duration-75 cursor-pointer hover:text-emerald-600 hover:scale-120 ease' />
 					</Link>
 					<div className='flex flex-col items-center'>
