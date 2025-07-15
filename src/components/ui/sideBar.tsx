@@ -22,7 +22,7 @@ export default function SideBar({ toggle, open }: sideBarProps) {
 		<>
 			<header>
 				<div
-					className={`fixed z-30 right-0 w-[85%] max-w-[300px] bg-white h-screen shadow-md transition-transform duration-300 ease-in-out md:hidden
+					className={`fixed z-20 right-0 w-[85%] max-w-[300px] bg-white h-screen shadow-md transition-transform duration-300 ease-in-out md:hidden
                         ${open ? 'translate-x-0' : 'translate-x-full'}
                     `}>
 					<div className='relative top-0 w-full py-4 border-b pb border-gray-500/20'>
