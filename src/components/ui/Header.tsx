@@ -16,7 +16,6 @@ export default function Header({ toggleSide }: headerProps) {
 	}
 
 	const activeTab = getActiveTabIndex();
-	console.log(activeTab);
 
 	return (
 		<div className='fixed top-0 w-full bg-white z-2 drop-shadow'>
