@@ -114,16 +114,16 @@ export default function Create() {
 			return;
 		}
 		const updated = [...recipeForm.instructions]
-			.filter((instructions) => instructions.step !== index)
+			.filter((instructions) => instructions.step - 1 !== index)
 			.map((instructions, index) => ({ ...instructions, step: index + 1 }));
 
-		setRecipeForm((prev) => ({ ...prev, updated }));
+		setRecipeForm((prev) => ({ ...prev, instructions: updated }));
 	}
 
 	useEffect(() => {
 		console.log(recipeForm);
 		console.log(file);
-	}, []);
+	}, [recipeForm]);
 
 	return (
 		<>
