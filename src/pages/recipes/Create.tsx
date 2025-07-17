@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router';
-import { ArrowLeft, Clock, Eye, EyeOff, ImageIcon, Loader2, Save, Users2 } from 'lucide-react';
+import { ArrowLeft, Clock, Eye, EyeOff, ImageIcon, Loader2, Plus, Save, Users2, X } from 'lucide-react';
 import Header from '../../components/ui/Header';
 import SideBar from '../../components/ui/sideBar';
-import generateLinkFromImage from '../../api/cloudinary';
 
 type recipeForm = {
 	image: string;
@@ -13,18 +12,55 @@ type recipeForm = {
 	difficulty: string;
 	time: number;
 	portions: number;
+	ingredients: {
+		name: string;
+		quantity: string;
+		unit: string;
+	}[];
 };
-const emptyRecipe = { image: '', title: '', description: '', category: '', difficulty: 'Fácil', time: 0, portions: 0 };
+const emptyRecipe = {
+	image: '',
+	title: '',
+	description: '',
+	category: '',
+	difficulty: 'Fácil',
+	time: 0,
+	portions: 0,
+	ingredients: [{ name: '', quantity: '', unit: '' }],
+};
 
 export default function Create() {
 	const [sidebarOpen, setSidebarOpen] = useState(false);
 	const [recipeForm, setRecipeForm] = useState<recipeForm>(emptyRecipe);
+	const [ingredient, setIngredient] = useState({ name: '', quantity: '', unit: '' });
 	const [publicForm, setPublicForm] = useState(true);
 	const [image, setImage] = useState('');
 	const [isImageLoading, setIsImageLoading] = useState(false);
+	const [file, setFile] = useState<File | undefined>();
 
 	function handleSideBarToggle() {
 		setSidebarOpen(!sidebarOpen);
+	}
+
+	async function handleFileUpload(fileObj: FileList | null) {
+		if (!fileObj) return;
+		const supportedTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/webp', 'image/apng'];
+		if (!supportedTypes.includes(fileObj[0].type)) {
+			window.alert('Arquivo não suportado');
+			return;
+		}
+
+		setIsImageLoading(true);
+		const fileReader = new FileReader();
+		fileReader.onload = () => {
+			const base64 = fileReader.result;
+			if (typeof base64 === 'string') {
+				setImage(base64);
+				setFile(fileObj[0]);
+				setIsImageLoading(false);
+			}
+		};
+		fileReader.readAsDataURL(fileObj[0]);
 	}
 
 	function handleChange(e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement> | React.ChangeEvent<HTMLSelectElement>) {
@@ -34,21 +70,28 @@ export default function Create() {
 		setRecipeForm((prev: any) => ({ ...prev, [key]: val }));
 	}
 
-	async function handleFileUpload(fileObj: FileList | null) {
-		if (!fileObj) return;
-		setIsImageLoading(true);
-		const imageLink = await generateLinkFromImage(fileObj);
-		if (!imageLink) {
-			window.alert('Imagem não suportada');
-			return;
-		}
-		setIsImageLoading(false);
-		setImage(imageLink);
-		setRecipeForm((prev) => ({ ...prev, image: imageLink }));
+	function handleIngredientChange(index: number, field: string, value: string) {
+		const updated = [...recipeForm.ingredients];
+		updated[index][field as keyof (typeof updated)[number]] = value;
+
+		setRecipeForm((prev) => ({ ...prev, ingredients: updated }));
+	}
+
+	function addIngredient() {
+		setRecipeForm((prev) => ({ ...prev, ingredients: [...prev.ingredients, ingredient] }));
+		setIngredient({ name: '', quantity: '', unit: '' });
+	}
+
+	function removeIngredient(index: number) {
+		const ingredients = [...recipeForm.ingredients];
+		ingredients.splice(index, 1);
+
+		setRecipeForm((prev) => ({ ...prev, ingredients }));
 	}
 
 	useEffect(() => {
 		console.log(recipeForm);
+		console.log(file);
 	}, [recipeForm]);
 
 	return (
@@ -243,6 +286,72 @@ export default function Create() {
 							</label>
 						</div>
 					</div>
+				</section>
+				<section className='container max-w-[900px] mx-auto py-6 px-4 md:px-6 bg-white border border-slate-300 rounded-md shadow-xs mt-8'>
+					<div className='flex pb-8 flex-col sm:flex-row sm:items-center sm:justify-between gap-4'>
+						<h1 className='text-2xl font-semibold'>Ingredientes</h1>
+						<button
+							className='flex gap-1 cursor-pointer text-emerald-600 hover:text-emerald-700'
+							onClick={addIngredient}>
+							<Plus />
+							<span>Adicionar Ingrediente</span>
+						</button>
+					</div>
+					{recipeForm.ingredients.map((ingredient, index) => (
+						<div
+							key={index}
+							className='flex flex-col md:flex-row items-start md:items-center gap-4 p-4'>
+							<div className='flex flex-col w-full gap-0.5'>
+								<label className='text-xs text-gray-500 font-semibold'>Ingrediente</label>
+								<input
+									type='text'
+									name='ingredient'
+									id='ingredient'
+									placeholder='banana'
+									autoComplete='off'
+									value={ingredient.name}
+									required
+									onChange={(e) => handleIngredientChange(index, 'name', e.target.value)}
+									className='px-4 py-2.5 border rounded-md bg-slate-50 border-slate-300 placeholder:text-xs placeholder:text-gray-300'
+								/>
+							</div>
+							<div className='flex flex-col w-full gap-0.5'>
+								<label className='text-xs text-gray-500 font-semibold'>quantidade</label>
+								<input
+									type='text'
+									name='quantity'
+									id='quantity'
+									autoComplete='off'
+									placeholder='200ml'
+									value={ingredient.quantity}
+									onChange={(e) => handleIngredientChange(index, 'quantity', e.target.value)}
+									required
+									className='px-4 py-2.5 border rounded-md bg-slate-50 border-slate-300 placeholder:text-xs placeholder:text-gray-300'
+								/>
+							</div>
+							<div className='flex flex-col w-full gap-0.5'>
+								<label className='text-xs text-gray-500 font-semibold'>unidade</label>
+								<input
+									type='text'
+									name='unit'
+									id='unit'
+									placeholder='1'
+									value={ingredient.unit}
+									onChange={(e) => handleIngredientChange(index, 'unit', e.target.value)}
+									className='px-4 py-2.5 border rounded-md bg-slate-50 border-slate-300 placeholder:text-xs placeholder:text-gray-300'
+								/>
+							</div>
+							<div>
+								<X
+									className='text-red-500 cursor-pointer hover:scale-110 transition ease-in duration-75 hover:text-red-600 sm:mt-4'
+									onClick={() => removeIngredient(index)}
+								/>
+							</div>
+						</div>
+					))}
+				</section>
+				<section className='container max-w-[900px] mx-auto py-6 px-4 md:px-6 bg-white border border-slate-300 rounded-md shadow-xs'>
+					<div></div>
 				</section>
 			</main>
 		</>
