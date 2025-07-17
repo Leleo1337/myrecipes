@@ -1,4 +1,4 @@
-import type { ingredientListProps } from "../../types/recipe";
+import type { ingredientListProps } from "../../types/components/recipe";
 
 export default function IngredientListItem({ unity, ingredient }: ingredientListProps) {
 	return (
