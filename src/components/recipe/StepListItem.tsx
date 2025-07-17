@@ -1,4 +1,4 @@
-import type { stepListItemProps } from "../../types/recipe";
+import type { stepListItemProps } from "../../types/components/recipe";
 
 export default function StepListItem({step, instructions}: stepListItemProps) {
 	return (
