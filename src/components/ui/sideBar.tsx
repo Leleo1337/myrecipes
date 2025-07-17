@@ -1,5 +1,5 @@
 import { ChefHat, HomeIcon, LogOut, Plus, Search, User, X } from 'lucide-react';
-import type { sideBarProps } from '../../types/UI';
+import type { sideBarProps } from '../../types/components/UI';
 import AuthButtons from '../recipes/AuthButtons';
 import image from '../../assets/anime.png';
 import { Link, useLocation } from 'react-router';

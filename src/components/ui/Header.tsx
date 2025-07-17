@@ -1,6 +1,6 @@
 import { Link, useLocation } from 'react-router';
 import { ChefHat, HomeIcon, LogOut, Menu, Plus, Search, User } from 'lucide-react';
-import type { headerProps } from '../../types/UI';
+import type { headerProps } from '../../types/components/UI';
 import AuthButtons from '../recipes/AuthButtons';
 import image from '../../assets/anime.png';
 
