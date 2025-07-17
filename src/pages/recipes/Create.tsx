@@ -17,7 +17,12 @@ type recipeForm = {
 		quantity: string;
 		unit: string;
 	}[];
+	instructions: {
+		step: number;
+		description: string;
+	}[];
 };
+
 const emptyRecipe = {
 	image: '',
 	title: '',
@@ -27,12 +32,12 @@ const emptyRecipe = {
 	time: 0,
 	portions: 0,
 	ingredients: [{ name: '', quantity: '', unit: '' }],
+	instructions: [{ step: 1, description: '' }],
 };
 
 export default function Create() {
 	const [sidebarOpen, setSidebarOpen] = useState(false);
 	const [recipeForm, setRecipeForm] = useState<recipeForm>(emptyRecipe);
-	const [ingredient, setIngredient] = useState({ name: '', quantity: '', unit: '' });
 	const [publicForm, setPublicForm] = useState(true);
 	const [image, setImage] = useState('');
 	const [isImageLoading, setIsImageLoading] = useState(false);
@@ -78,21 +83,47 @@ export default function Create() {
 	}
 
 	function addIngredient() {
-		setRecipeForm((prev) => ({ ...prev, ingredients: [...prev.ingredients, ingredient] }));
-		setIngredient({ name: '', quantity: '', unit: '' });
+		setRecipeForm((prev) => ({ ...prev, ingredients: [...prev.ingredients, { name: '', quantity: '', unit: '' }] }));
 	}
 
 	function removeIngredient(index: number) {
+		if (index === 0) {
+			return;
+		}
 		const ingredients = [...recipeForm.ingredients];
 		ingredients.splice(index, 1);
 
 		setRecipeForm((prev) => ({ ...prev, ingredients }));
 	}
 
+	function addInstruction() {
+		const nextStep = recipeForm.instructions.length + 1;
+
+		setRecipeForm((prev) => ({ ...prev, instructions: [...prev.instructions, { step: nextStep, description: '' }] }));
+	}
+
+	function handleInstructionChange(index: number, value: string) {
+		const updated = [...recipeForm.instructions];
+		updated[index].description = value;
+
+		setRecipeForm((prev) => ({ ...prev, instructions: updated }));
+	}
+
+	function removeInstruction(index: number) {
+		if (index === 0) {
+			return;
+		}
+		const updated = [...recipeForm.instructions]
+			.filter((instructions) => instructions.step !== index)
+			.map((instructions, index) => ({ ...instructions, step: index + 1 }));
+
+		setRecipeForm((prev) => ({ ...prev, updated }));
+	}
+
 	useEffect(() => {
 		console.log(recipeForm);
 		console.log(file);
-	}, [recipeForm]);
+	}, []);
 
 	return (
 		<>
@@ -307,26 +338,26 @@ export default function Create() {
 									type='text'
 									name='ingredient'
 									id='ingredient'
-									placeholder='banana'
+									placeholder='açucar'
 									autoComplete='off'
 									value={ingredient.name}
 									required
 									onChange={(e) => handleIngredientChange(index, 'name', e.target.value)}
-									className='px-4 py-2.5 border rounded-md bg-slate-50 border-slate-300 placeholder:text-xs placeholder:text-gray-300'
+									className='px-4 py-2.5 border rounded-md bg-slate-50 border-slate-300 placeholder:text-sm placeholder:text-gray-300'
 								/>
 							</div>
 							<div className='flex flex-col w-full gap-0.5'>
 								<label className='text-xs text-gray-500 font-semibold'>quantidade</label>
 								<input
-									type='text'
+									type='number'
 									name='quantity'
 									id='quantity'
 									autoComplete='off'
-									placeholder='200ml'
+									placeholder='2'
 									value={ingredient.quantity}
 									onChange={(e) => handleIngredientChange(index, 'quantity', e.target.value)}
 									required
-									className='px-4 py-2.5 border rounded-md bg-slate-50 border-slate-300 placeholder:text-xs placeholder:text-gray-300'
+									className='px-4 py-2.5 border rounded-md bg-slate-50 border-slate-300 placeholder:text-sm placeholder:text-gray-300'
 								/>
 							</div>
 							<div className='flex flex-col w-full gap-0.5'>
@@ -335,23 +366,52 @@ export default function Create() {
 									type='text'
 									name='unit'
 									id='unit'
-									placeholder='1'
+									placeholder='colheres de sopa'
 									value={ingredient.unit}
 									onChange={(e) => handleIngredientChange(index, 'unit', e.target.value)}
-									className='px-4 py-2.5 border rounded-md bg-slate-50 border-slate-300 placeholder:text-xs placeholder:text-gray-300'
+									className='px-4 py-2.5 border rounded-md bg-slate-50 border-slate-300 placeholder:text-sm placeholder:text-gray-300'
 								/>
 							</div>
 							<div>
 								<X
-									className='text-red-500 cursor-pointer hover:scale-110 transition ease-in duration-75 hover:text-red-600 sm:mt-4'
+									className={`${index === 0 ? 'hover:cursor-not-allowed text-gray-500 hover:text-gray-400' : 'cursor-pointer text-red-500 hover:text-red-600'} hover:scale-110 transition ease-in duration-75 sm:mt-4`}
 									onClick={() => removeIngredient(index)}
 								/>
 							</div>
 						</div>
 					))}
 				</section>
-				<section className='container max-w-[900px] mx-auto py-6 px-4 md:px-6 bg-white border border-slate-300 rounded-md shadow-xs'>
-					<div></div>
+				<section className='container max-w-[900px] mx-auto py-6 px-4 md:px-6 bg-white border border-slate-300 rounded-md shadow-xs mt-8'>
+					<div className='flex pb-8 flex-col sm:flex-row sm:items-center sm:justify-between gap-4'>
+						<h1 className='text-2xl font-semibold'>Modo de Preparo</h1>
+						<button
+							onClick={addInstruction}
+							className='flex gap-1 cursor-pointer text-emerald-600 hover:text-emerald-700'>
+							<Plus />
+							<span>Adicionar Passo</span>
+						</button>
+					</div>
+					<div>
+						{recipeForm.instructions.map((ingredient, index) => (
+							<div className='flex gap-4 space-y-4'>
+								<div className='flex items-center justify-center flex-shrink-0 w-8 h-8 text-sm font-semibold text-white rounded-full bg-emerald-600'>
+									{ingredient.step}
+								</div>
+								<textarea
+									name='instructions'
+									id='instructions'
+									onChange={(e) => handleInstructionChange(index, e.target.value)}
+									value={ingredient.description}
+									className='bg-slate-50 border border-slate-300 w-full py-2 px-4'></textarea>
+								<div>
+									<X
+										onClick={() => removeInstruction(index)}
+										className={`${index === 0 ? 'hover:cursor-not-allowed text-gray-500 hover:text-gray-400' : 'cursor-pointer text-red-500 hover:text-red-600'} hover:scale-110 transition ease-in duration-75 mt-5`}
+									/>
+								</div>
+							</div>
+						))}
+					</div>
 				</section>
 			</main>
 		</>
