@@ -402,7 +402,7 @@ export default function Create() {
 									id='instructions'
 									onChange={(e) => handleInstructionChange(index, e.target.value)}
 									value={ingredient.description}
-									className='bg-slate-50 border border-slate-300 w-full py-2 px-4'></textarea>
+									className='bg-slate-50 border border-slate-300 w-full py-2 px-4 rounded-md'></textarea>
 								<div>
 									<X
 										onClick={() => removeInstruction(index)}
