@@ -3,25 +3,7 @@ import { Link } from 'react-router';
 import { ArrowLeft, Clock, Eye, EyeOff, ImageIcon, Loader2, Plus, Save, Users2, X } from 'lucide-react';
 import Header from '../../components/ui/Header';
 import SideBar from '../../components/ui/sideBar';
-
-type recipeForm = {
-	image: string;
-	title: string;
-	description: string;
-	category: string;
-	difficulty: string;
-	time: number;
-	portions: number;
-	ingredients: {
-		name: string;
-		quantity: string;
-		unit: string;
-	}[];
-	instructions: {
-		step: number;
-		description: string;
-	}[];
-};
+import type { recipeForm } from '../../types/recipes';
 
 const emptyRecipe = {
 	image: '',
