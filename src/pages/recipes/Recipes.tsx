@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import SideBar from '../../components/ui/sideBar';
 import Header from '../../components/ui/Header';
 import { ArrowLeft, ArrowRight, Filter, Search, TrendingUpIcon } from 'lucide-react';
@@ -6,14 +6,32 @@ import { ArrowLeft, ArrowRight, Filter, Search, TrendingUpIcon } from 'lucide-re
 import LargeFeaturedRecipe from '../../components/recipes/LargeFeaturedRecipe';
 import SmallFeaturedRecipeCard from '../../components/recipes/SmallFeaturedRecipe';
 import RecipeCard from '../../components/recipes/RecipeCard';
+import axios from 'axios';
+import type { recipes } from '../../types/recipes';
+
+const API_URL = import.meta.env.VITE_API_URL;
 
 export default function Recipes() {
 	const [sidebarOpen, setSidebarOpen] = useState(false);
+	const [recipes, setRecipes] = useState<recipes[]>([]);
 	const pageIndex = 1;
+
+	async function fetchRecipes() {
+		try {
+			const response = await axios.get(`${API_URL}/api/v1/recipes`);
+			setRecipes(response.data.data);
+		} catch (error) {
+			console.log(error);
+		}
+	}
 
 	function handleSideBarToggle() {
 		setSidebarOpen(!sidebarOpen);
 	}
+
+	useEffect(() => {
+		fetchRecipes();
+	}, []);
 
 	return (
 		<>
@@ -95,14 +113,19 @@ export default function Recipes() {
 				</section>
 				<section>
 					<div className='grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
-						<RecipeCard />
-						<RecipeCard />
-						<RecipeCard />
-						<RecipeCard />
-						<RecipeCard />
-						<RecipeCard />
-						<RecipeCard />
-						<RecipeCard />
+						{recipes.map((recipes) => (
+							<RecipeCard
+								key={recipes._id}
+								id={recipes._id}
+								category={recipes.category}
+								cookTime={recipes.cookingTime}
+								description={recipes.description}
+								difficulty={recipes.difficulty}
+								image={recipes.image}
+								portions={recipes.portions}
+								title={recipes.title}
+							/>
+						))}
 					</div>
 					<div className='flex items-center justify-center py-8'>
 						<div className='flex gap-4'>
