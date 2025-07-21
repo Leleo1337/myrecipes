@@ -1,9 +1,9 @@
 import { Clock, Heart, MessageCircleIcon, Users2 } from 'lucide-react';
 import { Link } from 'react-router';
 import notFoundImage from '../../assets/404Image.jpeg'
-import type { RecipeCardProps } from '../../types/components/recipe';
+import type { RecipeCardProps } from '../../types/components/recipesComponentsProps';
 
-export default function RecipeCard({ id, difficulty, category, image, description, title, cookTime, portions }: RecipeCardProps) {
+export default function RecipeCard({ id, difficulty, category, image, description, title, cookTime, portions, likesCount }: RecipeCardProps) {
 	const difficultyColors = {
 		Facil: 'bg-green-600/80 text-white',
 		Medio: 'bg-yellow-500/80 text-black',
@@ -58,7 +58,7 @@ export default function RecipeCard({ id, difficulty, category, image, descriptio
 							<div className='flex gap-4'>
 								<div className='flex items-center gap-1 text-gray-600'>
 									<Heart size={16} />
-									<span className='text-sm'>0</span>
+									<span className='text-sm'>{likesCount}</span>
 								</div>
 								<div className='flex items-center gap-1 text-gray-600'>
 									<MessageCircleIcon size={16} />
