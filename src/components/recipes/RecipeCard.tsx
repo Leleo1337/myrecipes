@@ -1,7 +1,15 @@
 import { Clock, Heart, MessageCircleIcon, Users2 } from 'lucide-react';
 import { Link } from 'react-router';
+import notFoundImage from '../../assets/404Image.jpeg'
+import type { RecipeCardProps } from '../../types/components/recipe';
 
-export default function RecipeCard({ id, difficulty, category, image, description, title, cookTime, portions }: any) {
+export default function RecipeCard({ id, difficulty, category, image, description, title, cookTime, portions }: RecipeCardProps) {
+	const difficultyColors = {
+		Facil: 'bg-green-600/80 text-white',
+		Medio: 'bg-yellow-500/80 text-black',
+		Dificil: 'bg-red-600/80 text-white',
+	};
+
 	return (
 		<>
 			<Link
@@ -9,19 +17,19 @@ export default function RecipeCard({ id, difficulty, category, image, descriptio
 				className='w-full h-full overflow-hidden transition duration-150 ease-in bg-white border-white shadow cursor-pointer group relateive lg:h-full hover:outline outline-white rounded-xl hover:outline-emerald-200 hover:shadow-lg shadow-gray-600/10'>
 				<div className='relative rounded-xl'>
 					<div className='absolute flex justify-between w-full px-2 top-4 z-1'>
-						<div className='px-4 py-0.5 text-red-700 bg-red-300/90 font-semibold text-sm rounded-xl'>{difficulty}</div>
+						<div className={`px-4 py-0.5 ${difficultyColors[difficulty]} font-semibold text-sm rounded-xl`}>{difficulty}</div>
 						<div className='px-4 py-0.5 text-gray-800 bg-gray-100/90 font-semibold text-sm rounded-xl'>{category}</div>
 					</div>
 					<img
-						src={image}
-						alt=''
-						className='object-cover w-full transition-transform duration-150 h-60 rounded-t-2xl group-hover:scale-105'
+						src={image ? image : notFoundImage}
+						alt='Recipe image'
+						className='object-cover w-full transition-transform duration-150 h-60 max-h-60 rounded-t-2xl group-hover:scale-105'
 					/>
 				</div>
 				<div className='px-6 py-4 bg-white border border-gray-300 shadow '>
 					<div>
 						<h4 className='text-2xl font-semibold truncate transition duration-150 ease-in group-hover:text-emerald-600'>{title}</h4>
-						<p className='text-gray-600 line-clamp-2'>{description}</p>
+						<p className='text-gray-600 line-clamp-1'>{description}</p>
 					</div>
 					<div className='flex justify-between py-4'>
 						<div className='flex items-center gap-1 text-gray-500'>
