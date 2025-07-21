@@ -1,10 +1,10 @@
 export type recipeForm = {
-	image: string;
+	image?: string;
 	title: string;
 	description: string;
 	category: string;
 	difficulty: string;
-	time: number;
+	cookingTime: number;
 	portions: number;
 	ingredients: {
 		name: string;
@@ -17,7 +17,7 @@ export type recipeForm = {
 	}[];
 };
 
-export type recipes = {
+export type recipe = {
     _id: string
 	image: string;
 	title: string;
