@@ -1,9 +1,4 @@
-export type commentProps = {
-	image?: string;
-	author: string;
-	text: string;
-	date: string;
-};
+import type { commentProps } from "../../types/components/comments";
 
 export default function Comment({ image, author, text, date }: commentProps) {
 	return (
