@@ -48,7 +48,7 @@ export default function SideBar({ toggle, open }: sideBarProps) {
 						<Link
 							to={'/'}
 							className={`${
-								activeTab === 1
+								activeTab === 0
 									? 'bg-emerald-600 w-full text-white font-semibold text-xl ml-2 rounded-l-2xl px-4 py-2'
 									: 'w-full text-gray-600 border border-gray-300 font-semibold text-xl ml-2 rounded-l-2xl px-4 py-2'
 							}`}>
