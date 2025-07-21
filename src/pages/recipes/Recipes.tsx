@@ -2,18 +2,17 @@ import { useEffect, useState } from 'react';
 import SideBar from '../../components/ui/sideBar';
 import Header from '../../components/ui/Header';
 import { ArrowLeft, ArrowRight, Filter, Search, TrendingUpIcon } from 'lucide-react';
-
 import LargeFeaturedRecipe from '../../components/recipes/LargeFeaturedRecipe';
 import SmallFeaturedRecipeCard from '../../components/recipes/SmallFeaturedRecipe';
 import RecipeCard from '../../components/recipes/RecipeCard';
 import axios from 'axios';
-import type { recipes } from '../../types/recipes';
+import type { recipe } from '../../types/recipes';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
 export default function Recipes() {
 	const [sidebarOpen, setSidebarOpen] = useState(false);
-	const [recipes, setRecipes] = useState<recipes[]>([]);
+	const [recipes, setRecipes] = useState<recipe[]>([]);
 	const [isLoading, setIsLoading] = useState(true);
 	const pageIndex = 1;
 
@@ -38,7 +37,7 @@ export default function Recipes() {
 
 	return (
 		<>
-			{sidebarOpen && <div className='fixed inset-0 z-2 bg-black/70 md:hidden'></div>}
+			{sidebarOpen && <div className='fixed inset-0 z-3 bg-black/70 md:hidden'></div>}
 			<header>
 				{/* Mobile Sidebar */}
 				<SideBar
@@ -133,6 +132,7 @@ export default function Recipes() {
 									category={recipes.category}
 									cookTime={recipes.cookingTime}
 									description={recipes.description}
+									likesCount={recipes.likesCount}
 									difficulty={recipes.difficulty}
 									image={recipes.image}
 									portions={recipes.portions}
