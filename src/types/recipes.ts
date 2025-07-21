@@ -23,7 +23,7 @@ export type recipes = {
 	title: string;
 	description: string;
 	category: string;
-	difficulty: string;
+	difficulty: "Facil" | "Medio" | "Dificil";
 	cookingTime: number;
 	portions: number;
 	ingredients: {
