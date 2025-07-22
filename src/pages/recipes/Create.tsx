@@ -1,9 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router';
 import { ArrowLeft, Clock, Eye, EyeOff, ImageIcon, Loader2, Plus, Save, Users2, X } from 'lucide-react';
 import Header from '../../components/ui/Header';
 import SideBar from '../../components/ui/sideBar';
 import type { recipeForm } from '../../types/recipes';
+import axios from 'axios';
+import generateImageLinkFromFile from '../../services/cloudinary';
+
+const API_URL = import.meta.env.VITE_API_URL;
 
 const emptyRecipe = {
 	image: '',
@@ -11,7 +15,7 @@ const emptyRecipe = {
 	description: '',
 	category: '',
 	difficulty: 'Fácil',
-	time: 0,
+	cookingTime: 0,
 	portions: 0,
 	ingredients: [{ name: '', quantity: '', unit: '' }],
 	instructions: [{ step: 1, description: '' }],
@@ -21,12 +25,22 @@ export default function Create() {
 	const [sidebarOpen, setSidebarOpen] = useState(false);
 	const [recipeForm, setRecipeForm] = useState<recipeForm>(emptyRecipe);
 	const [publicForm, setPublicForm] = useState(true);
-	const [image, setImage] = useState('');
 	const [isImageLoading, setIsImageLoading] = useState(false);
-	const [file, setFile] = useState<File | undefined>();
+	const [file, setFile] = useState<FileList | undefined>();
 
 	function handleSideBarToggle() {
 		setSidebarOpen(!sidebarOpen);
+	}
+
+	async function handleSubmit() {
+		try {
+			const newImage = await generateImageLinkFromFile(file);
+			const dataToSend = { ...recipeForm, image: newImage };
+			await axios.post(`${API_URL}/api/v1/recipes`, dataToSend);
+			setRecipeForm(emptyRecipe);
+		} catch (error) {
+			console.log(error);
+		}
 	}
 
 	async function handleFileUpload(fileObj: FileList | null) {
@@ -42,8 +56,8 @@ export default function Create() {
 		fileReader.onload = () => {
 			const base64 = fileReader.result;
 			if (typeof base64 === 'string') {
-				setImage(base64);
-				setFile(fileObj[0]);
+				setRecipeForm((prev) => ({ ...prev, image: base64 }));
+				setFile(fileObj);
 				setIsImageLoading(false);
 			}
 		};
@@ -102,11 +116,6 @@ export default function Create() {
 		setRecipeForm((prev) => ({ ...prev, instructions: updated }));
 	}
 
-	useEffect(() => {
-		console.log(recipeForm);
-		console.log(file);
-	}, [recipeForm]);
-
 	return (
 		<>
 			{sidebarOpen && <div className='fixed inset-0 z-3 bg-black/70 md:hidden'></div>}
@@ -124,7 +133,9 @@ export default function Create() {
 							<ArrowLeft />
 							<span className='font-semibold'>Voltar</span>
 						</Link>
-						<button className='flex items-center gap-2 px-4 py-2 text-sm text-white transition duration-75 ease-in rounded-md cursor-pointer bg-emerald-600 hover:bg-emerald-700'>
+						<button
+							onClick={handleSubmit}
+							className='flex items-center gap-2 px-4 py-2 text-sm text-white transition duration-75 ease-in rounded-md cursor-pointer bg-emerald-600 hover:bg-emerald-700'>
 							<Save size={20} />
 							<span>Publicar</span>
 						</button>
@@ -213,8 +224,8 @@ export default function Create() {
 								<div className='relative'>
 									<input
 										type='number'
-										name='time'
-										id='time'
+										name='cookingTime'
+										id='cookingTime'
 										onChange={handleChange}
 										autoComplete='off'
 										className='w-full px-4 py-3 border rounded-md border-slate-300 pl-9 outline-0 focus:ring ring-emerald-600'
@@ -266,7 +277,7 @@ export default function Create() {
 							</div>
 						</div>
 						<div
-							className={`relative w-full transition duration-75 ease-in border-2 border-dashed rounded-md cursor-pointer h-60 md:h-80 bg-slate-50 hover:bg-slate-100 ${image ? 'border-emerald-500' : 'border-slate-300'}`}>
+							className={`relative w-full transition duration-75 ease-in border-2 border-dashed rounded-md cursor-pointer h-60 md:h-80 bg-slate-50 hover:bg-slate-100 ${recipeForm.image ? 'border-emerald-500' : 'border-slate-300'}`}>
 							<input
 								onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFileUpload(e.target.files)}
 								type='file'
@@ -277,10 +288,10 @@ export default function Create() {
 								htmlFor='image'
 								className='relative flex flex-col items-center justify-center w-full h-full cursor-pointer '>
 								<img
-									src={image}
+									src={recipeForm.image}
 									className='object-cover w-full h-full rounded-md brightness-60'
 								/>
-								<div className={`absolute flex items-center flex-col justify-center gap-4 text-gray-500 ${image && 'text-white'}`}>
+								<div className={`absolute flex items-center flex-col justify-center gap-4 text-gray-500 ${recipeForm.image && 'text-white'}`}>
 									{isImageLoading ? (
 										<Loader2
 											size={64}
