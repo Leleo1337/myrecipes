@@ -1,3 +1,4 @@
+import { Toaster } from 'sonner';
 import { BrowserRouter, Route, Routes } from 'react-router';
 
 //elements
@@ -11,6 +12,7 @@ import Create from './pages/recipes/Create';
 function App() {
 	return (
 		<>
+			<Toaster />
 			<BrowserRouter basename='/'>
 				<Routes>
 					<Route
