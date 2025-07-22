@@ -1,11 +1,11 @@
 export type registerForm = {
-    name: string
-    email: string
-    password: string
-}
+	name: string;
+	email: string;
+	password: string;
+	confirmation?: string;
+};
 
 export type loginForm = {
-    name?: string
-    email?: string
-    password: string
-}
+	user: string;
+	password: string;
+};
