@@ -5,10 +5,8 @@ import { ArrowLeft, ArrowRight, Filter, Search, TrendingUpIcon } from 'lucide-re
 import LargeFeaturedRecipe from '../../components/recipes/LargeFeaturedRecipe';
 import SmallFeaturedRecipeCard from '../../components/recipes/SmallFeaturedRecipe';
 import RecipeCard from '../../components/recipes/RecipeCard';
-import axios from 'axios';
 import type { recipe } from '../../types/recipes';
-
-const API_URL = import.meta.env.VITE_API_URL;
+import { getAllRecipes } from '../../services/recipes';
 
 export default function Recipes() {
 	const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -19,8 +17,8 @@ export default function Recipes() {
 	async function fetchRecipes() {
 		setIsLoading(true);
 		try {
-			const response = await axios.get(`${API_URL}/api/v1/recipes`);
-			setRecipes(response.data.data);
+			const response = await getAllRecipes()
+			setRecipes(response);
 			setIsLoading(false);
 		} catch (error) {
 			console.log(error);

@@ -1,7 +1,5 @@
-import axios from 'axios';
 import type { loginForm, registerForm } from '../types/auth';
-
-const API_URL = import.meta.env.VITE_API_URL;
+import api from './api';
 
 export async function register(formData: registerForm) {
 	if (formData.password !== formData.confirmation) {
@@ -11,7 +9,7 @@ export async function register(formData: registerForm) {
 	delete dataTosend.confirmation;
 
 	try {
-		const response = await axios.post(`${API_URL}/api/v1/auth/register`, dataTosend);
+		const response = await api.post(`/api/v1/auth/register`, dataTosend);
 		return response.data;
 	} catch (error) {
 		throw error;
@@ -24,7 +22,7 @@ export async function login(formData: loginForm) {
 
 	const dataTosend = { [method]: formData.user, password: formData.password };
 	try {
-		const response = await axios.post(`${API_URL}/api/v1/auth/login`, dataTosend);
+		const response = await api.post(`/api/v1/auth/login`, dataTosend);
 		const token = response.data.token;
 		if (!token) throw Error('Token ausente na resposta');
 		setToken(token);
