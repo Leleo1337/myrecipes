@@ -12,7 +12,7 @@ import Create from './pages/recipes/Create';
 function App() {
 	return (
 		<>
-			<Toaster />
+			<Toaster richColors/>
 			<BrowserRouter basename='/'>
 				<Routes>
 					<Route
