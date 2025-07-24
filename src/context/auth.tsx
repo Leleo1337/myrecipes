@@ -1,5 +1,12 @@
-import { createContext } from "react";
+import { createContext } from 'react';
 
-const AuthContext = createContext({})
+type AuthContextTypes = {
+	token: string | null;
+	login: (token: string) => void;
+	logOut: () => void;
+	isAuthenticated: boolean;
+};
 
-export default AuthContext
+const AuthContext = createContext<AuthContextTypes | undefined>(undefined);
+
+export default AuthContext;
