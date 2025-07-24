@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import SideBar from '../../components/ui/sideBar';
 import Header from '../../components/ui/Header';
 import { ArrowLeft, ArrowRight, Filter, Search, TrendingUpIcon } from 'lucide-react';
@@ -6,19 +6,27 @@ import LargeFeaturedRecipe from '../../components/recipes/LargeFeaturedRecipe';
 import SmallFeaturedRecipeCard from '../../components/recipes/SmallFeaturedRecipe';
 import RecipeCard from '../../components/recipes/RecipeCard';
 import type { recipe } from '../../types/recipes';
-import { getAllRecipes } from '../../services/recipes';
+import { getAllRecipes, getFeaturedRecipes } from '../../services/recipes';
+import AuthContext from '../../context/auth';
 
 export default function Recipes() {
+	const context = useContext(AuthContext)
 	const [sidebarOpen, setSidebarOpen] = useState(false);
+	const [featured, setFeatured] = useState<recipe[]>([])
 	const [recipes, setRecipes] = useState<recipe[]>([]);
 	const [isLoading, setIsLoading] = useState(true);
 	const pageIndex = 1;
 
+
+	console.log(context)
 	async function fetchRecipes() {
 		setIsLoading(true);
 		try {
-			const response = await getAllRecipes()
-			setRecipes(response);
+			const allRecipes = await getAllRecipes()
+			const featuredRecipes = await getFeaturedRecipes()
+			console.log(featuredRecipes)
+			setRecipes(allRecipes);
+			setFeatured(featuredRecipes)
 			setIsLoading(false);
 		} catch (error) {
 			console.log(error);
@@ -66,11 +74,11 @@ export default function Recipes() {
 							</div>
 						</div>
 						<div className='flex flex-col grid-cols-2 gap-4 lg:grid'>
-							<div className='hidden row-span-2 lg:block h-85'>
-								<LargeFeaturedRecipe />
+							<div className='row-span-2 lg:block'>
+								<LargeFeaturedRecipe recipe={featured[0]}/>
 							</div>
-							<SmallFeaturedRecipeCard />
-							<SmallFeaturedRecipeCard />
+							<SmallFeaturedRecipeCard recipe={featured[1]}/>
+							<SmallFeaturedRecipeCard recipe={featured[2]}/>
 						</div>
 					</section>
 					<section className='pb-4'>
@@ -126,9 +134,9 @@ export default function Recipes() {
 							{recipes.map((recipes) => (
 								<RecipeCard
 									key={recipes._id}
-									id={recipes._id}
+									_id={recipes._id}
 									category={recipes.category}
-									cookTime={recipes.cookingTime}
+									cookingTime={recipes.cookingTime}
 									description={recipes.description}
 									likesCount={recipes.likesCount}
 									difficulty={recipes.difficulty}
