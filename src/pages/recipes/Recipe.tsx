@@ -1,7 +1,7 @@
 import { Link, useParams } from 'react-router';
 import Header from '../../components/ui/Header';
 import SideBar from '../../components/ui/sideBar';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { ArrowLeft, ChefHat, Clock, Heart, MessageCircleIcon, Send, Share2, Shield, Star, Users2 } from 'lucide-react';
 import StepListItem from '../../components/recipe/StepListItem';
 import IngredientListItem from '../../components/recipe/IngredientListItem';
@@ -11,16 +11,25 @@ import type { commentProps } from '../../types/components/comments';
 import Comment from '../../components/recipe/Comment';
 import type { recipe } from '../../types/recipes';
 import Avatar from 'react-avatar';
+import AuthContext from '../../context/auth';
+import UserContext from '../../context/user';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
 export default function Recipe() {
+	const auth = useContext(AuthContext);
+	const user = useContext(UserContext);
 	const [currentRecipe, setCurrentRecipe] = useState<recipe>();
 	const [currentComments, setCurrentComments] = useState<commentProps[]>([]);
 	const [isLoading, setIsLoading] = useState(false);
 	const [like, setLike] = useState(false);
-	const isAuth = true;
+
 	const params = useParams();
+
+	if (!auth || !user) throw new Error('Usuario não encontrado');
+
+	const { isAuthenticated } = auth;
+	const { username, profilePicture } = user;
 
 	const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -34,7 +43,6 @@ export default function Recipe() {
 			const response = await axios.get(`${API_URL}/api/v1/recipes/${params.id}`);
 			setCurrentRecipe(response.data.data);
 			setIsLoading(false);
-			console.log(response);
 		} catch (error) {
 			console.log(error);
 		}
@@ -44,7 +52,6 @@ export default function Recipe() {
 		try {
 			const response = await axios.get(`${API_URL}/api/v1/recipes/${params.id}/comments`);
 			setCurrentComments(response.data.data);
-			console.log(response);
 		} catch (error) {
 			console.log(error);
 		}
@@ -142,7 +149,7 @@ export default function Recipe() {
 										<div className='flex items-center w-full gap-1'>
 											<div>
 												<Avatar
-													name={'createdBy'}
+													name={username}
 													size='36'
 													className='mr-2 text-xs rounded-full outline-1 outline-green-500/80'
 												/>
@@ -155,8 +162,8 @@ export default function Recipe() {
 										<div className='flex gap-2'>
 											<div
 												onClick={() => setLike(!like)}
-												className={`flex items-center gap-2 text-sm transition ease-in duration-100 bg-gray-50 text-gray-600 rounded-xl py-1.5 px-3 ${isAuth && like && 'bg-red-500/30 text-red-600'} ${isAuth ? 'cursor-pointer hover:bg-red-500/30 hover:text-red-500' : 'text-gray-500 hover:bg-gray-100 cursor-not-allowed'}`}>
-												{isAuth && like ? (
+												className={`flex items-center gap-2 text-sm transition ease-in duration-100 bg-gray-50 text-gray-600 rounded-xl py-1.5 px-3 ${isAuthenticated && like && 'bg-red-500/30 text-red-600'} ${isAuthenticated ? 'cursor-pointer hover:bg-red-500/30 hover:text-red-500' : 'text-gray-500 hover:bg-gray-100 cursor-not-allowed'}`}>
+												{isAuthenticated && like ? (
 													<Heart
 														fill='oklch(57.7% 0.245 27.325)'
 														size={20}
@@ -225,13 +232,21 @@ export default function Recipe() {
 									</div>
 									<div>
 										<div className='pt-8'>
-											{isAuth ? (
+											{isAuthenticated ? (
 												<div className='flex gap-2'>
-													<Avatar
-														name={'user logged in image'}
-														size='32'
-														className='w-8 h-8 mr-2 text-xs rounded-full outline-1 outline-green-500/80'
-													/>
+													{profilePicture ? (
+														<img
+															src={profilePicture}
+															alt='user profile picture'
+															className='w-8 h-8 mr-2 text-xs rounded-full outline-1 outline-green-500/80'
+														/>
+													) : (
+														<Avatar
+															name={username}
+															size='32'
+															className='w-8 h-8 mr-2 text-xs rounded-full outline-1 outline-green-500/80'
+														/>
+													)}
 													<div className='w-full'>
 														<textarea
 															name='comment'
