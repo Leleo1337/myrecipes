@@ -1,16 +1,18 @@
 import { ArrowLeft, ChefHat, Eye, EyeOff, LockKeyholeIcon, User } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router';
 import { toast } from 'sonner';
-import { login } from '../../services/auth';
+import { getToken, login } from '../../services/auth';
 import BigLoader from '../../components/ui/BigLoader';
+import AuthContext from '../../context/auth';
 
 export default function Login() {
-	const navigate = useNavigate();
 	const [inputType, setInputType] = useState<'password' | 'text'>('password');
 	const [loginForm, setLoginForm] = useState({ user: '', password: '' });
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState('');
+	const auth = useContext(AuthContext);
+	const navigate = useNavigate();
 
 	function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
 		const key = e.target.name;
@@ -20,23 +22,28 @@ export default function Login() {
 	}
 
 	async function handleSubmit() {
-		setError('');
 		setIsLoading(false);
 		try {
 			await login(loginForm);
-			setIsLoading(true)
-			toast.success('Welcome back!');
+			const token = getToken();
+			if (!token) {
+				return;
+			}
+			setIsLoading(true);
 			setTimeout(() => {
-				navigate('/recipes');
-			}, 1000);
+				auth?.login(token);
+			}, 2000);
+			toast.success('Welcome back!');
 		} catch (error: any) {
 			setError(error.response.data.msg);
 		}
 	}
 
 	useEffect(() => {
-		console.log(loginForm);
-	}, [loginForm]);
+		if (auth?.token) {
+			navigate('/recipes');
+		}
+	}, [auth?.token]);
 
 	return (
 		<>
