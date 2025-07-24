@@ -1,14 +1,17 @@
 import { Clock, Heart } from 'lucide-react';
-import image from '../../assets/anime.png';
-import pizza from '../../assets/pizza.jpg';
+import type { featuredCardProps } from '../../types/components/recipesComponentsProps';
+import { Link } from 'react-router';
+import notFoundImage from '../../assets/404Image.jpeg';
 
-export default function SmallFeaturedRecipeCard() {
+export default function SmallFeaturedRecipeCard({ recipe }: featuredCardProps) {
 	return (
 		<>
-			<div className='flex overflow-hidden transition duration-150 ease-in bg-white border-white shadow cursor-pointer lg:h-full group hover:outline outline-white rounded-xl hover:outline-emerald-200 hover:shadow-lg shadow-gray-600/10'>
+			<Link
+				to={`/recipes/${recipe._id}`}
+				className='flex overflow-hidden transition duration-150 ease-in bg-white border-white shadow cursor-pointer lg:h-full group hover:outline outline-white rounded-xl hover:outline-emerald-200 hover:shadow-lg shadow-gray-600/10'>
 				<div className='w-1/2 max-w-[185px] overflow-hidden'>
 					<img
-						src={pizza}
+						src={recipe.image ? recipe.image : notFoundImage}
 						alt=''
 						className='object-cover w-full h-full transition-transform duration-200 group-hover:scale-105'
 					/>
@@ -17,11 +20,11 @@ export default function SmallFeaturedRecipeCard() {
 					<div className='inline-block px-2 py-0.5 text-xs text-red-700 rounded-xl bg-red-500/30 font-semibold'>
 						<span>Dificil</span>
 					</div>
-					<h2 className='font-bold transition duration-100 ease-in group-hover:text-emerald-600'>sushi caseiro - temaki de salmao</h2>
+					<h2 className='font-bold transition duration-100 ease-in group-hover:text-emerald-600'>{recipe.title}</h2>
 					<div className='flex items-center justify-between py-1'>
 						<div className='flex items-center gap-1 text-gray-500'>
 							<Clock size={12} />
-							<span className='text-xs'>40 min</span>
+							<span className='text-xs'>{recipe.cookingTime} min</span>
 						</div>
 						<div className='flex items-center gap-0.5'>
 							<Heart
@@ -29,12 +32,12 @@ export default function SmallFeaturedRecipeCard() {
 								color='red'
 								fill='red'
 							/>
-							<span className='text-xs'>1</span>
+							<span className='text-xs'>{recipe.likesCount}</span>
 						</div>
 					</div>
 					<div className='flex items-center gap-2 md:pt-4'>
 						<img
-							src={image}
+							src={''}
 							alt='pfp'
 							className='w-6 h-6 text-xs rounded-full'
 						/>
@@ -43,7 +46,7 @@ export default function SmallFeaturedRecipeCard() {
 						</div>
 					</div>
 				</div>
-			</div>
+			</Link>
 		</>
 	);
 }
