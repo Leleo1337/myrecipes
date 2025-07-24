@@ -2,11 +2,19 @@ import { Link, useLocation } from 'react-router';
 import { ChefHat, HomeIcon, LogOut, Menu, Plus, Search, User } from 'lucide-react';
 import type { headerProps } from '../../types/components/UI';
 import AuthButtons from '../recipes/AuthButtons';
-import image from '../../assets/anime.png';
+import { useContext } from 'react';
+import AuthContext from '../../context/auth';
+import UserContext from '../../context/user';
+import Avatar from 'react-avatar';
 
 export default function Header({ toggleSide }: headerProps) {
-	const isAuth = true;
+	const auth = useContext(AuthContext);
+	const user = useContext(UserContext);
 	const location = useLocation();
+
+	if (!auth || !user) throw new Error('Usuario não encontrado');
+	const { isAuthenticated, logOut } = auth;
+	const { username, profilePicture } = user;
 
 	function getActiveTabIndex() {
 		if (location.pathname === '/recipes') return 1;
@@ -19,7 +27,7 @@ export default function Header({ toggleSide }: headerProps) {
 
 	return (
 		<div className='fixed top-0 w-full bg-white z-2 drop-shadow'>
-			<div className='container max-w-[1400px] mx-auto md:flex justify-between items-center py-1 px-4'>
+			<div className='container max-w-[1400px] mx-auto md:flex justify-between items-center py-2 pb-3 px-4'>
 				<div className='flex items-center justify-between gap-2'>
 					<div className='flex items-center'>
 						<div className='p-2 bg-emerald-600 rounded-xl'>
@@ -61,7 +69,7 @@ export default function Header({ toggleSide }: headerProps) {
 						<Search size={16} />
 						<span>Explorar</span>
 					</Link>
-					{isAuth && (
+					{isAuthenticated && (
 						<>
 							<Link
 								to={'/recipes/create'}
@@ -87,18 +95,26 @@ export default function Header({ toggleSide }: headerProps) {
 					)}
 				</div>
 				<div className='hidden md:flex'>
-					{isAuth ? (
+					{isAuthenticated ? (
 						<div className='flex items-center gap-4'>
 							<div className='items-center w-full px-3 border h-9 lg:flex bg-emerald-600/10 border-emerald-600/10 rounded-xl'>
 								<div>
-									<img
-										src={image}
-										alt='pfp'
-										className='w-6 h-6 mr-2 text-xs rounded-full outline-1 outline-green-500/80'
-									/>
+									{profilePicture ? (
+										<img
+											src={profilePicture}
+											alt='pfp'
+											className='w-6 h-6 mr-2 text-xs rounded-full outline-1 outline-green-500/80'
+										/>
+									) : (
+										<Avatar
+											name={username}
+											size='24'
+											className='mr-2 text-xs rounded-full outline-1 outline-green-500/80'
+										/>
+									)}
 								</div>
 								<div className='flex flex-col'>
-									<span className='text-sm font-semibold'>admin</span>
+									<span className='text-sm font-semibold'>{username}</span>
 								</div>
 							</div>
 							<Link
@@ -108,10 +124,12 @@ export default function Header({ toggleSide }: headerProps) {
 								<span>Perfil</span>
 							</Link>
 							<div>
-								<div className='flex items-center justify-center gap-2 p-2 my-2 text-red-700 cursor-pointer hover:text-red-800'>
+								<button
+									onClick={logOut}
+									className='flex items-center justify-center gap-2 p-2 my-2 text-red-700 cursor-pointer hover:text-red-800'>
 									<LogOut />
 									<span>Sair</span>
-								</div>
+								</button>
 							</div>
 						</div>
 					) : (

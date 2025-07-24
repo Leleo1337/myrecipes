@@ -1,13 +1,20 @@
 import { ChefHat, HomeIcon, LogOut, Plus, Search, User, X } from 'lucide-react';
 import type { sideBarProps } from '../../types/components/UI';
 import AuthButtons from '../recipes/AuthButtons';
-import image from '../../assets/anime.png';
 import { Link, useLocation } from 'react-router';
+import { useContext } from 'react';
+import AuthContext from '../../context/auth';
+import UserContext from '../../context/user';
+import Avatar from 'react-avatar';
 
 export default function SideBar({ toggle, open }: sideBarProps) {
-	const isAuth = true;
-
+	const auth = useContext(AuthContext);
+	const user = useContext(UserContext);
 	const location = useLocation();
+
+	if (!auth || !user) throw new Error('Usuario não encontrado');
+	const { isAuthenticated, logOut } = auth;
+	const { username, profilePicture } = user;
 
 	function getActiveTabIndex() {
 		if (location.pathname === '/recipes') return 1;
@@ -69,7 +76,7 @@ export default function SideBar({ toggle, open }: sideBarProps) {
 								<span>Receitas</span>
 							</div>
 						</Link>
-						{isAuth && (
+						{isAuthenticated && (
 							<>
 								<Link
 									to={'/recipes/create'}
@@ -100,20 +107,28 @@ export default function SideBar({ toggle, open }: sideBarProps) {
 					</div>
 					<div className='absolute bottom-0 w-full py-3 border-t z-2 border-t-gray-500/20'>
 						<div className='flex flex-col px-2'>
-							{isAuth ? (
+							{isAuthenticated ? (
 								<div>
 									<div className='flex justify-between w-full p-3 my-2 border bg-emerald-600/10 border-emerald-600/30 rounded-xl'>
-										<div className='flex'>
+										<div className='flex items-center'>
 											<div>
-												<img
-													src={image}
-													alt='pfp'
-													className='w-10 mr-2 text-xs rounded-full outline-1 outline-green-500/80'
-												/>
+												{profilePicture ? (
+													<img
+														src={profilePicture}
+														alt='pfp'
+														className='w-10 mr-2 text-xs rounded-full outline-1 outline-green-500/80'
+													/>
+												) : (
+													<Avatar
+														name={'createdBy'}
+														size='36'
+														className='mr-2 text-xs rounded-full outline-1 outline-green-500/80'
+													/>
+												)}
 											</div>
 											<div className='flex flex-col'>
-												<span className='text-base font-semibold'>admin</span>
-												<span className='text-xs'>admin@email.com</span>
+												<span className='overflow-hidden text-base font-semibold truncate'>{username}</span>
+												<span className='text-xs'>{"email"}</span>
 											</div>
 										</div>
 										<Link
@@ -124,10 +139,10 @@ export default function SideBar({ toggle, open }: sideBarProps) {
 										</Link>
 									</div>
 									<div>
-										<div className='flex items-center justify-center w-full gap-2 p-2 my-2 text-gray-700 border bg-gray-500/10 border-gray-500/30 rounded-xl'>
+										<button onClick={logOut} className='flex items-center justify-center w-full gap-2 p-2 my-2 text-gray-700 border bg-gray-500/10 border-gray-500/30 rounded-xl'>
 											<LogOut />
 											<span>Sair</span>
-										</div>
+										</button>
 									</div>
 								</div>
 							) : (
