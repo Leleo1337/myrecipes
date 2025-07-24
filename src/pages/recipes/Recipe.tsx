@@ -98,7 +98,7 @@ export default function Recipe() {
 							<div className='bg-white shadow rounded-2xl'>
 								<div className='relative h-[35vh] md:h-[50vh]'>
 									<img
-										src={notFoundImage}
+										src={currentRecipe?.image ? currentRecipe.image : notFoundImage}
 										alt='food img'
 										className='object-cover w-full h-full rounded-t-2xl brightness-95'
 									/>
