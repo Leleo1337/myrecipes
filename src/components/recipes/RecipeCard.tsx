@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import notFoundImage from '../../assets/404Image.jpeg'
 import type { RecipeCardProps } from '../../types/components/recipesComponentsProps';
 
-export default function RecipeCard({ id, difficulty, category, image, description, title, cookTime, portions, likesCount }: RecipeCardProps) {
+export default function RecipeCard({ _id, difficulty, category, image, description, title, cookingTime, portions, likesCount }: RecipeCardProps) {
 	const difficultyColors = {
 		Facil: 'bg-green-600/80 text-white',
 		Medio: 'bg-yellow-500/80 text-black',
@@ -13,7 +13,7 @@ export default function RecipeCard({ id, difficulty, category, image, descriptio
 	return (
 		<>
 			<Link
-				to={`/recipes/${id}`}
+				to={`/recipes/${_id}`}
 				className='w-full h-full overflow-hidden transition duration-150 ease-in bg-white border-white shadow cursor-pointer group relateive lg:h-full hover:outline outline-white rounded-xl hover:outline-emerald-200 hover:shadow-lg shadow-gray-600/10'>
 				<div className='relative rounded-xl'>
 					<div className='absolute flex justify-between w-full px-2 top-4 z-1'>
@@ -34,7 +34,7 @@ export default function RecipeCard({ id, difficulty, category, image, descriptio
 					<div className='flex justify-between py-4'>
 						<div className='flex items-center gap-1 text-gray-500'>
 							<Clock size={16} />
-							<span className='text-sm'>{cookTime} min</span>
+							<span className='text-sm'>{cookingTime} min</span>
 						</div>
 						<div className='flex items-center gap-1 text-gray-500'>
 							<Users2 size={16} />
