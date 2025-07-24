@@ -17,8 +17,6 @@ async function generateImageLinkFromFile(fileObj: FileList | undefined): Promise
 	data.append('upload_preset', 'recipes');
 	data.append('cloud_name', CLOUD_NAME);
 
-	console.log(data);
-
 	try {
 		const response = await axios.post(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, data);
 		return response.data.secure_url;
