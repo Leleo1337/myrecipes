@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import SideBar from '../../components/ui/sideBar';
 import Header from '../../components/ui/Header';
 import { ArrowLeft, ArrowRight, Filter, Search, TrendingUpIcon } from 'lucide-react';
@@ -7,24 +7,19 @@ import SmallFeaturedRecipeCard from '../../components/recipes/SmallFeaturedRecip
 import RecipeCard from '../../components/recipes/RecipeCard';
 import type { recipe } from '../../types/recipes';
 import { getAllRecipes, getFeaturedRecipes } from '../../services/recipes';
-import AuthContext from '../../context/auth';
 
 export default function Recipes() {
-	const context = useContext(AuthContext)
 	const [sidebarOpen, setSidebarOpen] = useState(false);
 	const [featured, setFeatured] = useState<recipe[]>([])
 	const [recipes, setRecipes] = useState<recipe[]>([]);
 	const [isLoading, setIsLoading] = useState(true);
 	const pageIndex = 1;
 
-
-	console.log(context)
 	async function fetchRecipes() {
 		setIsLoading(true);
 		try {
 			const allRecipes = await getAllRecipes()
 			const featuredRecipes = await getFeaturedRecipes()
-			console.log(featuredRecipes)
 			setRecipes(allRecipes);
 			setFeatured(featuredRecipes)
 			setIsLoading(false);
