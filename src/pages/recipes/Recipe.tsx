@@ -10,6 +10,7 @@ import axios from 'axios';
 import type { commentProps } from '../../types/components/comments';
 import Comment from '../../components/recipe/Comment';
 import type { recipe } from '../../types/recipes';
+import Avatar from 'react-avatar';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -18,7 +19,7 @@ export default function Recipe() {
 	const [currentComments, setCurrentComments] = useState<commentProps[]>([]);
 	const [isLoading, setIsLoading] = useState(false);
 	const [like, setLike] = useState(false);
-	const isAuth = false;
+	const isAuth = true;
 	const params = useParams();
 
 	const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -140,10 +141,10 @@ export default function Recipe() {
 									<div className='flex items-center justify-between w-full px-3 pt-8 border-t border-gray-200'>
 										<div className='flex items-center w-full gap-1'>
 											<div>
-												<img
-													src={''}
-													alt='pfp'
-													className='w-8 h-8 mr-2 text-xs rounded-full outline-1 outline-green-500/80'
+												<Avatar
+													name={'createdBy'}
+													size='36'
+													className='mr-2 text-xs rounded-full outline-1 outline-green-500/80'
 												/>
 											</div>
 											<div className='flex flex-col'>
@@ -226,9 +227,9 @@ export default function Recipe() {
 										<div className='pt-8'>
 											{isAuth ? (
 												<div className='flex gap-2'>
-													<img
-														src={''}
-														alt='user profile picture'
+													<Avatar
+														name={'user logged in image'}
+														size='32'
 														className='w-8 h-8 mr-2 text-xs rounded-full outline-1 outline-green-500/80'
 													/>
 													<div className='w-full'>
@@ -274,7 +275,7 @@ export default function Recipe() {
 													/>
 												))
 											) : (
-												<div className='text-center pt-8 text-gray-700'>There is no comments for this recipe :(</div>
+												<div className='pt-8 text-center text-gray-700'>There is no comments for this recipe :(</div>
 											)}
 										</div>
 									</div>
