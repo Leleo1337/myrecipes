@@ -1,7 +1,8 @@
 import { Clock, Heart, MessageCircleIcon, Users2 } from 'lucide-react';
 import { Link } from 'react-router';
-import notFoundImage from '../../assets/404Image.jpeg'
+import notFoundImage from '../../assets/404Image.jpeg';
 import type { RecipeCardProps } from '../../types/components/recipesComponentsProps';
+import Avatar from 'react-avatar';
 
 export default function RecipeCard({ _id, difficulty, category, image, description, title, cookingTime, portions, likesCount }: RecipeCardProps) {
 	const difficultyColors = {
@@ -44,15 +45,15 @@ export default function RecipeCard({ _id, difficulty, category, image, descripti
 					<div className='border-t border-gray-400/30'>
 						<div className='flex items-center justify-between'>
 							<div className='flex pt-4'>
-								<div>
-									<img
-										src={'user image'}
-										alt='pfp'
-										className='mr-2 text-xs rounded-full h-7 w-7 outline outline-black/30'
+								<div className='flex items-center'>
+									<Avatar
+										name={'createdBy image'}
+										size='24'
+										className='mr-2 rounded-full'
 									/>
 								</div>
 								<div className='flex flex-col'>
-									<span className='text-sm font-semibold text-gray-700'>user</span>
+									<span className='text-sm font-semibold text-gray-700'>username</span>
 								</div>
 							</div>
 							<div className='flex gap-4'>

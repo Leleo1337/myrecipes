@@ -2,6 +2,7 @@ import { Clock, Heart } from 'lucide-react';
 import type { featuredCardProps } from '../../types/components/recipesComponentsProps';
 import { Link } from 'react-router';
 import notFoundImage from '../../assets/404Image.jpeg';
+import Avatar from 'react-avatar';
 
 export default function SmallFeaturedRecipeCard({ recipe }: featuredCardProps) {
 	return (
@@ -36,13 +37,13 @@ export default function SmallFeaturedRecipeCard({ recipe }: featuredCardProps) {
 						</div>
 					</div>
 					<div className='flex items-center gap-2 md:pt-4'>
-						<img
-							src={''}
-							alt='pfp'
-							className='w-6 h-6 text-xs rounded-full'
+						<Avatar
+							name={'createdBy image'}
+							size='24'
+							className='rounded-full'
 						/>
 						<div className='flex flex-col'>
-							<span className='text-xs font-semibold'>admin</span>
+							<span className='text-xs font-semibold'>username</span>
 						</div>
 					</div>
 				</div>
