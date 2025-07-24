@@ -8,11 +8,12 @@ import Login from './pages/auth/Login';
 import Recipe from './pages/recipes/Recipe';
 import Recipes from './pages/recipes/Recipes';
 import Create from './pages/recipes/Create';
+import AuthRoute from './components/routes/AuthRoute';
 
 function App() {
 	return (
 		<>
-			<Toaster richColors/>
+			<Toaster richColors />
 			<BrowserRouter basename='/'>
 				<Routes>
 					<Route
@@ -24,16 +25,24 @@ function App() {
 						element={<Recipes />}
 					/>
 					<Route
-						path='/recipes/create'
-						element={<Create />}
-					/>
-					<Route
 						path='/recipes/:id'
 						element={<Recipe />}
 					/>
 					<Route
+						path='/recipes/create'
+						element={
+							<AuthRoute>
+								<Create />
+							</AuthRoute>
+						}
+					/>
+					<Route
 						path='/recipes/my-recipes'
-						element={''}
+						element={
+							<AuthRoute>
+								<Create />
+							</AuthRoute>
+						}
 					/>
 					<Route
 						path='/login'
