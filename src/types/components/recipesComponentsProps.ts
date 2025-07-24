@@ -1,14 +1,18 @@
 export type RecipeCardProps = {
-	id: string;
+	_id?: string;
 	difficulty: 'Facil' | 'Medio' | 'Dificil';
 	category: string;
 	image: string;
 	description: string;
 	title: string;
-	cookTime: number;
+	cookingTime: number;
 	portions: number;
     likesCount: number
 };
+
+export type featuredCardProps = {
+	recipe: RecipeCardProps
+}
 
 export type stepListItemProps = {
 	step: number;
