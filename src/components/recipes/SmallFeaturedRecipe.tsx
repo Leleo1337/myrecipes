@@ -10,7 +10,7 @@ export default function SmallFeaturedRecipeCard({ recipe }: featuredCardProps) {
 			<Link
 				to={`/recipes/${recipe._id}`}
 				className='flex overflow-hidden transition duration-150 ease-in bg-white border-white shadow cursor-pointer lg:h-full group hover:outline outline-white rounded-xl hover:outline-emerald-200 hover:shadow-lg shadow-gray-600/10'>
-				<div className='w-1/2 max-w-[185px] overflow-hidden'>
+				<div className='w-1/2 max-w-[185px] max-h-40 h-40 overflow-hidden'>
 					<img
 						src={recipe.image ? recipe.image : notFoundImage}
 						alt=''
