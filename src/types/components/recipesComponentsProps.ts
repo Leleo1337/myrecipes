@@ -1,6 +1,6 @@
 export type RecipeCardProps = {
 	_id?: string;
-	difficulty: 'Facil' | 'Medio' | 'Dificil';
+	difficulty: 'facil' | 'medio' | 'dificil';
 	category: string;
 	image: string;
 	description: string;
