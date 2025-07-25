@@ -6,9 +6,9 @@ import Avatar from 'react-avatar';
 
 export default function RecipeCard({ _id, difficulty, category, image, description, title, cookingTime, portions, likesCount }: RecipeCardProps) {
 	const difficultyColors = {
-		Facil: 'bg-green-600/80 text-white',
-		Medio: 'bg-yellow-500/80 text-black',
-		Dificil: 'bg-red-600/80 text-white',
+		facil: 'bg-green-600/80 text-white',
+		medio: 'bg-yellow-500/80 text-black',
+		dificil: 'bg-red-600/80 text-white',
 	};
 
 	return (
