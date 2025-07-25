@@ -6,9 +6,9 @@ import Avatar from 'react-avatar';
 
 export default function LargeFeaturedRecipe({ recipe }: featuredCardProps) {
 	const difficultyColors = {
-		Facil: 'bg-green-600/80 text-white',
-		Medio: 'bg-yellow-500/80 text-black',
-		Dificil: 'bg-red-600/80 text-white',
+		facil: 'bg-green-600/80 text-white',
+		medio: 'bg-yellow-500/80 text-black',
+		dificil: 'bg-red-600/80 text-white',
 	};
 
 	return (
@@ -22,7 +22,7 @@ export default function LargeFeaturedRecipe({ recipe }: featuredCardProps) {
 				/>
 				<span className='text-sm font-semibold text-white'>Popular</span>
 			</div>
-			<div className='lg:w-[800px] w-full h-60 lg:h-auto overflow-hidden'>
+			<div className='lg:w-[800px] w-full h-60 lg:h-auto max-h-100 overflow-hidden'>
 				<img
 					src={recipe.image ? recipe.image : notFoundImage}
 					alt='recipe image'

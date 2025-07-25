@@ -11,8 +11,8 @@ export async function register(formData: registerForm) {
 	try {
 		const response = await api.post(`/api/v1/auth/register`, dataTosend);
 		return response.data;
-	} catch (error) {
-		throw error;
+	} catch (err) {
+		throw err;
 	}
 }
 
@@ -26,9 +26,8 @@ export async function login(formData: loginForm) {
 		const token = response.data.token;
 		if (!token) throw Error('Token ausente na resposta');
 		setToken(token);
-	} catch (error) {
-		console.log(error);
-		throw error;
+	} catch (err) {
+		throw err;
 	}
 }
 

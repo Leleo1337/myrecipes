@@ -1,4 +1,4 @@
-import { Link, useParams } from 'react-router';
+import { Link, useNavigate, useParams } from 'react-router';
 import Header from '../../components/ui/Header';
 import SideBar from '../../components/ui/sideBar';
 import { useContext, useEffect, useState } from 'react';
@@ -6,55 +6,74 @@ import { ArrowLeft, ChefHat, Clock, Heart, MessageCircleIcon, Send, Share2, Shie
 import StepListItem from '../../components/recipe/StepListItem';
 import IngredientListItem from '../../components/recipe/IngredientListItem';
 import notFoundImage from '../../assets/404Image.jpeg';
-import axios from 'axios';
 import type { commentProps } from '../../types/components/comments';
 import Comment from '../../components/recipe/Comment';
 import type { recipe } from '../../types/recipes';
 import Avatar from 'react-avatar';
 import AuthContext from '../../context/auth';
 import UserContext from '../../context/user';
+import { createComment, getRecipeComments } from '../../services/comments';
+import { getRecipe } from '../../services/recipes';
+import { toast } from 'sonner';
 
-const API_URL = import.meta.env.VITE_API_URL;
 
 export default function Recipe() {
 	const auth = useContext(AuthContext);
 	const user = useContext(UserContext);
+	const [sidebarOpen, setSidebarOpen] = useState(false);
 	const [currentRecipe, setCurrentRecipe] = useState<recipe>();
+	const [commentData, setCommentData] = useState<{ text: string }>({ text: '' });
 	const [currentComments, setCurrentComments] = useState<commentProps[]>([]);
 	const [isLoading, setIsLoading] = useState(false);
 	const [like, setLike] = useState(false);
 
 	const params = useParams();
+	const navigate = useNavigate();
 
 	if (!auth || !user) throw new Error('Usuario não encontrado');
 
 	const { isAuthenticated } = auth;
 	const { username, profilePicture } = user;
 
-	const [sidebarOpen, setSidebarOpen] = useState(false);
 
 	function handleSideBarToggle() {
 		setSidebarOpen(!sidebarOpen);
 	}
 
+	function handleChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
+		const key = e.target.name;
+		const value = e.target.value;
+
+		setCommentData((prev) => ({ ...prev, [key]: value }));
+		console.log(commentData);
+	}
+
+	async function handleCommentSubmit() {
+		try {
+			await createComment(commentData, params.id);
+			fetchComments();
+		} catch (err: any) {
+			toast.error(err.response.data.msg)	
+		}
+	}
+
 	async function fetchRecipe() {
+		const recipeID = params.id!;
 		setIsLoading(true);
 		try {
-			const response = await axios.get(`${API_URL}/api/v1/recipes/${params.id}`);
-			setCurrentRecipe(response.data.data);
+			const recipe = await getRecipe(recipeID);
+			setCurrentRecipe(recipe);
 			setIsLoading(false);
 		} catch (error) {
-			console.log(error);
+			navigate('/recipes');
+			toast.error('Receita não encontrada!');
 		}
 	}
 
 	async function fetchComments() {
-		try {
-			const response = await axios.get(`${API_URL}/api/v1/recipes/${params.id}/comments`);
-			setCurrentComments(response.data.data);
-		} catch (error) {
-			console.log(error);
-		}
+		const recipeID = params.id!;
+		const comments = await getRecipeComments(recipeID);
+		setCurrentComments(comments);
 	}
 
 	useEffect(() => {
@@ -211,7 +230,7 @@ export default function Recipe() {
 										<h4 className='text-lg font-semibold'>Modo de preparo</h4>
 									</div>
 									<div>
-										<ul className='pt-4 space-y-2'>
+										<ul className='pt-4 space-y-4'>
 											{currentRecipe?.instructions.map((instruction) => (
 												<StepListItem
 													instructions={instruction.description}
@@ -228,7 +247,7 @@ export default function Recipe() {
 										<div className='p-1.5 text-white bg-emerald-600 rounded-xl'>
 											<MessageCircleIcon />
 										</div>
-										<span className='font-semibold text-gray-700'>Comentarios ({1})</span>
+										<span className='font-semibold text-gray-700'>Comentarios ({currentComments.length})</span>
 									</div>
 									<div>
 										<div className='pt-8'>
@@ -249,10 +268,13 @@ export default function Recipe() {
 													)}
 													<div className='w-full'>
 														<textarea
-															name='comment'
-															id='comment'
+															onChange={handleChange}
+															name='text'
+															id='text'
 															className='w-full p-4 transition duration-100 ease-in border border-gray-300 rounded-md focus:ring focus:ring-emerald-500 outline-0'></textarea>
-														<button className='flex items-center gap-2 px-4 py-2 mt-2 text-white transition duration-100 ease-in cursor-pointer hover:bg-emerald-700 rounded-xl bg-emerald-600'>
+														<button
+															onClick={handleCommentSubmit}
+															className='flex items-center gap-2 px-4 py-2 mt-2 text-white transition duration-100 ease-in cursor-pointer hover:bg-emerald-700 rounded-xl bg-emerald-600'>
 															<Send size={16} /> comentar
 														</button>
 													</div>
