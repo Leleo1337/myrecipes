@@ -1,13 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router';
 import { ArrowLeft, Clock, Eye, EyeOff, ImageIcon, Loader2, Plus, Save, Users2, X } from 'lucide-react';
 import Header from '../../components/ui/Header';
 import SideBar from '../../components/ui/sideBar';
 import type { recipeForm } from '../../types/recipes';
-import axios from 'axios';
 import generateImageLinkFromFile from '../../services/cloudinary';
-
-const API_URL = import.meta.env.VITE_API_URL;
+import { createRecipe } from '../../services/recipes';
 
 const emptyRecipe = {
 	image: '',
@@ -36,7 +34,7 @@ export default function Create() {
 		try {
 			const newImage = await generateImageLinkFromFile(file);
 			const dataToSend = { ...recipeForm, image: newImage };
-			await axios.post(`${API_URL}/api/v1/recipes`, dataToSend);
+			await createRecipe(dataToSend);
 			setRecipeForm(emptyRecipe);
 		} catch (error) {
 			console.log(error);
@@ -116,6 +114,10 @@ export default function Create() {
 		setRecipeForm((prev) => ({ ...prev, instructions: updated }));
 	}
 
+	useEffect(() => {
+		console.log(recipeForm);
+	}, [recipeForm]);
+
 	return (
 		<>
 			{sidebarOpen && <div className='fixed inset-0 z-3 bg-black/70 md:hidden'></div>}
@@ -187,14 +189,14 @@ export default function Create() {
 									id='category'
 									onChange={handleChange}
 									className='w-full px-4 py-3 transition duration-75 ease-in border rounded-md border-slate-300 outline-0 focus:ring ring-emerald-500'>
-									<option value='Café da manha'>Café da manha</option>
-									<option value='Almoço'>Almoço</option>
-									<option value='Jantar'>Jantar</option>
-									<option value='Entrada'>Entrada</option>
-									<option value='Prato principal'>Prato principal</option>
-									<option value='Sobremesa'>Sobremesa</option>
-									<option value='Bebida'>Bebida</option>
-									<option value='Lanche'>Lanche</option>
+									<option value='cafe da manha'>Café da manha</option>
+									<option value='almoço'>Almoço</option>
+									<option value='jantar'>Jantar</option>
+									<option value='entrada'>Entrada</option>
+									<option value='sobremesa'>Sobremesa</option>
+									<option value='bebida'>Bebida</option>
+									<option value='lanche'>Lanche</option>
+									<option value='outro'>Outro</option>
 								</select>
 							</div>
 							<div className='flex flex-col gap-1'>
@@ -208,9 +210,9 @@ export default function Create() {
 									id='difficulty'
 									onChange={handleChange}
 									className='w-full px-4 py-3 transition duration-75 ease-in border rounded-md border-slate-300 outline-0 focus:ring ring-emerald-500'>
-									<option value='Fácil'>Fácil</option>
-									<option value='Medio'>Medio</option>
-									<option value='Dificil'>Dificil</option>
+									<option value='facil'>Fácil</option>
+									<option value='medio'>Medio</option>
+									<option value='dificil'>Dificil</option>
 								</select>
 							</div>
 						</div>
