@@ -33,7 +33,7 @@ export default function Login() {
 			setTimeout(() => {
 				auth?.login(token);
 			}, 2000);
-			toast.success('Welcome back!');
+			toast.success('Bem vindo de volta!');
 		} catch (error: any) {
 			setError(error.response.data.msg);
 		}
