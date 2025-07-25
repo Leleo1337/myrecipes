@@ -13,7 +13,7 @@ import AuthRoute from './components/routes/AuthRoute';
 function App() {
 	return (
 		<>
-			<Toaster richColors />
+			<Toaster richColors position='top-center'/>
 			<BrowserRouter basename='/'>
 				<Routes>
 					<Route
