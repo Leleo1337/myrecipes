@@ -1,15 +1,13 @@
 import axios from 'axios';
+import { isFileSupportedFileType } from '../utils/fileHelpers';
 
 const CLOUD_NAME = import.meta.env.VITE_CLOUD_NAME;
 
-async function generateImageLinkFromFile(fileObj: FileList | undefined): Promise<string | undefined> {
-	if(!fileObj) return
+async function generateImageLinkFromFile(fileObj: FileList | null): Promise<string | undefined> {
+	if (!fileObj) return;
 	const image = fileObj[0];
 
-	const supportedTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/webp', 'image/apng'];
-	if (!supportedTypes.includes(image.type)) {
-		return;
-	}
+	if (!isFileSupportedFileType(image)) return;
 
 	const data = new FormData();
 
