@@ -10,7 +10,7 @@ import { getAllRecipes, getFeaturedRecipes } from '../../services/recipes';
 
 export default function Recipes() {
 	const [sidebarOpen, setSidebarOpen] = useState(false);
-	const [featured, setFeatured] = useState<recipe[]>([])
+	const [featured, setFeatured] = useState<recipe[]>([]);
 	const [recipes, setRecipes] = useState<recipe[]>([]);
 	const [isLoading, setIsLoading] = useState(true);
 	const pageIndex = 1;
@@ -18,10 +18,10 @@ export default function Recipes() {
 	async function fetchRecipes() {
 		setIsLoading(true);
 		try {
-			const allRecipes = await getAllRecipes()
-			const featuredRecipes = await getFeaturedRecipes()
+			const allRecipes = await getAllRecipes();
+			const featuredRecipes = await getFeaturedRecipes();
 			setRecipes(allRecipes);
-			setFeatured(featuredRecipes)
+			setFeatured(featuredRecipes);
 			setIsLoading(false);
 		} catch (error) {
 			console.log(error);
@@ -68,13 +68,15 @@ export default function Recipes() {
 								<p className='font-semibold text-gray-600'>As mais curtidas!</p>
 							</div>
 						</div>
-						<div className='flex flex-col grid-cols-2 gap-4 lg:grid'>
-							<div className='row-span-2 lg:block'>
-								<LargeFeaturedRecipe recipe={featured[0]}/>
+						{featured.length > 2 && (
+							<div className='flex flex-col grid-cols-2 gap-4 lg:grid'>
+								<div className='row-span-2 lg:block'>
+									<LargeFeaturedRecipe recipe={featured[0]} />
+								</div>
+								<SmallFeaturedRecipeCard recipe={featured[1]} />
+								<SmallFeaturedRecipeCard recipe={featured[2]} />
 							</div>
-							<SmallFeaturedRecipeCard recipe={featured[1]}/>
-							<SmallFeaturedRecipeCard recipe={featured[2]}/>
-						</div>
+						)}
 					</section>
 					<section className='pb-4'>
 						<div className='p-4 bg-white border border-gray-300 shadow-xs rounded-xl'>
