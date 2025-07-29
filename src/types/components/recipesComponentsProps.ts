@@ -1,5 +1,7 @@
 export type RecipeCardProps = {
 	_id?: string;
+	creatorProfilePicture: string;
+	creatorUsername: string;
 	difficulty: 'facil' | 'medio' | 'dificil';
 	category: string;
 	image: string;
@@ -7,12 +9,12 @@ export type RecipeCardProps = {
 	title: string;
 	cookingTime: number;
 	portions: number;
-    likesCount: number
+	likesCount: number;
 };
 
 export type featuredCardProps = {
-	recipe: RecipeCardProps
-}
+	recipe: RecipeCardProps;
+};
 
 export type recipeStep = {
 	step: number;
@@ -20,7 +22,7 @@ export type recipeStep = {
 };
 
 export type recipeIngredient = {
-    quantity: string
+	quantity: string;
 	unit: string;
 	ingredient: string;
 };
