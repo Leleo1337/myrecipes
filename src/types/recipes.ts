@@ -19,6 +19,8 @@ export type recipeForm = {
 
 export type recipe = {
 	_id: string;
+	creatorProfilePicture: string
+	creatorUsername: string
 	image: string;
 	title: string;
 	description: string;
