@@ -4,7 +4,19 @@ import notFoundImage from '../../assets/404Image.jpeg';
 import type { RecipeCardProps } from '../../types/components/recipesComponentsProps';
 import Avatar from 'react-avatar';
 
-export default function RecipeCard({ _id, difficulty, category, image, description, title, cookingTime, portions, likesCount }: RecipeCardProps) {
+export default function RecipeCard({
+	_id,
+	creatorProfilePicture,
+	creatorUsername,
+	difficulty,
+	category,
+	image,
+	description,
+	title,
+	cookingTime,
+	portions,
+	likesCount,
+}: RecipeCardProps) {
 	const difficultyColors = {
 		facil: 'bg-green-600/80 text-white',
 		medio: 'bg-yellow-500/80 text-black',
@@ -44,16 +56,24 @@ export default function RecipeCard({ _id, difficulty, category, image, descripti
 					</div>
 					<div className='border-t border-gray-400/30'>
 						<div className='flex items-center justify-between'>
-							<div className='flex pt-4'>
+							<div className='flex items-center pt-4'>
 								<div className='flex items-center'>
-									<Avatar
-										name={'createdBy image'}
-										size='24'
-										className='mr-2 rounded-full'
-									/>
+									{creatorProfilePicture ? (
+										<img
+											src={creatorProfilePicture}
+											alt='user pfp'
+											className='w-7 h-7 mr-2 text-xs rounded-full outline-1 outline-black/20'
+										/>
+									) : (
+										<Avatar
+											name={creatorUsername}
+											size='24'
+											className='mr-2 rounded-full'
+										/>
+									)}
 								</div>
 								<div className='flex flex-col'>
-									<span className='text-sm font-semibold text-gray-700'>username</span>
+									<span className='text-sm font-semibold text-gray-700'>{creatorUsername}</span>
 								</div>
 							</div>
 							<div className='flex gap-4'>
