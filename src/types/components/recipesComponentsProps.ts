@@ -14,13 +14,13 @@ export type featuredCardProps = {
 	recipe: RecipeCardProps
 }
 
-export type stepListItemProps = {
+export type recipeStep = {
 	step: number;
 	instructions: string;
 };
 
-export type ingredientListProps = {
+export type recipeIngredient = {
     quantity: string
-	unity: string;
+	unit: string;
 	ingredient: string;
 };
