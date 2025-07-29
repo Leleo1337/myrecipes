@@ -122,10 +122,10 @@ export default function RecipeComments() {
 					) : currentComments.length > 0 ? (
 						currentComments.map((comment) => (
 							<RecipeComment
-								author={comment.author}
-								date={comment.date}
+								profilePicture={comment.profilePicture}
+								username={comment.username}
 								text={comment.text}
-								image={comment.image}
+								date={comment.date}
 							/>
 						))
 					) : (
