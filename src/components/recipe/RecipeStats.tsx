@@ -7,11 +7,12 @@ export type recipeStatsProps = {
 	cookingTime: number;
 	portions: number;
 	difficulty: string;
-	username: string;
+	creatorUsername: string;
+	creatorProfilePicture: string;
 	likesCount: number;
 };
 
-export default function RecipeStats({ cookingTime, portions, difficulty, username, likesCount }: recipeStatsProps) {
+export default function RecipeStats({ cookingTime, portions, difficulty, creatorProfilePicture, creatorUsername, likesCount }: recipeStatsProps) {
 	const auth = useContext(AuthContext);
 	const [like, setLike] = useState(false);
 
@@ -52,15 +53,23 @@ export default function RecipeStats({ cookingTime, portions, difficulty, usernam
 			</div>
 			<div className='flex items-center justify-between w-full px-3 pt-8 border-t border-gray-200'>
 				<div className='flex items-center w-full gap-1'>
-					<div>
-						<Avatar
-							name={username}
-							size='36'
-							className='mr-2 text-xs rounded-full outline-1 outline-green-500/80'
+					{creatorProfilePicture ? (
+						<img
+							src={creatorProfilePicture}
+							alt='user pfp'
+							className='w-8 h-8 mr-2 text-xs rounded-full outline-1 outline-black/20'
 						/>
-					</div>
+					) : (
+						<div>
+							<Avatar
+								name={creatorUsername}
+								size='36'
+								className='mr-2 text-xs rounded-full outline-1 outline-green-500/80'
+							/>
+						</div>
+					)}
 					<div className='flex flex-col'>
-						<span className='text-sm font-semibold'>admin</span>
+						<span className='text-sm font-semibold'>{creatorUsername}</span>
 						<span className='hidden text-xs text-gray-500 sm:block'>Chef da comunidade</span>
 					</div>
 				</div>
