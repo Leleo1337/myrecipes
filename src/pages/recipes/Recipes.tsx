@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import SideBar from '../../components/ui/sideBar';
 import Header from '../../components/ui/Header';
-import { ArrowLeft, ArrowRight, Filter, Search, TrendingUpIcon } from 'lucide-react';
+import { Filter, Search, TrendingUpIcon } from 'lucide-react';
 import LargeFeaturedRecipe from '../../components/recipes/LargeFeaturedRecipe';
 import SmallFeaturedRecipeCard from '../../components/recipes/SmallFeaturedRecipe';
 import RecipeCard from '../../components/recipes/RecipeCard';
@@ -13,7 +13,6 @@ export default function Recipes() {
 	const [featured, setFeatured] = useState<recipe[]>([]);
 	const [recipes, setRecipes] = useState<recipe[]>([]);
 	const [isLoading, setIsLoading] = useState(true);
-	const pageIndex = 1;
 
 	async function fetchRecipes() {
 		setIsLoading(true);
@@ -142,17 +141,6 @@ export default function Recipes() {
 									title={recipes.title}
 								/>
 							))}
-						</div>
-						<div className='flex items-center justify-center py-8'>
-							<div className='flex gap-4'>
-								<div className='p-1 text-white cursor-pointer bg-emerald-600 rounded-xl hover:bg-emerald-700'>
-									<ArrowLeft size={30} />
-								</div>
-								<div className='text-2xl font-semibold'>{pageIndex}</div>
-								<div className='p-1 text-white cursor-pointer bg-emerald-600 rounded-xl hover:bg-emerald-700'>
-									<ArrowRight size={30} />
-								</div>
-							</div>
 						</div>
 					</section>
 				</main>
