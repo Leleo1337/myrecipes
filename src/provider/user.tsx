@@ -5,6 +5,7 @@ import AuthContext from '../context/auth';
 import { removeToken } from '../services/auth';
 
 type UserType = {
+	userID: string | undefined;
 	username: string | undefined;
 	profilePicture?: string | undefined;
 };
@@ -34,5 +35,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
 		setToken(auth.token);
 	}, [auth?.token]);
 
-	return <UserContext.Provider value={{ profilePicture: user?.profilePicture, username: user?.username }}>{children}</UserContext.Provider>;
+	return (
+		<UserContext.Provider value={{ userID: user?.userID, profilePicture: user?.profilePicture, username: user?.username }}>{children}</UserContext.Provider>
+	);
 }
