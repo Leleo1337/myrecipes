@@ -81,7 +81,8 @@ export default function Recipe() {
 									difficulty={currentRecipe.difficulty}
 									portions={currentRecipe.portions}
 									likesCount={currentRecipe.likesCount}
-									username={currentRecipe.createdBy}
+									creatorProfilePicture={currentRecipe.creatorProfilePicture}
+									creatorUsername={currentRecipe.creatorUsername}
 								/>
 							</div>
 						</div>
