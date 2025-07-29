@@ -1,6 +1,6 @@
 export type commentProps = {
-    image?: string;
-	author: string;
-	date: string;
+    profilePicture?: string;
+	username: string;
 	text: string;
+	date: string;
 };
