@@ -18,12 +18,12 @@ export type recipeForm = {
 };
 
 export type recipe = {
-    _id: string
+	_id: string;
 	image: string;
 	title: string;
 	description: string;
 	category: string;
-	difficulty: "facil" | "medio" | "dificil";
+	difficulty: 'facil' | 'medio' | 'dificil';
 	cookingTime: number;
 	portions: number;
 	ingredients: {
@@ -35,5 +35,6 @@ export type recipe = {
 		step: number;
 		description: string;
 	}[];
-    likesCount: number
+	createdBy: string;
+	likesCount: number;
 };
