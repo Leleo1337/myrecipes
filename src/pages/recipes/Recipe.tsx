@@ -2,7 +2,7 @@ import { Link, useNavigate, useParams } from 'react-router';
 import Header from '../../components/ui/Header';
 import SideBar from '../../components/ui/sideBar';
 import { useContext, useEffect, useState } from 'react';
-import { ArrowLeft, ChefHat, Clock, Heart, MessageCircleIcon, Send, Share2, Shield, Star, Users2 } from 'lucide-react';
+import { ArrowLeft, ChefHat, Clock, Heart, Loader2, MessageCircleIcon, Send, Share2, Shield, Star, Users2 } from 'lucide-react';
 import StepListItem from '../../components/recipe/StepListItem';
 import IngredientListItem from '../../components/recipe/IngredientListItem';
 import notFoundImage from '../../assets/404Image.jpeg';
@@ -16,29 +16,23 @@ import { createComment, getRecipeComments } from '../../services/comments';
 import { getRecipe } from '../../services/recipes';
 import { toast } from 'sonner';
 
-
 export default function Recipe() {
-	const auth = useContext(AuthContext);
-	const user = useContext(UserContext);
 	const [sidebarOpen, setSidebarOpen] = useState(false);
 	const [currentRecipe, setCurrentRecipe] = useState<recipe>();
 	const [commentData, setCommentData] = useState<{ text: string }>({ text: '' });
 	const [currentComments, setCurrentComments] = useState<commentProps[]>([]);
-	const [isLoading, setIsLoading] = useState(false);
+	const [isPageLoading, setIsPageLoading] = useState(false);
+	const [isCommentsLoading, setIsCommentsLoading] = useState(false);
 	const [like, setLike] = useState(false);
-
-	const params = useParams();
+	const auth = useContext(AuthContext);
+	const user = useContext(UserContext);
 	const navigate = useNavigate();
+	const params = useParams();
 
 	if (!auth || !user) throw new Error('Usuario não encontrado');
-
+	console.log(user)
 	const { isAuthenticated } = auth;
 	const { username, profilePicture } = user;
-
-
-	function handleSideBarToggle() {
-		setSidebarOpen(!sidebarOpen);
-	}
 
 	function handleChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
 		const key = e.target.name;
@@ -53,17 +47,17 @@ export default function Recipe() {
 			await createComment(commentData, params.id);
 			fetchComments();
 		} catch (err: any) {
-			toast.error(err.response.data.msg)	
+			toast.error(err.response.data.msg);
 		}
 	}
 
 	async function fetchRecipe() {
 		const recipeID = params.id!;
-		setIsLoading(true);
+		setIsPageLoading(true);
 		try {
 			const recipe = await getRecipe(recipeID);
 			setCurrentRecipe(recipe);
-			setIsLoading(false);
+			setIsPageLoading(false);
 		} catch (error) {
 			navigate('/recipes');
 			toast.error('Receita não encontrada!');
@@ -71,9 +65,15 @@ export default function Recipe() {
 	}
 
 	async function fetchComments() {
+		setIsCommentsLoading(true);
 		const recipeID = params.id!;
 		const comments = await getRecipeComments(recipeID);
 		setCurrentComments(comments);
+		setIsCommentsLoading(false);
+	}
+
+	function handleSideBarToggle() {
+		setSidebarOpen(!sidebarOpen);
 	}
 
 	useEffect(() => {
@@ -109,7 +109,7 @@ export default function Recipe() {
 					</div>
 				</div>
 			</header>
-			{isLoading ? (
+			{isPageLoading ? (
 				<div className='flex items-center justify-center mt-80'>
 					<div className='lds-ring text-emerald-600'>
 						<div></div>
@@ -302,7 +302,14 @@ export default function Recipe() {
 											)}
 										</div>
 										<div className='p-4 space-y-2 md:p-6'>
-											{currentComments.length > 0 ? (
+											{isCommentsLoading ? (
+												<div className='flex items-center justify-center'>
+													<Loader2
+														className='animate-spin text-emerald-600'
+														size={40}
+													/>
+												</div>
+											) : currentComments.length > 0 ? (
 												currentComments.map((comment) => (
 													<Comment
 														author={comment.author}
