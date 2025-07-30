@@ -27,12 +27,12 @@ export default function RecipeComments() {
 		const value = e.target.value;
 
 		setCommentData((prev) => ({ ...prev, [key]: value }));
-		console.log(commentData);
 	}
 
 	async function handleCommentSubmit() {
 		try {
 			await createComment(commentData, params.id);
+			setCommentData({ text: '' });
 			fetchComments();
 		} catch (err: any) {
 			toast.error(err.response.data.msg);
@@ -79,6 +79,7 @@ export default function RecipeComments() {
 							<div className='w-full'>
 								<textarea
 									onChange={handleChange}
+									value={commentData.text}
 									name='text'
 									id='text'
 									className='w-full p-4 transition duration-100 ease-in border border-gray-300 rounded-md focus:ring focus:ring-emerald-500 outline-0'></textarea>
