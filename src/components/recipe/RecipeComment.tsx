@@ -12,7 +12,7 @@ export default function RecipeComment({ profilePicture, username, text, date }: 
 				/>
 			) : (
 				<Avatar
-					name={profilePicture}
+					name={username}
 					size='32'
 					className='w-8 h-8 text-xs rounded-full'
 				/>
