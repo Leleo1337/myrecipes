@@ -56,21 +56,21 @@ export default function LargeFeaturedRecipe({ recipe }: featuredCardProps) {
 					</div>
 				</div>
 				<div className='flex items-center gap-2 md:pt-4'>
-					{recipe.creatorProfilePicture ? (
+					{recipe.createdBy.profilePicture ? (
 						<img
-							src={recipe.creatorProfilePicture}
+							src={recipe.createdBy.profilePicture}
 							alt='user pfp'
 								className='w-7 h-7 text-xs rounded-full outline-1 outline-black/20'
 						/>
 					) : (
 						<Avatar
-							name={recipe.creatorUsername}
+							name={recipe.createdBy.name}
 							size='24'
 							className='rounded-full'
 						/>
 					)}
 					<div className='flex flex-col'>
-						<span className='text-xs font-semibold'>{recipe.creatorUsername}</span>
+						<span className='text-xs font-semibold'>{recipe.createdBy.name}</span>
 					</div>
 				</div>
 			</div>

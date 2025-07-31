@@ -6,8 +6,7 @@ import Avatar from 'react-avatar';
 
 export default function RecipeCard({
 	_id,
-	creatorProfilePicture,
-	creatorUsername,
+	createdBy,
 	difficulty,
 	category,
 	image,
@@ -58,22 +57,22 @@ export default function RecipeCard({
 						<div className='flex items-center justify-between'>
 							<div className='flex items-center pt-4'>
 								<div className='flex items-center'>
-									{creatorProfilePicture ? (
+									{createdBy.profilePicture ? (
 										<img
-											src={creatorProfilePicture}
+											src={createdBy.profilePicture}
 											alt='user pfp'
 											className='w-7 h-7 mr-2 text-xs rounded-full outline-1 outline-black/20'
 										/>
 									) : (
 										<Avatar
-											name={creatorUsername}
+											name={createdBy.name}
 											size='24'
 											className='mr-2 rounded-full'
 										/>
 									)}
 								</div>
 								<div className='flex flex-col'>
-									<span className='text-sm font-semibold text-gray-700'>{creatorUsername}</span>
+									<span className='text-sm font-semibold text-gray-700'>{createdBy.name}</span>
 								</div>
 							</div>
 							<div className='flex gap-4'>

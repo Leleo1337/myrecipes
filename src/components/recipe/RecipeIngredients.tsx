@@ -1,15 +1,8 @@
 import { ChefHat } from 'lucide-react';
 import RecipeIngredient from './RecipeIngredient';
+import type { recipeIngredientList } from '../../types/components/recipesComponentsProps';
 
-export type recipeIngredientsTypes = {
-	ingredients: {
-		quantity: string;
-		unit: string;
-		name: string;
-	}[];
-};
-
-export default function RecipeIngredients({ ingredients }: recipeIngredientsTypes) {
+export default function RecipeIngredients({ ingredients }: recipeIngredientList) {
 	return (
 		<>
 			<div className='p-4 bg-white shadow md:p-6 rounded-2xl'>
@@ -23,6 +16,7 @@ export default function RecipeIngredients({ ingredients }: recipeIngredientsType
 					<ul className='pt-4 space-y-2'>
 						{ingredients.map((ingredient) => (
 							<RecipeIngredient
+								key={ingredient._id}
 								quantity={ingredient.quantity}
 								unit={ingredient.unit}
 								ingredient={ingredient.name}

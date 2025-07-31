@@ -123,6 +123,7 @@ export default function RecipeComments() {
 					) : currentComments.length > 0 ? (
 						currentComments.map((comment) => (
 							<RecipeComment
+								key={comment._id}
 								profilePicture={comment.profilePicture}
 								username={comment.username}
 								text={comment.text}

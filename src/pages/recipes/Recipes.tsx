@@ -126,8 +126,7 @@ export default function Recipes() {
 							<RecipeCard
 								key={recipes._id}
 								_id={recipes._id}
-								creatorProfilePicture={recipes.creatorProfilePicture}
-								creatorUsername={recipes.creatorUsername}
+								createdBy={recipes.createdBy}
 								category={recipes.category}
 								cookingTime={recipes.cookingTime}
 								description={recipes.description}

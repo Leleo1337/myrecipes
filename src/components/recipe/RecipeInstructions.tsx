@@ -1,14 +1,8 @@
 import { Star } from 'lucide-react';
 import RecipeStep from './RecipeStep';
+import type { recipeInstructionListTypes } from '../../types/components/recipesComponentsProps';
 
-export type recipeInstructionsTypes = {
-	instructions: {
-		description: string;
-		step: number;
-	}[];
-};
-
-export default function RecipeInstructions({ instructions }: recipeInstructionsTypes) {
+export default function RecipeInstructions({ instructions }: recipeInstructionListTypes) {
 	return (
 		<>
 			<div className='p-4 bg-white shadow md:p-6 rounded-2xl'>
@@ -22,6 +16,7 @@ export default function RecipeInstructions({ instructions }: recipeInstructionsT
 					<ul className='pt-4 space-y-4'>
 						{instructions.map((instruction) => (
 							<RecipeStep
+								key={instruction._id}
 								instructions={instruction.description}
 								step={instruction.step}
 							/>

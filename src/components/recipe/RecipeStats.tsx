@@ -7,12 +7,14 @@ export type recipeStatsProps = {
 	cookingTime: number;
 	portions: number;
 	difficulty: string;
-	creatorUsername: string;
-	creatorProfilePicture: string;
 	likesCount: number;
+	createdBy: {
+		name: string
+		profilePicture: string
+	}
 };
 
-export default function RecipeStats({ cookingTime, portions, difficulty, creatorProfilePicture, creatorUsername, likesCount }: recipeStatsProps) {
+export default function RecipeStats({ cookingTime, portions, difficulty, createdBy, likesCount }: recipeStatsProps) {
 	const auth = useContext(AuthContext);
 	const [like, setLike] = useState(false);
 
@@ -53,23 +55,23 @@ export default function RecipeStats({ cookingTime, portions, difficulty, creator
 			</div>
 			<div className='flex items-center justify-between w-full px-3 pt-8 border-t border-gray-200'>
 				<div className='flex items-center w-full gap-1'>
-					{creatorProfilePicture ? (
+					{createdBy.profilePicture ? (
 						<img
-							src={creatorProfilePicture}
+							src={createdBy.profilePicture}
 							alt='user pfp'
 							className='w-8 h-8 mr-2 text-xs rounded-full outline-1 outline-black/20'
 						/>
 					) : (
 						<div>
 							<Avatar
-								name={creatorUsername}
+								name={createdBy.name}
 								size='36'
 								className='mr-2 text-xs rounded-full outline-1 outline-green-500/80'
 							/>
 						</div>
 					)}
 					<div className='flex flex-col'>
-						<span className='text-sm font-semibold'>{creatorUsername}</span>
+						<span className='text-sm font-semibold'>{createdBy.name}</span>
 						<span className='hidden text-xs text-gray-500 sm:block'>Chef da comunidade</span>
 					</div>
 				</div>

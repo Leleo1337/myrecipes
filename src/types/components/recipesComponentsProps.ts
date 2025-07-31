@@ -1,7 +1,9 @@
 export type RecipeCardProps = {
 	_id?: string;
-	creatorProfilePicture: string;
-	creatorUsername: string;
+	createdBy: {
+		name: string,
+		profilePicture: string
+	}
 	difficulty: 'facil' | 'medio' | 'dificil';
 	category: string;
 	image: string;
@@ -17,12 +19,31 @@ export type featuredCardProps = {
 };
 
 export type recipeStep = {
+	_id?: string;
 	step: number;
 	instructions: string;
 };
 
 export type recipeIngredient = {
+	_id?: string;
 	quantity: string;
 	unit: string;
 	ingredient: string;
+};
+
+export type recipeIngredientList = {
+	ingredients: {
+		_id?: string
+		quantity: string;
+		unit: string;
+		name: string;
+	}[];
+};
+
+export type recipeInstructionListTypes = {
+	instructions: {
+		_id?: string;
+		description: string;
+		step: number;
+	}[];
 };

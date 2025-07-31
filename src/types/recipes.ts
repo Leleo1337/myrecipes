@@ -19,8 +19,6 @@ export type recipeForm = {
 
 export type recipe = {
 	_id: string;
-	creatorProfilePicture: string
-	creatorUsername: string
 	image: string;
 	title: string;
 	description: string;
@@ -37,6 +35,9 @@ export type recipe = {
 		step: number;
 		description: string;
 	}[];
-	createdBy: string;
+	createdBy: {
+		name: string;
+		profilePicture: string;
+	};
 	likesCount: number;
 };

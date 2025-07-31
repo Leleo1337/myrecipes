@@ -77,12 +77,11 @@ export default function Recipe() {
 							/>
 							<div className='px-4 py-6 md:px-6'>
 								<RecipeStats
+									createdBy={currentRecipe.createdBy}
 									cookingTime={currentRecipe.cookingTime}
 									difficulty={currentRecipe.difficulty}
 									portions={currentRecipe.portions}
 									likesCount={currentRecipe.likesCount}
-									creatorProfilePicture={currentRecipe.creatorProfilePicture}
-									creatorUsername={currentRecipe.creatorUsername}
 								/>
 							</div>
 						</div>
