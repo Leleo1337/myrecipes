@@ -18,7 +18,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
 	async function fetchUser() {
 		try {
 			const data = await getUserData();
-			setUser(data);
+			setUser({ userID: data._id, profilePicture: data.profilePicture, username: data.name });
 		} catch (error) {
 			removeToken();
 			console.error('Erro ao buscar usuário:', error);

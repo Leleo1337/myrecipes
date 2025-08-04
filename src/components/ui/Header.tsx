@@ -22,7 +22,6 @@ export default function Header({ toggleSide }: headerProps) {
 		if (location.pathname === '/my-recipes') return 3;
 		return 0;
 	}
-
 	const activeTab = getActiveTabIndex();
 
 	return (
