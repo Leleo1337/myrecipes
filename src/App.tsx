@@ -9,11 +9,15 @@ import Recipe from './pages/recipes/Recipe';
 import Recipes from './pages/recipes/Recipes';
 import Create from './pages/recipes/Create';
 import AuthRoute from './components/routes/AuthRoute';
+import Profile from './pages/user/Profile';
 
 function App() {
 	return (
 		<>
-			<Toaster richColors position='top-center'/>
+			<Toaster
+				richColors
+				position='top-center'
+			/>
 			<BrowserRouter basename='/'>
 				<Routes>
 					<Route
@@ -43,6 +47,10 @@ function App() {
 								<Create />
 							</AuthRoute>
 						}
+					/>
+					<Route
+						path='/user/:userID/profile'
+						element={<Profile />}
 					/>
 					<Route
 						path='/login'
