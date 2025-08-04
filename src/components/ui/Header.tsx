@@ -117,7 +117,7 @@ export default function Header({ toggleSide }: headerProps) {
 								</div>
 							</div>
 							<Link
-								to={'/user/profile'}
+								to={`/user/${user.userID}/profile`}
 								className='flex items-center justify-center gap-2 font-semibold text-gray-600 cursor-pointer hover:text-gray-700'>
 								<User />
 								<span>Perfil</span>
