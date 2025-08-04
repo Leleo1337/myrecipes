@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import UserContext from '../context/user';
-import { getUserData } from '../services/user';
+import { getLoggedInUserData } from '../services/user';
 import AuthContext from '../context/auth';
 import { removeToken } from '../services/auth';
 
@@ -17,7 +17,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
 
 	async function fetchUser() {
 		try {
-			const data = await getUserData();
+			const data = await getLoggedInUserData();
 			setUser({ userID: data._id, profilePicture: data.profilePicture, username: data.name });
 		} catch (error) {
 			removeToken();
