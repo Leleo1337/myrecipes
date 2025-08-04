@@ -2,6 +2,7 @@ import { Clock, Heart, MessageCircle, Shield, Users2 } from 'lucide-react';
 import { useContext, useState } from 'react';
 import Avatar from 'react-avatar';
 import AuthContext from '../../context/auth';
+import { Link } from 'react-router';
 
 export type recipeStatsProps = {
 	cookingTime: number;
@@ -9,9 +10,10 @@ export type recipeStatsProps = {
 	difficulty: string;
 	likesCount: number;
 	createdBy: {
-		name: string
-		profilePicture: string
-	}
+		_id: string;
+		name: string;
+		profilePicture: string;
+	};
 };
 
 export default function RecipeStats({ cookingTime, portions, difficulty, createdBy, likesCount }: recipeStatsProps) {
@@ -54,7 +56,9 @@ export default function RecipeStats({ cookingTime, portions, difficulty, created
 				</div>
 			</div>
 			<div className='flex items-center justify-between w-full px-3 pt-8 border-t border-gray-200'>
-				<div className='flex items-center w-full gap-1'>
+				<Link
+					to={`/user/${createdBy._id}/profile`}
+					className='flex items-center gap-1'>
 					{createdBy.profilePicture ? (
 						<img
 							src={createdBy.profilePicture}
@@ -74,7 +78,7 @@ export default function RecipeStats({ cookingTime, portions, difficulty, created
 						<span className='text-sm font-semibold'>{createdBy.name}</span>
 						<span className='hidden text-xs text-gray-500 sm:block'>Chef da comunidade</span>
 					</div>
-				</div>
+				</Link>
 				<div className='flex gap-2'>
 					<div
 						onClick={() => setLike(!like)}
