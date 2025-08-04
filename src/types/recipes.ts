@@ -36,6 +36,7 @@ export type recipe = {
 		description: string;
 	}[];
 	createdBy: {
+		_id: string;
 		name: string;
 		profilePicture: string;
 	};
