@@ -36,3 +36,13 @@ export async function createRecipe(data: recipeForm) {
 		throw err;
 	}
 }
+
+export async function fetchTabRecipes(userID: string, tabIndex: number) {
+	const tab = tabIndex === 1 ? 'created' : 'liked';
+	try {
+		const response = await api.get(`/api/v1/user/${userID}/${tab}`);
+		return response.data.data;
+	} catch (err) {
+		throw err;
+	}
+}
