@@ -37,10 +37,18 @@ export async function createRecipe(data: recipeForm) {
 	}
 }
 
-export async function fetchTabRecipes(userID: string, tabIndex: number) {
-	const tab = tabIndex === 1 ? 'created' : 'liked';
+export async function getUserCreatedRecipes(userID: string) {
 	try {
-		const response = await api.get(`/api/v1/user/${userID}/${tab}`);
+		const response = await api.get(`/api/v1/user/${userID}/created`);
+		return response.data.data;
+	} catch (err) {
+		throw err;
+	}
+}
+
+export async function getUserLikedRecipes(userID: string) {
+	try {
+		const response = await api.get(`/api/v1/user/${userID}/liked`);
 		return response.data.data;
 	} catch (err) {
 		throw err;
