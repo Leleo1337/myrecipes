@@ -19,3 +19,13 @@ export async function getUserData(userID: string | undefined) {
 		throw err;
 	}
 }
+
+export async function updateUser(userID: string, update: any) {
+	try {
+		const data = await api.patch(`/api/v1/user/${userID}`, update);
+		return data.data;
+	} catch (err) {
+		console.log('[ERRO] ALGO DEU ERRADO: ', err);
+		throw err;
+	}
+}
