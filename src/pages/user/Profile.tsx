@@ -5,14 +5,15 @@ import UserContext from '../../context/user';
 import Avatar from 'react-avatar';
 import { getUserData } from '../../services/user';
 import { useNavigate, useParams } from 'react-router';
-import { CameraIcon, ChefHat, Heart } from 'lucide-react';
+import { CameraIcon, ChefHat, Heart, Loader2 } from 'lucide-react';
 import RecipeCard from '../../components/recipes/RecipeCard';
 import type { RecipeCardProps } from '../../types/components/recipesComponentsProps';
 import { fetchTabRecipes } from '../../services/recipes';
+import { toast } from 'sonner';
 
 export default function Profile() {
 	const [profileData, setProfileData] = useState({
-		_id: '686eb09877ecfb0ea5486ba1',
+		_id: '',
 		profilePicture: '',
 		name: '',
 		email: '',
@@ -22,37 +23,43 @@ export default function Profile() {
 	const [sidebarOpen, setSidebarOpen] = useState(false);
 	const [recipes, setRecipes] = useState<RecipeCardProps[]>([]);
 	const [activeTab, setActiveTab] = useState(1);
-	const user = useContext(UserContext);
+	const [isLoading, setIsloading] = useState(true);
+
 	const navigate = useNavigate();
 	const params = useParams();
+
+	const user = useContext(UserContext);
 	if (!user) throw new Error('Usuario não encontrado');
 
 	const isLoggedInUserProfile = profileData._id == user.userID;
 
-	async function handleFetchProfile() {
+	async function fetchProfile() {
 		try {
 			const data = await getUserData(params.userID);
 			setProfileData(data);
-			await fetchData(data._id);
+			await fetchRecipes(data._id);
 		} catch (error) {
 			console.log(error);
+			navigate('/recipes');
+			toast.error('usuario não encontrado!');
 		}
 	}
 
-	async function fetchData(userID: string) {
+	async function fetchRecipes(userID: string) {
+		setRecipes([]);
+		setIsloading(true);
 		const data = await fetchTabRecipes(userID, activeTab);
+		setIsloading(false);
 		setRecipes(data);
 	}
 
 	useEffect(() => {
-		handleFetchProfile();
+		fetchProfile();
 	}, [params.userID]);
 
 	useEffect(() => {
-		if (profileData._id) {
-			fetchData(profileData._id);
-		}
-	}, [activeTab, profileData._id]);
+		fetchRecipes(profileData._id);
+	}, [activeTab]);
 
 	return (
 		<>
@@ -124,6 +131,14 @@ export default function Profile() {
 						</div>
 					</div>
 					<div className='py-4'>
+						{isLoading && (
+							<div className='flex items-center justify-center my-16'>
+								<Loader2
+									size={64}
+									className='animate-spin text-emerald-600'
+								/>
+							</div>
+						)}
 						{recipes.length > 0 ? (
 							<div className='grid grid-cols-4 gap-4'>
 								{recipes.map((recipe) => (
@@ -142,24 +157,39 @@ export default function Profile() {
 									/>
 								))}
 							</div>
-						) : isLoggedInUserProfile ? (
-							<div className='relative flex flex-col items-center justify-center py-16 text-center grid-0'>
-								<ChefHat
-									size={64}
-									className='text-emerald-600'
-								/>
-								<span>Você não criou nenhuma receita ainda!</span>
-								<p>
-									Você pode criar uma
+						) : isLoggedInUserProfile && !isLoading ? (
+							<div className='flex flex-col items-center justify-center py-16 text-center grid-0 text-gray-700'>
+								{activeTab === 1 ? (
+									<ChefHat
+										size={64}
+										className='text-emerald-600'
+									/>
+								) : (
+									<Heart
+										size={64}
+										className='text-emerald-600'
+									/>
+								)}
+								<span>Você não {activeTab === 1 ? 'Criou' : 'Curtiu'} nenhuma receita ainda!</span>
+								<div className='flex gap-1'>
+									{activeTab === 1 && <p>Você pode criar uma</p>}
 									<button
-										onClick={() => navigate('/recipes/create')}
+										onClick={() => navigate(activeTab === 1 ? '/recipes/create' : '/recipes')}
 										className='font-semibold underline cursor-pointer hover:text-emerald-700 text-emerald-600'>
-										aqui!
+										{activeTab === 1 ? 'Aqui!' : 'Explore receitas!'}
 									</button>
-								</p>
+								</div>
 							</div>
 						) : (
-							<div></div>
+							!isLoading && (
+								<div className='flex flex-col gap-2 items-center justify-center py-16 text-center grid-0'>
+									<Heart
+										size={64}
+										className='text-emerald-600'
+									/>
+									<span className='text-gray-700'>Esse usuario não curtiu nenhuma receita!</span>
+								</div>
+							)
 						)}
 					</div>
 				</section>
