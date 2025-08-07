@@ -19,7 +19,7 @@ export default function Header({ toggleSide }: headerProps) {
 	function getActiveTabIndex() {
 		if (location.pathname === '/recipes') return 1;
 		if (location.pathname === '/recipes/create') return 2;
-		if (location.pathname === '/my-recipes') return 3;
+		if (location.pathname === `/user/${user?.userID}/profile`) return 3;
 		return 0;
 	}
 	const activeTab = getActiveTabIndex();
@@ -62,7 +62,7 @@ export default function Header({ toggleSide }: headerProps) {
 						to={'/recipes'}
 						className={`${
 							activeTab === 1
-								? 'flex items-center gap-1 bg-emerald-600 font-semibold text-white px-4 py-2 rounded-xl shadow-md cursor-pointer'
+								? 'flex items-center gap-1 bg-emerald-600 font-semibold text-white px-3 py-1.5 rounded-xl shadow-md cursor-pointer'
 								: 'flex items-center gap-1 font-semibold text-gray-500 hover:text-gray-600 transition ease-in duration-100 cursor-pointer'
 						}`}>
 						<Search size={16} />
@@ -74,21 +74,21 @@ export default function Header({ toggleSide }: headerProps) {
 								to={'/recipes/create'}
 								className={`${
 									activeTab === 2
-										? 'flex items-center gap-1 bg-emerald-600 font-semibold text-white px-4 py-2 rounded-xl shadow-md cursor-pointer'
+										? 'flex items-center gap-1 bg-emerald-600 font-semibold text-white px-3 py-1.5 rounded-xl shadow-md cursor-pointer'
 										: 'flex items-center gap-1 font-semibold text-gray-500 hover:text-gray-600 transition ease-in duration-100 cursor-pointer'
 								}`}>
 								<Plus size={16} />
 								<span>Criar</span>
-							</Link>
+							</Link>{' '}
 							<Link
-								to={'/recipes/my-recipes'}
+								to={`/user/${user.userID}/profile`}
 								className={`${
 									activeTab === 3
-										? 'flex items-center gap-1 bg-emerald-600 font-semibold text-white px-4 py-2 rounded-xl shadow-md cursor-pointer'
+										? 'flex items-center gap-1 bg-emerald-600 font-semibold text-white px-3 py-1.5 rounded-xl shadow-md cursor-pointer'
 										: 'flex items-center gap-1 font-semibold text-gray-500 hover:text-gray-600 transition ease-in duration-100 cursor-pointer'
 								}`}>
-								<Search size={16} />
-								<span>Minhas receitas</span>
+								<User size={16} />
+								<span>Perfil</span>
 							</Link>
 						</>
 					)}
@@ -116,12 +116,6 @@ export default function Header({ toggleSide }: headerProps) {
 									<span className='text-sm font-semibold'>{username}</span>
 								</div>
 							</div>
-							<Link
-								to={`/user/${user.userID}/profile`}
-								className='flex items-center justify-center gap-2 font-semibold text-gray-600 cursor-pointer hover:text-gray-700'>
-								<User />
-								<span>Perfil</span>
-							</Link>
 							<div>
 								<button
 									onClick={logOut}
