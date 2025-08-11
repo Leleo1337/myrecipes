@@ -1,11 +1,6 @@
-import { createContext } from "react";
+import { createContext } from 'react';
+import type { UserContextType } from '../types/context';
 
-type UserContextType = {
-    profilePicture: string | undefined
-    username: string | undefined
-    userID: string | undefined
-}
+const UserContext = createContext<UserContextType | undefined>(undefined);
 
-const UserContext = createContext<UserContextType | undefined>(undefined)
-
-export default UserContext
+export default UserContext;
