@@ -53,6 +53,7 @@ export default function Profile() {
 			</header>
 			<main className='container max-w-[1400px] mx-auto px-4 relative top-24'>
 				<ProfileHeader
+					userID={profileData._id}
 					name={profileData.name}
 					bio={profileData.bio}
 					email={profileData.email}
@@ -61,6 +62,7 @@ export default function Profile() {
 					likedRecipesCount={1}
 					likesReceivedCount={1}
 					isProfileOnwer={isLoggedInUserProfileOwner}
+					onProfileChange={fetchProfile}
 				/>
 				<RecipesSection
 					isLoggedInUserProfileOwner={isLoggedInUserProfileOwner}
