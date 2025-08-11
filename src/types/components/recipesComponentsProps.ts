@@ -47,3 +47,26 @@ export type recipeInstructionListTypes = {
 		step: number;
 	}[];
 };
+
+export type recipeHeaderProps = {
+	recipeID: string;
+	isCreatedByLoggedInUser: boolean;
+};
+
+export type recipeStatsProps = {
+	cookingTime: number;
+	portions: number;
+	difficulty: string;
+	likesCount: number;
+	createdBy: {
+		_id: string;
+		name: string;
+		profilePicture: string;
+	};
+};
+
+export type recipeHeroProps = {
+	image?: string;
+	title: string;
+	description: string;
+};
