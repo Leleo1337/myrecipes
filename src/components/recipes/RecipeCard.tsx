@@ -1,7 +1,7 @@
 import { Clock, Heart, MessageCircleIcon, Users2 } from 'lucide-react';
 import { Link } from 'react-router';
 import notFoundImage from '../../assets/404Image.jpeg';
-import type { RecipeCardProps } from '../../types/components/recipesComponentsProps';
+import type { RecipeCardProps } from '../../types/components/recipes';
 import Avatar from 'react-avatar';
 
 export default function RecipeCard({

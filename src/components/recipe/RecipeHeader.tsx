@@ -1,6 +1,6 @@
 import { ArrowLeft, Settings, Share2 } from 'lucide-react';
 import { Link } from 'react-router';
-import type { recipeHeaderProps } from '../../types/components/recipesComponentsProps';
+import type { recipeHeaderProps } from '../../types/components/recipes';
 
 export default function RecipeHeader({ recipeID, isCreatedByLoggedInUser }: recipeHeaderProps) {
 	return (

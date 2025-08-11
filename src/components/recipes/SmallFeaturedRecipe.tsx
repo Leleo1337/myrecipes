@@ -1,5 +1,5 @@
 import { Clock, Heart } from 'lucide-react';
-import type { featuredCardProps } from '../../types/components/recipesComponentsProps';
+import type { featuredCardProps } from '../../types/components/recipes';
 import { Link } from 'react-router';
 import notFoundImage from '../../assets/404Image.jpeg';
 import Avatar from 'react-avatar';

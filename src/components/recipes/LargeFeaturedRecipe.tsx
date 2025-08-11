@@ -1,6 +1,6 @@
 import { Link } from 'react-router';
 import { Clock, Heart, TrendingUp, Users } from 'lucide-react';
-import type { featuredCardProps } from '../../types/components/recipesComponentsProps';
+import type { featuredCardProps } from '../../types/components/recipes';
 import notFoundImage from '../../assets/404Image.jpeg';
 import Avatar from 'react-avatar';
 

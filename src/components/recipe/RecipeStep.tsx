@@ -1,4 +1,4 @@
-import type { recipeStep  } from "../../types/components/recipesComponentsProps";
+import type { recipeStep  } from "../../types/components/recipes";
 
 export default function RecipeStep({step, instructions}: recipeStep) {
 	return (

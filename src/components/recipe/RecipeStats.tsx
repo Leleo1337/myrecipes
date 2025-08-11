@@ -3,7 +3,7 @@ import { useContext, useState } from 'react';
 import Avatar from 'react-avatar';
 import AuthContext from '../../context/auth';
 import { Link } from 'react-router';
-import type { recipeStatsProps } from '../../types/components/recipesComponentsProps';
+import type { recipeStatsProps } from '../../types/components/recipes';
 
 export default function RecipeStats({ cookingTime, portions, difficulty, createdBy, likesCount }: recipeStatsProps) {
 	const auth = useContext(AuthContext);

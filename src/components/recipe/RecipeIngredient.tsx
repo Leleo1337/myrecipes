@@ -1,4 +1,4 @@
-import type { recipeIngredient } from "../../types/components/recipesComponentsProps";
+import type { recipeIngredient } from "../../types/components/recipes";
 
 export default function RecipeIngredient({ quantity, unit, ingredient }: recipeIngredient) {
 	return (

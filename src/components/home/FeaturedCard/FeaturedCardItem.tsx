@@ -1,4 +1,4 @@
-import type { featuredCardProps } from '../../../types/components/homeComponentsProps';
+import type { featuredCardProps } from '../../../types/components/home';
 
 const colorClasses = {
 	darkgreen: {

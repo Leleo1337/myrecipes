@@ -1,5 +1,5 @@
 import notFoundImage from '../../assets/404Image.jpeg';
-import type { recipeHeroProps } from '../../types/components/recipesComponentsProps';
+import type { recipeHeroProps } from '../../types/components/recipes';
 
 export default function RecipeHero({ image, title, description }: recipeHeroProps) {
 	return (

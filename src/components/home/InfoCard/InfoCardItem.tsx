@@ -1,4 +1,4 @@
-import type { infoCardProps } from '../../../types/components/homeComponentsProps';
+import type { infoCardProps } from '../../../types/components/home';
 
 const colorClasses = {
 	yellow: {

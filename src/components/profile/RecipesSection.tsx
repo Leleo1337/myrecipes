@@ -1,7 +1,7 @@
 import { ChefHat, Heart, Loader2 } from 'lucide-react';
 import RecipeCard from '../recipes/RecipeCard';
 import { useEffect, useState } from 'react';
-import type { RecipeCardProps } from '../../types/components/recipesComponentsProps';
+import type { RecipeCardProps } from '../../types/components/recipes';
 import { useNavigate } from 'react-router';
 import { getUserCreatedRecipes, getUserLikedRecipes } from '../../services/recipes';
 import { toast } from 'sonner';

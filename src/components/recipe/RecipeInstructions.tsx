@@ -1,6 +1,6 @@
 import { Star } from 'lucide-react';
 import RecipeStep from './RecipeStep';
-import type { recipeInstructionListTypes } from '../../types/components/recipesComponentsProps';
+import type { recipeInstructionListTypes } from '../../types/components/recipes';
 
 export default function RecipeInstructions({ instructions }: recipeInstructionListTypes) {
 	return (
