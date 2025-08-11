@@ -1,19 +1,15 @@
 import { CameraIcon } from 'lucide-react';
 import Avatar from 'react-avatar';
-import { convertFileToBase64, isFileSupportedFileType } from '../../utils/fileHelpers';
-
-export type ProfileHeaderProps = {
-	profilePicture: string;
-	name: string;
-	email: string;
-	bio: string;
-	createdRecipesCount: number;
-	likedRecipesCount: number;
-	likesReceivedCount: number;
-	isProfileOnwer: boolean;
-};
+import { isFileSupportedFileType } from '../../utils/fileHelpers';
+import generateImageLinkFromFile from '../../services/cloudinary';
+import { updateUser } from '../../services/user';
+import { toast } from 'sonner';
+import { useContext } from 'react';
+import UserContext from '../../context/user';
+import type { profileHeaderProps } from '../../types/components/home';
 
 export default function ProfileHeader({
+	userID,
 	profilePicture,
 	name,
 	email,
@@ -22,28 +18,38 @@ export default function ProfileHeader({
 	likedRecipesCount,
 	likesReceivedCount,
 	isProfileOnwer,
-}: ProfileHeaderProps) {
+	onProfileChange,
+}: profileHeaderProps) {
+	const user = useContext(UserContext);
 
-	
+	console.log(user);
+
 	async function handleFileUpload(fileObj: FileList | null) {
 		if (!fileObj) return;
 		const file = fileObj[0];
 		if (!isFileSupportedFileType(file)) return;
 
-		const base64Image = await convertFileToBase64(file);
+		const uploadedImage = await generateImageLinkFromFile(fileObj);
 
-		console.log(base64Image);
+		try {
+			await updateUser(userID, { profilePicture: uploadedImage });
+			onProfileChange();
+			user?.setUser({...user, profilePicture: uploadedImage });
+		} catch (error) {
+			console.log(error);
+			toast.error('Algo deu errado! tente novamente mais tarde.');
+		}
 	}
 
 	return (
 		<section className='container px-4 py-6 mx-auto bg-white border rounded-md shadow-xs md:px-6 border-slate-300'>
 			<div className='flex gap-4'>
-				<div className='relative z-0 flex items-center justify-center w-24 h-24 bg-primary-100'>
+				<div className='relative z-0 flex items-center justify-center w-25 h-25 bg-primary-100'>
 					{profilePicture ? (
 						<img
 							src={profilePicture}
 							alt='profile picture'
-							className='object-cover w-full h-full rounded-full'
+							className='w-full h-full rounded-full border border-gray-300'
 						/>
 					) : (
 						<Avatar
@@ -54,18 +60,18 @@ export default function ProfileHeader({
 					{isProfileOnwer && (
 						<div className='absolute bottom-0 right-0 p-1 text-white transition duration-100 ease-in rounded-full cursor-pointer z-2 bg-emerald-600 hover:bg-emerald-700'>
 							<label
-								className='cursor-pointer m-0 p-0'
+								className='w-full h-full m-0 p-0 cursor-pointer'
 								htmlFor='profile-picture-upload'>
 								<CameraIcon />
-								<input
-									id='profile-picture-upload'
-									type='file'
-									className='absolute inset-0 w-full h-full opacity-0 cursor-pointer'
-									onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFileUpload(e.target.files)}
-								/>
 							</label>
+							<input
+								id='profile-picture-upload'
+								type='file'
+								className='hidden'
+								onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFileUpload(e.target.files)}
+							/>
 						</div>
-					)}{' '}
+					)}
 				</div>
 				<div className='flex-1 space-y-1'>
 					<h1 className='text-3xl font-semibold'>{name}</h1>
