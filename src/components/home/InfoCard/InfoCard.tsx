@@ -1,6 +1,5 @@
-import { ChartColumn, Heart, Stars } from "lucide-react";
-import InfoCardItem from "./InfoCardItem";
-
+import { ChartColumn, Heart, Stars } from 'lucide-react';
+import InfoCardItem from './InfoCardItem';
 
 export default function InfoCard() {
 	return (

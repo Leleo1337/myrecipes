@@ -1,9 +1,4 @@
-type infoCardProps = {
-	icon: any;
-	stats: string;
-	paragraph: string;
-	textColor: 'yellow' | 'red' | 'blue';
-};
+import type { infoCardProps } from '../../../types/components/homeComponentsProps';
 
 const colorClasses = {
 	yellow: {

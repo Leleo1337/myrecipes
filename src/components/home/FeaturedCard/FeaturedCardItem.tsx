@@ -1,9 +1,4 @@
-type FeaturedCardProps = {
-	icon: any;
-	title: string;
-	text: string;
-	color: 'darkgreen' | 'green' | 'orange';
-};
+import type { featuredCardProps } from '../../../types/components/homeComponentsProps';
 
 const colorClasses = {
 	darkgreen: {
@@ -23,7 +18,7 @@ const colorClasses = {
 	},
 };
 
-export default function FeaturedCardItem({ icon, title, text, color }: FeaturedCardProps) {
+export default function FeaturedCardItem({ icon, title, text, color }: featuredCardProps) {
 	const selectedColor = colorClasses[color];
 
 	return (

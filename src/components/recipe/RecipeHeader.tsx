@@ -1,12 +1,8 @@
 import { ArrowLeft, Settings, Share2 } from 'lucide-react';
 import { Link } from 'react-router';
+import type { recipeHeaderProps } from '../../types/components/recipesComponentsProps';
 
-export type RecipeHeaderProps = {
-	recipeID: string;
-	isCreatedByLoggedInUser: boolean;
-};
-
-export default function RecipeHeader({ recipeID, isCreatedByLoggedInUser }: RecipeHeaderProps) {
+export default function RecipeHeader({ recipeID, isCreatedByLoggedInUser }: recipeHeaderProps) {
 	return (
 		<>
 			<div className='fixed w-full bg-white border-b border-gray-300 shadow top-14 md:top-16 z-2'>
