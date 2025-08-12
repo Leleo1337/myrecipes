@@ -1,30 +1,35 @@
 import { useEffect, useState } from 'react';
 import SideBar from '../../components/ui/sideBar';
 import Header from '../../components/ui/Header';
-import { Filter, Search, TrendingUpIcon } from 'lucide-react';
+import { Filter, Loader2, Search, TrendingUpIcon } from 'lucide-react';
 import LargeFeaturedRecipe from '../../components/recipes/LargeFeaturedRecipe';
 import SmallFeaturedRecipeCard from '../../components/recipes/SmallFeaturedRecipe';
 import RecipeCard from '../../components/recipes/RecipeCard';
 import type { recipe } from '../../types/recipes';
 import { getAllRecipes, getFeaturedRecipes } from '../../services/recipes';
-import BigLoader from '../../components/ui/BigLoader';
+import PaginationButtons from '../../components/ui/PaginationButtons';
 
 export default function Recipes() {
 	const [sidebarOpen, setSidebarOpen] = useState(false);
 	const [featured, setFeatured] = useState<recipe[]>([]);
 	const [recipes, setRecipes] = useState<recipe[]>([]);
-	const [isLoading, setIsLoading] = useState(true);
+	const [isLoading, setIsloading] = useState(false);
+	const [pageIndex, setPageIndex] = useState<number>(1);
+	const [pageLimit, setPageLimit] = useState(0);
 
-	async function fetchRecipes() {
-		setIsLoading(true);
+	async function fetchRecipes(page?: number) {
+		setIsloading(true);
 		try {
-			const allRecipes = await getAllRecipes();
+			const recipes = await getAllRecipes(page);
 			const featuredRecipes = await getFeaturedRecipes();
-			setRecipes(allRecipes);
+			const pageLimit = Math.ceil(recipes.total / recipes.limit);
+			setPageLimit(pageLimit);
+			setRecipes(recipes.data);
 			setFeatured(featuredRecipes);
-			setIsLoading(false);
 		} catch (error) {
 			console.log(error);
+		} finally {
+			setIsloading(false);
 		}
 	}
 
@@ -32,13 +37,21 @@ export default function Recipes() {
 		setSidebarOpen(!sidebarOpen);
 	}
 
-	useEffect(() => {
-		fetchRecipes();
-	}, []);
-
-	if (isLoading) {
-		return <BigLoader color='emerald' />;
+	function nextPage() {
+		if (pageIndex < pageLimit) {
+			setPageIndex(pageIndex + 1);
+		}
 	}
+
+	function prevPage() {
+		if (pageIndex > 1) {
+			setPageIndex(pageIndex - 1);
+		}
+	}
+
+	useEffect(() => {
+		fetchRecipes(pageIndex);
+	}, [pageIndex]);
 
 	return (
 		<>
@@ -62,6 +75,14 @@ export default function Recipes() {
 							<p className='font-semibold text-gray-600'>As mais curtidas!</p>
 						</div>
 					</div>
+					{isLoading && (
+						<div className='flex items-center justify-center py-8'>
+							<Loader2
+								className='animate-spin text-emerald-600'
+								size={64}
+							/>
+						</div>
+					)}
 					{featured.length > 2 && (
 						<div className='flex flex-col grid-cols-2 gap-4 lg:grid'>
 							<div className='row-span-2 lg:block'>
@@ -121,6 +142,14 @@ export default function Recipes() {
 					</div>
 				</section>
 				<section>
+					{isLoading && (
+						<div className='flex items-center justify-center w-full py-8'>
+							<Loader2
+								className='animate-spin text-emerald-600'
+								size={64}
+							/>
+						</div>
+					)}
 					<div className='grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
 						{recipes.map((recipes) => (
 							<RecipeCard
@@ -137,6 +166,14 @@ export default function Recipes() {
 								title={recipes.title}
 							/>
 						))}
+					</div>
+					<div>
+						<PaginationButtons
+							prevPage={prevPage}
+							nextPage={nextPage}
+							pageIndex={pageIndex}
+							pageLimit={pageLimit}
+						/>
 					</div>
 				</section>
 			</main>
