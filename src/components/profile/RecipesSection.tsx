@@ -5,44 +5,88 @@ import type { RecipeCardProps } from '../../types/components/recipes';
 import { useNavigate } from 'react-router';
 import { getUserCreatedRecipes, getUserLikedRecipes } from '../../services/recipes';
 import { toast } from 'sonner';
+import PaginationButtons from '../ui/PaginationButtons';
 
 export default function RecipesSection({ isLoggedInUserProfileOwner, userID }: { isLoggedInUserProfileOwner: boolean; userID: string }) {
 	const [likedRecipes, setLikedRecipes] = useState<RecipeCardProps[]>([]);
 	const [createdRecipes, setCreatedRecipes] = useState<RecipeCardProps[]>([]);
 	const [activeTab, setActiveTab] = useState(1);
 	const [isLoading, setIsLoading] = useState(false);
+	const [pageIndex, setPageIndex] = useState({ created: { index: 1 }, liked: { index: 1 } });
+	const [pageLimit, setPageLimit] = useState({ created: { index: 1 }, liked: { index: 1 } });
 
 	const navigate = useNavigate();
-	async function handleFetchLiked() {
+
+	async function handleFetchLiked(page?: number) {
+		setIsLoading(true);
+		setCreatedRecipes([]);
 		try {
-			setIsLoading(true);
-			const data = await getUserLikedRecipes(userID);
-			setLikedRecipes(data);
-			setIsLoading(false);
+			const data = await getUserLikedRecipes(userID, page);
+			const pageLimit = Math.ceil(data.total / data.limit);
+			setLikedRecipes(data.data);
+			setPageLimit((prev) => ({ ...prev, liked: { index: pageLimit } }));
 		} catch (error) {
 			toast.error('algo deu errado');
+		} finally {
 			setIsLoading(false);
 		}
 	}
 
-	async function handleFetchCreated() {
+	async function handleFetchCreated(page?: number) {
+		setIsLoading(true);
+		setCreatedRecipes([]);
 		try {
-			setIsLoading(true);
-			const data = await getUserCreatedRecipes(userID);
-			setCreatedRecipes(data);
-			setIsLoading(false);
+			const data = await getUserCreatedRecipes(userID, page);
+			const pageLimit = Math.ceil(data.total / data.limit);
+			setCreatedRecipes(data.data);
+			setPageLimit((prev) => ({ ...prev, created: { index: pageLimit } }));
 		} catch (error) {
 			toast.error('algo deu errado');
+		} finally {
 			setIsLoading(false);
+		}
+	}
+
+	function likedNextPage() {
+		if (pageIndex.liked.index < pageLimit.liked.index) {
+			setPageIndex((prev) => ({ ...prev, liked: { index: prev.liked.index + 1 } }));
+		}
+	}
+
+	function likedPrevPage() {
+		if (pageIndex.liked.index > 1) {
+			setPageIndex((prev) => ({ ...prev, liked: { index: prev.liked.index - 1 } }));
+		}
+	}
+
+	function createdNextPage() {
+		if (pageIndex.created.index < pageLimit.created.index) {
+			setPageIndex((prev) => ({ ...prev, created: { index: prev.created.index + 1 } }));
+		}
+	}
+
+	function createdPrevPage() {
+		if (pageIndex.created.index > 1) {
+			setPageIndex((prev) => ({ ...prev, created: { index: prev.created.index - 1 } }));
 		}
 	}
 
 	useEffect(() => {
-		if (userID) {
-			handleFetchLiked();
-			handleFetchCreated();
-		}
+		if (!userID) return;
+		setPageIndex({ created: { index: 1 }, liked: { index: 1 } });
+		handleFetchCreated(1);
+		handleFetchLiked(1);
 	}, [userID]);
+
+	useEffect(() => {
+		if (!userID) return;
+		handleFetchCreated(pageIndex.created.index);
+	}, [pageIndex.created.index, userID]);
+
+	useEffect(() => {
+		if (!userID) return;
+		handleFetchLiked(pageIndex.liked.index);
+	}, [pageIndex.liked.index, userID]);
 
 	return (
 		<section className='container p-4 mx-auto mt-4 bg-white border rounded-md shadow-xs md:px-6 border-slate-300'>
@@ -74,41 +118,61 @@ export default function RecipesSection({ isLoggedInUserProfileOwner, userID }: {
 					</div>
 				)}
 				{activeTab === 1 && createdRecipes.length > 0 ? (
-					<div className='sm:gap-4 sm:grid-cols-2 lg:grid-cols-4 sm:grid'>
-						{createdRecipes.map((recipe) => (
-							<RecipeCard
-								key={recipe._id}
-								_id={recipe._id}
-								category={recipe.category}
-								cookingTime={recipe.cookingTime}
-								createdBy={recipe.createdBy}
-								description={recipe.description}
-								difficulty={recipe.difficulty}
-								image={recipe.image}
-								likesCount={recipe.likesCount}
-								portions={recipe.portions}
-								title={recipe.title}
+					<>
+						<div className='sm:gap-4 sm:grid-cols-2 lg:grid-cols-4 sm:grid'>
+							{createdRecipes.map((recipe) => (
+								<RecipeCard
+									key={recipe._id}
+									_id={recipe._id}
+									category={recipe.category}
+									cookingTime={recipe.cookingTime}
+									createdBy={recipe.createdBy}
+									description={recipe.description}
+									difficulty={recipe.difficulty}
+									image={recipe.image}
+									likesCount={recipe.likesCount}
+									portions={recipe.portions}
+									title={recipe.title}
+								/>
+							))}
+						</div>
+						<div>
+							<PaginationButtons
+								prevPage={createdPrevPage}
+								nextPage={createdNextPage}
+								pageIndex={pageIndex.created.index}
+								pageLimit={pageLimit.created.index}
 							/>
-						))}
-					</div>
+						</div>
+					</>
 				) : activeTab === 2 && likedRecipes.length > 0 ? (
-					<div className='sm:gap-4 sm:grid-cols-2 lg:grid-cols-4 sm:grid'>
-						{likedRecipes.map((recipe) => (
-							<RecipeCard
-								key={recipe._id}
-								_id={recipe._id}
-								category={recipe.category}
-								cookingTime={recipe.cookingTime}
-								createdBy={recipe.createdBy}
-								description={recipe.description}
-								difficulty={recipe.difficulty}
-								image={recipe.image}
-								likesCount={recipe.likesCount}
-								portions={recipe.portions}
-								title={recipe.title}
+					<>
+						<div className='sm:gap-4 sm:grid-cols-2 lg:grid-cols-4 sm:grid'>
+							{likedRecipes.map((recipe) => (
+								<RecipeCard
+									key={recipe._id}
+									_id={recipe._id}
+									category={recipe.category}
+									cookingTime={recipe.cookingTime}
+									createdBy={recipe.createdBy}
+									description={recipe.description}
+									difficulty={recipe.difficulty}
+									image={recipe.image}
+									likesCount={recipe.likesCount}
+									portions={recipe.portions}
+									title={recipe.title}
+								/>
+							))}
+						</div>
+						<div>
+							<PaginationButtons
+								prevPage={likedPrevPage}
+								nextPage={likedNextPage}
+								pageIndex={pageIndex.liked.index}
+								pageLimit={pageLimit.liked.index}
 							/>
-						))}
-					</div>
+						</div>
+					</>
 				) : isLoggedInUserProfileOwner && !isLoading ? (
 					<div className='flex flex-col items-center justify-center py-16 text-center text-gray-700 grid-0'>
 						{activeTab === 1 ? (
