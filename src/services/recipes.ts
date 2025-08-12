@@ -11,9 +11,9 @@ export async function getFeaturedRecipes() {
 }
 
 export async function getAllRecipes(page?: number) {
-	let pageIndex = page || 1;
+	const pageIndex = page || 1;
 	try {
-		const response = await api.get(`/api/v1/recipes?page=${pageIndex}&limit=12`);
+		const response = await api.get(`/api/v1/recipes?page=${pageIndex}`);
 		console.log(response);
 		return response.data;
 	} catch (err) {
@@ -39,19 +39,21 @@ export async function createRecipe(data: recipeForm) {
 	}
 }
 
-export async function getUserCreatedRecipes(userID: string) {
+export async function getUserCreatedRecipes(userID: string, page?: number) {
+	const pageIndex = page || 1;
 	try {
-		const response = await api.get(`/api/v1/user/${userID}/created`);
-		return response.data.data;
+		const response = await api.get(`/api/v1/user/${userID}/created?page=${pageIndex}`);
+		return response.data;
 	} catch (err) {
 		throw err;
 	}
 }
 
-export async function getUserLikedRecipes(userID: string) {
+export async function getUserLikedRecipes(userID: string, page?: number) {
+	const pageIndex = page || 1;
 	try {
-		const response = await api.get(`/api/v1/user/${userID}/liked`);
-		return response.data.data;
+		const response = await api.get(`/api/v1/user/${userID}/liked?page=${pageIndex}`);
+		return response.data;
 	} catch (err) {
 		throw err;
 	}
