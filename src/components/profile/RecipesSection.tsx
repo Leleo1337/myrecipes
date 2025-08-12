@@ -47,18 +47,18 @@ export default function RecipesSection({ isLoggedInUserProfileOwner, userID }: {
 	return (
 		<section className='container p-4 mx-auto mt-4 bg-white border rounded-md shadow-xs md:px-6 border-slate-300'>
 			<div className='border-b border-gray-300'>
-				<div className='flex space-x-8'>
+				<div className='flex gap-8'>
 					<button
 						onClick={() => setActiveTab(1)}
-						className={`flex gap-2 px-1 py-2 text-sm font-medium transition-colors border-b-2 cursor-pointer ${activeTab === 1 ? 'border-emerald-600 text-emerald-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'} `}>
-						<ChefHat />
+						className={`flex gap-2 px-1 py-2 text-sm items-center font-medium transition-colors border-b-2 cursor-pointer ${activeTab === 1 ? 'border-emerald-600 text-emerald-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'} `}>
+						<ChefHat className='hidden sm:block' />
 						<p>{isLoggedInUserProfileOwner ? 'Minhas receitas' : 'Receitas criadas'} </p>
 						<span>({createdRecipes.length})</span>
 					</button>
 					<button
 						onClick={() => setActiveTab(2)}
-						className={`flex gap-2 px-1 py-2 text-sm font-medium transition-colors border-b-2 cursor-pointer ${activeTab === 2 ? 'border-emerald-600 text-emerald-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'} `}>
-						<Heart />
+						className={`flex gap-2 px-1 py-2 text-sm font-medium transition-colors border-b-2 items-center cursor-pointer ${activeTab === 2 ? 'border-emerald-600 text-emerald-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'} `}>
+						<Heart className='hidden sm:block' />
 						<p>receitas curtidas </p>
 						<span>({likedRecipes.length})</span>
 					</button>
@@ -74,7 +74,7 @@ export default function RecipesSection({ isLoggedInUserProfileOwner, userID }: {
 					</div>
 				)}
 				{activeTab === 1 && createdRecipes.length > 0 ? (
-					<div className='grid grid-cols-4 gap-4'>
+					<div className='sm:gap-4 sm:grid-cols-2 lg:grid-cols-4 sm:grid'>
 						{createdRecipes.map((recipe) => (
 							<RecipeCard
 								key={recipe._id}
@@ -92,23 +92,25 @@ export default function RecipesSection({ isLoggedInUserProfileOwner, userID }: {
 						))}
 					</div>
 				) : activeTab === 2 && likedRecipes.length > 0 ? (
-					likedRecipes.map((recipe) => (
-						<RecipeCard
-							key={recipe._id}
-							_id={recipe._id}
-							category={recipe.category}
-							cookingTime={recipe.cookingTime}
-							createdBy={recipe.createdBy}
-							description={recipe.description}
-							difficulty={recipe.difficulty}
-							image={recipe.image}
-							likesCount={recipe.likesCount}
-							portions={recipe.portions}
-							title={recipe.title}
-						/>
-					))
+					<div className='sm:gap-4 sm:grid-cols-2 lg:grid-cols-4 sm:grid'>
+						{likedRecipes.map((recipe) => (
+							<RecipeCard
+								key={recipe._id}
+								_id={recipe._id}
+								category={recipe.category}
+								cookingTime={recipe.cookingTime}
+								createdBy={recipe.createdBy}
+								description={recipe.description}
+								difficulty={recipe.difficulty}
+								image={recipe.image}
+								likesCount={recipe.likesCount}
+								portions={recipe.portions}
+								title={recipe.title}
+							/>
+						))}
+					</div>
 				) : isLoggedInUserProfileOwner && !isLoading ? (
-					<div className='flex flex-col items-center justify-center py-16 text-center grid-0 text-gray-700'>
+					<div className='flex flex-col items-center justify-center py-16 text-center text-gray-700 grid-0'>
 						{activeTab === 1 ? (
 							<ChefHat
 								size={64}
@@ -132,7 +134,7 @@ export default function RecipesSection({ isLoggedInUserProfileOwner, userID }: {
 					</div>
 				) : (
 					!isLoading && (
-						<div className='flex flex-col gap-2 items-center justify-center py-16 text-center grid-0'>
+						<div className='flex flex-col items-center justify-center gap-2 py-16 text-center grid-0'>
 							<Heart
 								size={64}
 								className='text-emerald-600'
