@@ -19,6 +19,7 @@ export default function Recipes() {
 
 	async function fetchRecipes(page?: number) {
 		setIsloading(true);
+		setRecipes([])
 		try {
 			const recipes = await getAllRecipes(page);
 			const featuredRecipes = await getFeaturedRecipes();
@@ -75,14 +76,6 @@ export default function Recipes() {
 							<p className='font-semibold text-gray-600'>As mais curtidas!</p>
 						</div>
 					</div>
-					{isLoading && (
-						<div className='flex items-center justify-center py-8'>
-							<Loader2
-								className='animate-spin text-emerald-600'
-								size={64}
-							/>
-						</div>
-					)}
 					{featured.length > 2 && (
 						<div className='flex flex-col grid-cols-2 gap-4 lg:grid'>
 							<div className='row-span-2 lg:block'>
