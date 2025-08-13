@@ -10,6 +10,7 @@ import PaginationButtons from '../ui/PaginationButtons';
 export default function RecipesSection({ isLoggedInUserProfileOwner, userID }: { isLoggedInUserProfileOwner: boolean; userID: string }) {
 	const [likedRecipes, setLikedRecipes] = useState<RecipeCardProps[]>([]);
 	const [createdRecipes, setCreatedRecipes] = useState<RecipeCardProps[]>([]);
+	const [recipesLength, setRecipesLength] = useState({ created: 0, liked: 0 });
 	const [activeTab, setActiveTab] = useState(1);
 	const [isLoading, setIsLoading] = useState(false);
 	const [pageIndex, setPageIndex] = useState({ created: { index: 1 }, liked: { index: 1 } });
@@ -24,6 +25,7 @@ export default function RecipesSection({ isLoggedInUserProfileOwner, userID }: {
 			const data = await getUserLikedRecipes(userID, page);
 			const pageLimit = Math.ceil(data.total / data.limit);
 			setLikedRecipes(data.data);
+			setRecipesLength((prev) => ({ ...prev, liked: data.total }));
 			setPageLimit((prev) => ({ ...prev, liked: { index: pageLimit } }));
 		} catch (error) {
 			toast.error('algo deu errado');
@@ -39,6 +41,7 @@ export default function RecipesSection({ isLoggedInUserProfileOwner, userID }: {
 			const data = await getUserCreatedRecipes(userID, page);
 			const pageLimit = Math.ceil(data.total / data.limit);
 			setCreatedRecipes(data.data);
+			setRecipesLength((prev) => ({ ...prev, created: data.total }));
 			setPageLimit((prev) => ({ ...prev, created: { index: pageLimit } }));
 		} catch (error) {
 			toast.error('algo deu errado');
@@ -47,27 +50,15 @@ export default function RecipesSection({ isLoggedInUserProfileOwner, userID }: {
 		}
 	}
 
-	function likedNextPage() {
-		if (pageIndex.liked.index < pageLimit.liked.index) {
-			setPageIndex((prev) => ({ ...prev, liked: { index: prev.liked.index + 1 } }));
+	function nextPage(page: keyof typeof pageIndex) {
+		if (pageIndex[page].index < pageLimit[page].index) {
+			setPageIndex((prev) => ({ ...prev, [page]: { index: prev[page].index + 1 } }));
 		}
 	}
 
-	function likedPrevPage() {
-		if (pageIndex.liked.index > 1) {
-			setPageIndex((prev) => ({ ...prev, liked: { index: prev.liked.index - 1 } }));
-		}
-	}
-
-	function createdNextPage() {
-		if (pageIndex.created.index < pageLimit.created.index) {
-			setPageIndex((prev) => ({ ...prev, created: { index: prev.created.index + 1 } }));
-		}
-	}
-
-	function createdPrevPage() {
-		if (pageIndex.created.index > 1) {
-			setPageIndex((prev) => ({ ...prev, created: { index: prev.created.index - 1 } }));
+	function prevPage(page: keyof typeof pageIndex) {
+		if (pageIndex[page].index > 1) {
+			setPageIndex((prev) => ({ ...prev, [page]: { index: prev[page].index - 1 } }));
 		}
 	}
 
@@ -97,14 +88,14 @@ export default function RecipesSection({ isLoggedInUserProfileOwner, userID }: {
 						className={`flex gap-2 px-1 py-2 text-sm items-center font-medium transition-colors border-b-2 cursor-pointer ${activeTab === 1 ? 'border-emerald-600 text-emerald-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'} `}>
 						<ChefHat className='hidden sm:block' />
 						<p>{isLoggedInUserProfileOwner ? 'Minhas receitas' : 'Receitas criadas'} </p>
-						<span>({createdRecipes.length})</span>
+						<span>({recipesLength.created})</span>
 					</button>
 					<button
 						onClick={() => setActiveTab(2)}
 						className={`flex gap-2 px-1 py-2 text-sm font-medium transition-colors border-b-2 items-center cursor-pointer ${activeTab === 2 ? 'border-emerald-600 text-emerald-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'} `}>
 						<Heart className='hidden sm:block' />
 						<p>receitas curtidas </p>
-						<span>({likedRecipes.length})</span>
+						<span>({recipesLength.liked})</span>
 					</button>
 				</div>
 			</div>
@@ -138,8 +129,8 @@ export default function RecipesSection({ isLoggedInUserProfileOwner, userID }: {
 						</div>
 						<div>
 							<PaginationButtons
-								prevPage={createdPrevPage}
-								nextPage={createdNextPage}
+								prevPage={() => prevPage('created')}
+								nextPage={() => nextPage('created')}
 								pageIndex={pageIndex.created.index}
 								pageLimit={pageLimit.created.index}
 							/>
@@ -166,8 +157,8 @@ export default function RecipesSection({ isLoggedInUserProfileOwner, userID }: {
 						</div>
 						<div>
 							<PaginationButtons
-								prevPage={likedPrevPage}
-								nextPage={likedNextPage}
+								prevPage={() => prevPage('liked')}
+								nextPage={() => nextPage('liked')}
 								pageIndex={pageIndex.liked.index}
 								pageLimit={pageLimit.liked.index}
 							/>
