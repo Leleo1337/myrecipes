@@ -1,9 +1,9 @@
 export type RecipeCardProps = {
 	_id?: string;
 	createdBy: {
-		name: string,
-		profilePicture: string
-	}
+		name: string;
+		profilePicture: string;
+	};
 	difficulty: 'facil' | 'medio' | 'dificil';
 	category: string;
 	image: string;
@@ -33,7 +33,7 @@ export type recipeIngredient = {
 
 export type recipeIngredientList = {
 	ingredients: {
-		_id?: string
+		_id?: string;
 		quantity: string;
 		unit: string;
 		name: string;
@@ -54,6 +54,7 @@ export type recipeHeaderProps = {
 };
 
 export type recipeStatsProps = {
+	recipeID: string;
 	cookingTime: number;
 	portions: number;
 	difficulty: string;
