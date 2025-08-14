@@ -13,7 +13,7 @@ export async function getLoggedInUserData() {
 export async function getUserData(userID: string | undefined) {
 	try {
 		const userData = await api.get(`/api/v1/user/${userID}`);
-		return userData.data.user;
+		return userData.data;
 	} catch (err) {
 		console.log('[ERRO] ALGO DEU ERRADO: ', err);
 		throw err;
