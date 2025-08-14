@@ -22,8 +22,6 @@ export default function ProfileHeader({
 }: profileHeaderProps) {
 	const user = useContext(UserContext);
 
-	console.log(user);
-
 	async function handleFileUpload(fileObj: FileList | null) {
 		if (!fileObj) return;
 		const file = fileObj[0];
