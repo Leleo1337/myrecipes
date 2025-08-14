@@ -17,6 +17,12 @@ export default function Profile() {
 		bio: '	!',
 		socialLinks: { instragram: '', facebook: '', discord: '' },
 	});
+	const [recipesData, setRecipesData] = useState({
+		createdCount: 1,
+		likedCount: 1,
+		likesReceived: 1,
+	});
+
 	const [sidebarOpen, setSidebarOpen] = useState(false);
 
 	const navigate = useNavigate();
@@ -30,7 +36,8 @@ export default function Profile() {
 	async function fetchProfile() {
 		try {
 			const data = await getUserData(params.userID);
-			setProfileData(data);
+			setProfileData(data.user);
+			setRecipesData(data.recipes);
 		} catch (error) {
 			console.log(error);
 			navigate('/recipes');
@@ -58,9 +65,9 @@ export default function Profile() {
 					bio={profileData.bio}
 					email={profileData.email}
 					profilePicture={profileData.profilePicture}
-					createdRecipesCount={1}
-					likedRecipesCount={1}
-					likesReceivedCount={1}
+					createdRecipesCount={recipesData.createdCount}
+					likedRecipesCount={recipesData.likedCount}
+					likesReceivedCount={recipesData.likesReceived}
 					isProfileOnwer={isLoggedInUserProfileOwner}
 					onProfileChange={fetchProfile}
 				/>
