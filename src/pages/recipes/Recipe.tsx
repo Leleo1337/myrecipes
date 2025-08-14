@@ -77,6 +77,7 @@ export default function Recipe() {
 							/>
 							<div className='px-4 py-6 md:px-6'>
 								<RecipeStats
+									recipeID={currentRecipe._id}
 									createdBy={currentRecipe.createdBy}
 									cookingTime={currentRecipe.cookingTime}
 									difficulty={currentRecipe.difficulty}
