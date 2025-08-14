@@ -1,17 +1,46 @@
 import { Clock, Heart, MessageCircle, Shield, Users2 } from 'lucide-react';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import Avatar from 'react-avatar';
 import AuthContext from '../../context/auth';
 import { Link } from 'react-router';
 import type { recipeStatsProps } from '../../types/components/recipes';
+import { fetchHasUserLiked, getRecipeLikes, likeRecipe } from '../../services/likes';
+import { toast } from 'sonner';
 
-export default function RecipeStats({ cookingTime, portions, difficulty, createdBy, likesCount }: recipeStatsProps) {
-	const auth = useContext(AuthContext);
+export default function RecipeStats({ recipeID, cookingTime, portions, difficulty, createdBy }: recipeStatsProps) {
+	const [likesCount, setLikesCount] = useState(0);
 	const [like, setLike] = useState(false);
 
+	const auth = useContext(AuthContext);
 	if (!auth) throw new Error('Usuario não encontrado');
-
 	const { isAuthenticated } = auth;
+
+	async function handleSetLike() {
+		try {
+			const response = await likeRecipe(recipeID);
+			const likesCount = await getRecipeLikes(recipeID);
+			setLikesCount(likesCount.likesCount);
+			setLike(!like)
+			if (response.state === 'liked') {
+				toast.success(response.msg);
+			} else {
+				toast.error(response.msg);
+			}
+		} catch (error) {
+			toast.error('Algo deu errado ao curtir a mensagem.');
+		}
+	}
+	async function setLikeStates() {
+		const likes = await getRecipeLikes(recipeID);
+		const hasUserLiked = await fetchHasUserLiked(recipeID);
+		setLikesCount(likes.likesCount);
+		setLike(hasUserLiked.hasLiked);
+		console.log(hasUserLiked);
+	}
+
+	useEffect(() => {
+		setLikeStates();
+	}, []);
 
 	return (
 		<>
@@ -70,7 +99,7 @@ export default function RecipeStats({ cookingTime, portions, difficulty, created
 				</Link>
 				<div className='flex gap-2'>
 					<div
-						onClick={() => setLike(!like)}
+						onClick={handleSetLike}
 						className={`flex items-center gap-2 text-sm transition ease-in duration-100 bg-gray-50 text-gray-600 rounded-xl py-1.5 px-3 ${isAuthenticated && like && 'bg-red-500/30 text-red-600'} ${isAuthenticated ? 'cursor-pointer hover:bg-red-500/30 hover:text-red-500' : 'text-gray-500 hover:bg-gray-100 cursor-not-allowed'}`}>
 						{isAuthenticated && like ? (
 							<Heart
