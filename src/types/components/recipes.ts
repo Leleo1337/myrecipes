@@ -63,6 +63,7 @@ export type recipeStatsProps = {
 		name: string;
 		profilePicture: string;
 	};
+	commentsCount: number
 };
 
 export type recipeHeroProps = {
