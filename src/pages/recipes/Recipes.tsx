@@ -166,6 +166,7 @@ export default function Recipes() {
 							nextPage={nextPage}
 							pageIndex={pageIndex}
 							pageLimit={pageLimit}
+							size='medium'
 						/>
 					</div>
 				</section>
