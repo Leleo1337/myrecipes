@@ -92,9 +92,9 @@ export default function RecipeStats({ recipeID, cookingTime, portions, difficult
 							/>
 						</div>
 					)}
-					<div className='flex flex-col'>
-						<span className='text-sm font-semibold'>{createdBy.name}</span>
-						<span className='hidden text-xs text-gray-500 sm:block'>Chef da comunidade</span>
+					<div className='flex flex-col group'>
+						<span className='text-sm font-semibold transition duration-100 ease-in group-hover:text-emerald-600'>{createdBy.name}</span>
+						<span className='hidden text-xs text-gray-500 transition duration-100 ease-in sm:block group-hover:text-emerald-600'>Chef da comunidade</span>
 					</div>
 				</Link>
 				<div className='flex gap-2'>
