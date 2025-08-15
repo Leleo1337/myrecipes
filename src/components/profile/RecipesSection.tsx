@@ -133,6 +133,7 @@ export default function RecipesSection({ isLoggedInUserProfileOwner, userID }: {
 								nextPage={() => nextPage('created')}
 								pageIndex={pageIndex.created.index}
 								pageLimit={pageLimit.created.index}
+								size='medium'
 							/>
 						</div>
 					</>
@@ -161,6 +162,7 @@ export default function RecipesSection({ isLoggedInUserProfileOwner, userID }: {
 								nextPage={() => nextPage('liked')}
 								pageIndex={pageIndex.liked.index}
 								pageLimit={pageLimit.liked.index}
+								size='medium'
 							/>
 						</div>
 					</>
