@@ -58,7 +58,6 @@ export type recipeStatsProps = {
 	cookingTime: number;
 	portions: number;
 	difficulty: string;
-	likesCount: number;
 	createdBy: {
 		_id: string;
 		name: string;
