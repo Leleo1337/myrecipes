@@ -14,7 +14,6 @@ export async function getAllRecipes(page?: number) {
 	const pageIndex = page || 1;
 	try {
 		const response = await api.get(`/api/v1/recipes?page=${pageIndex}`);
-		console.log(response);
 		return response.data;
 	} catch (err) {
 		throw err;
@@ -24,7 +23,7 @@ export async function getAllRecipes(page?: number) {
 export async function getRecipe(recipeID: string) {
 	try {
 		const response = await api.get(`/api/v1/recipes/${recipeID}`);
-		return response.data.data;
+		return response.data;
 	} catch (err) {
 		throw err;
 	}
