@@ -7,7 +7,7 @@ import type { recipeStatsProps } from '../../types/components/recipes';
 import { fetchHasUserLiked, getRecipeLikes, likeRecipe } from '../../services/likes';
 import { toast } from 'sonner';
 
-export default function RecipeStats({ recipeID, cookingTime, portions, difficulty, createdBy }: recipeStatsProps) {
+export default function RecipeStats({ recipeID, cookingTime, portions, difficulty, createdBy, commentsCount }: recipeStatsProps) {
 	const [likesCount, setLikesCount] = useState(0);
 	const [like, setLike] = useState(false);
 
@@ -17,10 +17,10 @@ export default function RecipeStats({ recipeID, cookingTime, portions, difficult
 
 	async function handleSetLike() {
 		try {
+			setLike(!like)
 			const response = await likeRecipe(recipeID);
 			const likesCount = await getRecipeLikes(recipeID);
 			setLikesCount(likesCount.likesCount);
-			setLike(!like)
 			if (response.state === 'liked') {
 				toast.success(response.msg);
 			} else {
@@ -100,7 +100,7 @@ export default function RecipeStats({ recipeID, cookingTime, portions, difficult
 				<div className='flex gap-2'>
 					<div
 						onClick={handleSetLike}
-						className={`flex items-center gap-2 text-sm transition ease-in duration-100 bg-gray-50 text-gray-600 rounded-xl py-1.5 px-3 ${isAuthenticated && like && 'bg-red-500/30 text-red-600'} ${isAuthenticated ? 'cursor-pointer hover:bg-red-500/30 hover:text-red-500' : 'text-gray-500 hover:bg-gray-100 cursor-not-allowed'}`}>
+						className={`flex items-center gap-2 text-sm transition ease-in duration-75 bg-gray-50 text-gray-600 rounded-xl py-1.5 px-3 ${isAuthenticated && like && 'bg-red-500/30 text-red-500'} ${isAuthenticated ? 'cursor-pointer hover:bg-red-500/30 hover:text-red-500' : 'text-gray-500 hover:bg-gray-100 cursor-not-allowed'}`}>
 						{isAuthenticated && like ? (
 							<Heart
 								fill='oklch(57.7% 0.245 27.325)'
@@ -114,7 +114,7 @@ export default function RecipeStats({ recipeID, cookingTime, portions, difficult
 					<div>
 						<div className={`flex items-center gap-2 text-sm transition ease-in duration-100 text-gray-600 rounded-xl py-1.5 px-3`}>
 							<MessageCircle size={20} />
-							<span>0</span>
+							<span>{commentsCount}</span>
 						</div>
 					</div>
 				</div>
