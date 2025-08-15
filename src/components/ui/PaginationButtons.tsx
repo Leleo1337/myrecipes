@@ -29,7 +29,7 @@ export default function PaginationButtons({ pageIndex, pageLimit, size, prevPage
 					</button>
 				)}
 				<p className={`mb-1 ${size === 'small' ? 'text-xl' : 'text-2xl'} font-semibold`}>{pageIndex}</p>
-				{pageIndex === pageLimit ? (
+				{pageIndex >= pageLimit ? (
 					<button disabled>
 						<ArrowRight
 							size={size === 'small' ? 24 : 32}
