@@ -1,9 +1,10 @@
 import api from './api';
 
-export async function getRecipeComments(recipeID: string) {
+export async function getRecipeComments(recipeID: string, page: number) {
 	try {
-		const response = await api.get(`/api/v1/recipes/${recipeID}/comments`);
-		return response.data.data;
+		const response = await api.get(`/api/v1/recipes/${recipeID}/comments?page=${page}`);
+		console.log(response.data)
+		return response.data;
 	} catch (err) {
 		throw err;
 	}
