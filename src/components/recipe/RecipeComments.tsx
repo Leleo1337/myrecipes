@@ -8,11 +8,16 @@ import { Link, useParams } from 'react-router';
 import { toast } from 'sonner';
 import Avatar from 'react-avatar';
 import RecipeComment from './RecipeComment';
+import PaginationButtons from '../ui/PaginationButtons';
 
 export default function RecipeComments() {
-	const [commentData, setCommentData] = useState<{ text: string }>({ text: '' });
+	const [commentFormData, setCommentFormData] = useState<{ text: string }>({ text: '' });
 	const [currentComments, setCurrentComments] = useState<commentProps[]>([]);
 	const [isCommentsLoading, setIsCommentsLoading] = useState(false);
+	const [pageIndex, setPageIndex] = useState(1);
+	const [pageLimit, setPageLimit] = useState(0);
+	const [commentsLength, setCommentsLength] = useState(0);
+
 	const auth = useContext(AuthContext);
 	const user = useContext(UserContext);
 	const params = useParams();
@@ -26,29 +31,45 @@ export default function RecipeComments() {
 		const key = e.target.name;
 		const value = e.target.value;
 
-		setCommentData((prev) => ({ ...prev, [key]: value }));
+		setCommentFormData((prev) => ({ ...prev, [key]: value }));
 	}
 
 	async function handleCommentSubmit() {
 		try {
-			await createComment(commentData, params.id);
-			setCommentData({ text: '' });
-			fetchComments();
+			await createComment(commentFormData, params.id);
+			setCommentFormData({ text: '' });
+			fetchComments(pageIndex);
 		} catch (err: any) {
 			toast.error(err.response.data.msg);
 		}
 	}
 
-	async function fetchComments() {
+	async function fetchComments(page: number) {
 		setIsCommentsLoading(true);
 		const recipeID = params.id!;
-		const comments = await getRecipeComments(recipeID);
-		setCurrentComments(comments);
+		const comments = await getRecipeComments(recipeID, page);
+		const pageLimit = Math.ceil(comments.total / comments.limit);
+		setCommentsLength(comments.total);
+		setPageLimit(pageLimit);
+		setCurrentComments(comments.data);
 		setIsCommentsLoading(false);
 	}
 
+	function nextPage() {
+		if (pageIndex < pageLimit) {
+			setPageIndex((prev) => prev + 1);
+		}
+	}
+	function prevPage() {
+		setPageIndex((prev) => prev - 1);
+	}
+
 	useEffect(() => {
-		fetchComments();
+		fetchComments(pageIndex);
+	}, [pageIndex]);
+
+	useEffect(() => {
+		fetchComments(pageIndex);
 	}, []);
 
 	return (
@@ -57,7 +78,7 @@ export default function RecipeComments() {
 				<div className='p-1.5 text-white bg-emerald-600 rounded-xl'>
 					<MessageCircle />
 				</div>
-				<span className='font-semibold text-gray-700'>Comentarios ({currentComments.length})</span>
+				<span className='font-semibold text-gray-700'>Comentarios ({commentsLength})</span>
 			</div>
 			<div>
 				<div className='pt-8'>
@@ -79,7 +100,7 @@ export default function RecipeComments() {
 							<div className='w-full'>
 								<textarea
 									onChange={handleChange}
-									value={commentData.text}
+									value={commentFormData.text}
 									name='text'
 									id='text'
 									className='w-full p-4 transition duration-100 ease-in border border-gray-300 rounded-md focus:ring focus:ring-emerald-500 outline-0'></textarea>
@@ -124,15 +145,23 @@ export default function RecipeComments() {
 						currentComments.map((comment) => (
 							<RecipeComment
 								key={comment._id}
-								profilePicture={comment.profilePicture}
-								username={comment.username}
+								createdBy={comment.createdBy}
+								createdAt={comment.createdAt}
 								text={comment.text}
-								date={comment.date}
 							/>
 						))
 					) : (
 						<div className='pt-8 text-center text-gray-700'>There is no comments for this recipe :(</div>
 					)}
+					<div>
+						<PaginationButtons
+							nextPage={nextPage}
+							prevPage={prevPage}
+							pageIndex={pageIndex}
+							pageLimit={pageLimit}
+							size={'small'}
+						/>
+					</div>
 				</div>
 			</div>
 		</>
