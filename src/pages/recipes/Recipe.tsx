@@ -31,7 +31,7 @@ export default function Recipe() {
 		setIsPageLoading(true);
 		try {
 			const recipe = await getRecipe(recipeID);
-			setCurrentRecipe(recipe);
+			setCurrentRecipe(recipe.data);
 			setIsPageLoading(false);
 		} catch (error) {
 			navigate('/recipes');
@@ -82,7 +82,7 @@ export default function Recipe() {
 									cookingTime={currentRecipe.cookingTime}
 									difficulty={currentRecipe.difficulty}
 									portions={currentRecipe.portions}
-									likesCount={currentRecipe.likesCount}
+									commentsCount={currentRecipe.commentsCount}
 								/>
 							</div>
 						</div>
