@@ -41,4 +41,5 @@ export type recipe = {
 		profilePicture: string;
 	};
 	likesCount: number;
+	commentsCount: number;
 };
