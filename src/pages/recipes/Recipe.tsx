@@ -40,10 +40,6 @@ export default function Recipe() {
 		}
 	}
 
-	function handleSideBarToggle() {
-		setSidebarOpen(!sidebarOpen);
-	}
-
 	useEffect(() => {
 		fetchRecipe();
 	}, []);
@@ -60,9 +56,9 @@ export default function Recipe() {
 					className='fixed inset-0 z-3 bg-black/70 md:hidden'></div>
 			)}
 			<header>
-				<Header toggleSide={handleSideBarToggle} />
+				<Header toggleSide={() => setSidebarOpen(!sidebarOpen)} />
 				<SideBar
-					toggle={handleSideBarToggle}
+					toggle={() => setSidebarOpen(!sidebarOpen)}
 					open={sidebarOpen}
 				/>
 				<RecipeHeader
