@@ -11,7 +11,7 @@ export type paginationButtonsProps = {
 export default function PaginationButtons({ pageIndex, pageLimit, size, prevPage, nextPage }: paginationButtonsProps) {
 	return (
 		<>
-			<div className='flex items-center justify-center gap-4 py-6'>
+			<div className='flex items-center justify-center gap-4 pt-4'>
 				{pageIndex === 1 ? (
 					<button disabled>
 						<ArrowLeft
