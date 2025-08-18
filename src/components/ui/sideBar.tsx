@@ -1,4 +1,4 @@
-import { ChefHat, HomeIcon, LogOut, Plus, Search, User, X } from 'lucide-react';
+import { ChefHat, HomeIcon, LogOut, Plus, User, X } from 'lucide-react';
 import type { sideBarProps } from '../../types/components/UI';
 import AuthButtons from '../recipes/AuthButtons';
 import { Link, useLocation } from 'react-router';
@@ -14,12 +14,12 @@ export default function SideBar({ toggle, open }: sideBarProps) {
 
 	if (!auth || !user) throw new Error('Usuario não encontrado');
 	const { isAuthenticated, logOut } = auth;
-	const { username, profilePicture } = user;
+	const { username, profilePicture, userID } = user;
 
 	function getActiveTabIndex() {
 		if (location.pathname === '/recipes') return 1;
 		if (location.pathname === '/recipes/create') return 2;
-		if (location.pathname === '/my-recipes') return 3;
+		if (location.pathname === `/user/${userID}/profile`) return 3;
 		return 0;
 	}
 
@@ -91,15 +91,15 @@ export default function SideBar({ toggle, open }: sideBarProps) {
 									</div>
 								</Link>
 								<Link
-									to={'/recipes/my-recipes'}
+									to={`/user/${userID}/profile`}
 									className={`${
 										activeTab === 3
 											? 'bg-emerald-600 w-full text-white font-semibold text-xl ml-2 rounded-l-2xl px-4 py-2'
 											: 'w-full text-gray-600 border border-gray-300 font-semibold text-xl ml-2 rounded-l-2xl px-4 py-2'
 									}`}>
 									<div className='flex items-center gap-2'>
-										<Search size={20} />
-										<span>Minhas receitas</span>
+										<User size={20} />
+										<span>Perfil</span>
 									</div>
 								</Link>
 							</>
@@ -128,7 +128,7 @@ export default function SideBar({ toggle, open }: sideBarProps) {
 											</div>
 											<div className='flex flex-col'>
 												<span className='overflow-hidden text-base font-semibold truncate'>{username}</span>
-												<span className='text-xs'>{"email"}</span>
+												<span className='text-xs'>{'email'}</span>
 											</div>
 										</div>
 										<Link
@@ -139,7 +139,9 @@ export default function SideBar({ toggle, open }: sideBarProps) {
 										</Link>
 									</div>
 									<div>
-										<button onClick={logOut} className='flex items-center justify-center w-full gap-2 p-2 my-2 text-gray-700 border bg-gray-500/10 border-gray-500/30 rounded-xl'>
+										<button
+											onClick={logOut}
+											className='flex items-center justify-center w-full gap-2 p-2 my-2 text-gray-700 border bg-gray-500/10 border-gray-500/30 rounded-xl'>
 											<LogOut />
 											<span>Sair</span>
 										</button>
