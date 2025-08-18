@@ -58,7 +58,7 @@ export default function Profile() {
 					toggle={() => setSidebarOpen(!sidebarOpen)}
 				/>
 			</header>
-			<main className='container max-w-[1400px] mx-auto px-4 relative top-24'>
+			<main className='container max-w-[1400px] mx-auto px-4 relative top-24 pb-16'>
 				<ProfileHeader
 					userID={profileData._id}
 					name={profileData.name}
