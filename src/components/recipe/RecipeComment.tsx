@@ -1,5 +1,6 @@
 import Avatar from 'react-avatar';
 import type { commentProps } from '../../types/components/comments';
+import { Link } from 'react-router';
 
 export default function RecipeComment({ createdBy, text, createdAt }: commentProps) {
 	const date = new Date(createdAt);
@@ -26,9 +27,11 @@ export default function RecipeComment({ createdBy, text, createdAt }: commentPro
 					className='w-8 h-8 text-xs rounded-full'
 				/>
 			)}
-			<div className='flex flex-col ml-2'>
+			<div className='flex flex-col ml-2 group-hover:text-emerald-600'>
 				<div className='flex items-center'>
-					<h6 className='font-semibold'>{createdBy.name ? createdBy.name : 'username'}</h6>
+					<Link to={`/user/${createdBy._id}/profile`}>
+						<h6 className='font-semibold hover:text-emerald-600 cursor-pointer'>{createdBy.name ? createdBy.name : 'username'}</h6>{' '}
+					</Link>
 					<span className='flex items-center ml-2 text-xs font-semibold text-gray-500'>{formattedDate}</span>
 				</div>
 				<p className='text-sm text-gray-600 break-all'>{text}</p>

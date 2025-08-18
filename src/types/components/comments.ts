@@ -1,6 +1,7 @@
 export type commentProps = {
 	_id?: string;
 	createdBy: {
+		_id: string;
 		name: string;
 		profilePicture: string;
 	};
