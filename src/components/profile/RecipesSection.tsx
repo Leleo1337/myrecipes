@@ -50,9 +50,9 @@ export default function RecipesSection({ isLoggedInUserProfileOwner, userID }: {
 		}
 	}
 
-	function nextPage(page: keyof typeof pageIndex) {
-		if (pageIndex[page].index < pageLimit[page].index) {
-			setPageIndex((prev) => ({ ...prev, [page]: { index: prev[page].index + 1 } }));
+	function nextPage(key: keyof typeof pageIndex) {
+		if (pageIndex[key].index < pageLimit[key].index) {
+			setPageIndex((prev) => ({ ...prev, [key]: { index: prev[key].index + 1 } }));
 		}
 	}
 
