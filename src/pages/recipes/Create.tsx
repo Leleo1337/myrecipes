@@ -55,7 +55,7 @@ export default function Create() {
 	}
 
 	async function handleFileUpload(fileObj: FileList | null) {
-		if(!fileObj) return
+		if (!fileObj) return;
 
 		const file = fileObj[0];
 		if (!isFileSupportedFileType(file)) return;
@@ -63,8 +63,8 @@ export default function Create() {
 
 		const base64Image = await convertFileToBase64(file);
 		setRecipeForm((prev) => ({ ...prev, image: base64Image }));
-		setIsImageLoading(false)
-		setFile(fileObj)
+		setIsImageLoading(false);
+		setFile(fileObj);
 	}
 
 	function handleChange(e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement> | React.ChangeEvent<HTMLSelectElement>) {
@@ -121,7 +121,11 @@ export default function Create() {
 
 	return (
 		<>
-			{sidebarOpen && <div className='fixed inset-0 z-3 bg-black/70 md:hidden'></div>}
+			{sidebarOpen && (
+				<div
+					onClick={() => setSidebarOpen(!sidebarOpen)}
+					className='fixed inset-0 z-3 bg-black/70 md:hidden'></div>
+			)}
 			<header>
 				<Header toggleSide={handleSideBarToggle} />
 				<SideBar

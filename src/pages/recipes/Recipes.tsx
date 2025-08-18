@@ -19,7 +19,7 @@ export default function Recipes() {
 
 	async function fetchRecipes(page?: number) {
 		setIsloading(true);
-		setRecipes([])
+		setRecipes([]);
 		try {
 			const recipes = await getAllRecipes(page);
 			const featuredRecipes = await getFeaturedRecipes();
@@ -56,7 +56,11 @@ export default function Recipes() {
 
 	return (
 		<>
-			{sidebarOpen && <div className='fixed inset-0 z-3 bg-black/70 md:hidden'></div>}
+			{sidebarOpen && (
+				<div
+					onClick={() => setSidebarOpen(!sidebarOpen)}
+					className='fixed inset-0 z-3 bg-black/70 md:hidden'></div>
+			)}
 			<header>
 				{/* Mobile Sidebar */}
 				<SideBar

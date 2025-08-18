@@ -54,7 +54,11 @@ export default function Recipe() {
 
 	return (
 		<>
-			{sidebarOpen && <div className='fixed inset-0 z-3 bg-black/70 md:hidden'></div>}
+			{sidebarOpen && (
+				<div
+					onClick={() => setSidebarOpen(!sidebarOpen)}
+					className='fixed inset-0 z-3 bg-black/70 md:hidden'></div>
+			)}
 			<header>
 				<Header toggleSide={handleSideBarToggle} />
 				<SideBar
