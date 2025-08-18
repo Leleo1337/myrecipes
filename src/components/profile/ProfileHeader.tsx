@@ -1,4 +1,4 @@
-import { CameraIcon } from 'lucide-react';
+import { CameraIcon, Edit } from 'lucide-react';
 import Avatar from 'react-avatar';
 import { isFileSupportedFileType } from '../../utils/fileHelpers';
 import generateImageLinkFromFile from '../../services/cloudinary';
@@ -39,6 +39,10 @@ export default function ProfileHeader({
 		}
 	}
 
+	function openProfileEditForm() {
+		console.log('oi');
+	}
+
 	return (
 		<section className='container px-4 py-6 mx-auto bg-white border rounded-md shadow-xs md:px-6 border-slate-300'>
 			<div className='justify-between gap-4 sm:flex'>
@@ -73,7 +77,16 @@ export default function ProfileHeader({
 						)}
 					</div>
 					<div className='flex-1 space-y-1'>
-						<h1 className='text-3xl font-semibold'>{name}</h1>
+						<div className='flex items-center gap-4'>
+							<h1 className='text-3xl font-semibold'>{name}</h1>
+							{isProfileOnwer && (
+								<Edit
+									size={16}
+									onClick={openProfileEditForm}
+									className='hover:scale-105 transition ease-in duration-100 cursor-pointer'
+								/>
+							)}
+						</div>
 						<p className='text-gray-500'>{email ? email : name}</p>
 						<p>{bio}</p>
 					</div>
