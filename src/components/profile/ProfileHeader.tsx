@@ -87,7 +87,7 @@ export default function ProfileHeader({
 									<Edit
 										size={16}
 										onClick={() => setIsModalOpen(!isModalOpen)}
-										className='hover:scale-105 transition ease-in duration-100 cursor-pointer hover:text-emerald-600'
+										className='transition duration-100 ease-in cursor-pointer hover:scale-105 hover:text-emerald-600'
 									/>
 								)}
 							</div>
