@@ -20,9 +20,9 @@ export async function getUserData(userID: string | undefined) {
 	}
 }
 
-export async function updateUser(userID: string, update: any) {
+export async function updateUser(userID: string, formData: any) {
 	try {
-		const data = await api.patch(`/api/v1/user/${userID}`, update);
+		const data = await api.patch(`/api/v1/user/${userID}`, formData);
 		return data.data;
 	} catch (err) {
 		console.log('[ERRO] ALGO DEU ERRADO: ', err);
