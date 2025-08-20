@@ -51,6 +51,11 @@ export default function Profile() {
 
 	return (
 		<>
+			{sidebarOpen && (
+				<div
+					onClick={() => setSidebarOpen(!sidebarOpen)}
+					className='fixed inset-0 z-3 bg-black/70 md:hidden'></div>
+			)}
 			<header>
 				<Header toggleSide={() => setSidebarOpen(!sidebarOpen)} />
 				<SideBar
