@@ -44,7 +44,13 @@ export default function ProfileHeader({
 
 	return (
 		<>
+			{isModalOpen && (
+				<div
+					onClick={() => setIsModalOpen(false)}
+					className='fixed inset-0 top-0 z-40 w-full h-full bg-gray-400/30'></div>
+			)}
 			<ProfileEditModal
+				userID={userID}
 				isModalOpen={isModalOpen}
 				toggleModal={() => setIsModalOpen(!isModalOpen)}
 			/>
