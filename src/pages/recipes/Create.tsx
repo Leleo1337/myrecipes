@@ -19,6 +19,7 @@ const emptyRecipe = {
 	description: '',
 	category: 'cafe da manha',
 	difficulty: 'facil',
+	visibility: 'public',
 	cookingTime: 1,
 	portions: 1,
 	ingredients: [{ name: '', quantity: '', unit: '' }],
@@ -28,7 +29,7 @@ const emptyRecipe = {
 export default function Create() {
 	const [sidebarOpen, setSidebarOpen] = useState(false);
 	const [recipeForm, setRecipeForm] = useState<recipeForm>(emptyRecipe);
-	const [publicForm, setPublicForm] = useState(true);
+	const [publicRecipe, setPublicRecipe] = useState(true);
 	const [isImageLoading, setIsImageLoading] = useState(false);
 	const [file, setFile] = useState<FileList | null>(null);
 	const [isBigLoaderLoading, setIsBigLoaderLoading] = useState(false);
@@ -75,6 +76,12 @@ export default function Create() {
 		const val = e.target.value;
 
 		setRecipeForm((prev: any) => ({ ...prev, [key]: val }));
+	}
+
+	function toggleVisibility() {
+		setRecipeForm((prev) => ({ ...prev, visibility: prev.visibility === 'public' ? 'private' : 'public' }));
+		setPublicRecipe(!publicRecipe);
+		console.log(recipeForm.visibility)
 	}
 
 	function handleIngredientChange(index: number, field: string, value: string) {
@@ -144,10 +151,10 @@ export default function Create() {
 					<BasicInfoForm
 						recipeForm={recipeForm}
 						isImageLoading={isImageLoading}
-						publicForm={publicForm}
+						publicForm={publicRecipe}
 						handleChange={handleChange}
 						handleFileUpload={handleFileUpload}
-						handleSetPublicForm={() => setPublicForm(!publicForm)}
+						handleSetPublicForm={toggleVisibility}
 					/>
 					<AddIngredientForm
 						addIngredient={addIngredient}
