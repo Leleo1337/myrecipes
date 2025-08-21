@@ -8,8 +8,8 @@ import { createRecipe } from '../../services/recipes';
 import { toast } from 'sonner';
 import BigLoader from '../../components/ui/BigLoader';
 import { convertFileToBase64, isFileSupportedFileType } from '../../utils/fileHelpers';
-import AddInstructionForm from '../../components/forms/AddInstructionForm';
-import AddIngredientForm from '../../components/forms/AddIngredientForm';
+import AddInstructionForm from '../../components/forms/InstructionForm';
+import AddIngredientForm from '../../components/forms/IngredientForm';
 import BasicInfoForm from '../../components/forms/BasicInfoForm';
 import CreateHeader from '../../components/create/CreateHeader';
 
@@ -22,7 +22,7 @@ const emptyRecipe = {
 	visibility: 'public',
 	cookingTime: 1,
 	portions: 1,
-	ingredients: [{ name: '', quantity: '', unit: '' }],
+	ingredients: [{ name: '', quantity: '' }],
 	instructions: [{ step: 1, description: '' }],
 };
 
@@ -92,7 +92,7 @@ export default function CreateRecipe() {
 	}
 
 	function addIngredient() {
-		setRecipeForm((prev) => ({ ...prev, ingredients: [...prev.ingredients, { name: '', quantity: '', unit: '' }] }));
+		setRecipeForm((prev) => ({ ...prev, ingredients: [...prev.ingredients, { name: '', quantity: '' }] }));
 	}
 
 	function removeIngredient(index: number) {

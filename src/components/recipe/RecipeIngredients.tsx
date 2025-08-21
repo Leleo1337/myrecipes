@@ -18,7 +18,6 @@ export default function RecipeIngredients({ ingredients }: recipeIngredientList)
 							<RecipeIngredient
 								key={ingredient._id}
 								quantity={ingredient.quantity}
-								unit={ingredient.unit}
 								ingredient={ingredient.name}
 							/>
 						))}
