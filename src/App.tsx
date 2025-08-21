@@ -7,9 +7,10 @@ import Register from './pages/auth/Register';
 import Login from './pages/auth/Login';
 import Recipe from './pages/recipes/Recipe';
 import Recipes from './pages/recipes/Recipes';
-import Create from './pages/recipes/Create';
 import AuthRoute from './components/routes/AuthRoute';
 import Profile from './pages/user/Profile';
+import CreateRecipe from './pages/recipes/CreateRecipe';
+import EditRecipe from './pages/recipes/EditRecipe';
 
 function App() {
 	return (
@@ -36,15 +37,15 @@ function App() {
 						path='/recipes/create'
 						element={
 							<AuthRoute>
-								<Create />
+								<CreateRecipe />
 							</AuthRoute>
 						}
 					/>
 					<Route
-						path='/recipes/my-recipes'
+						path='/recipes/:recipeID/edit'
 						element={
 							<AuthRoute>
-								<Create />
+								<EditRecipe />
 							</AuthRoute>
 						}
 					/>
