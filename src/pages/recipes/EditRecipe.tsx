@@ -4,7 +4,7 @@ import Header from '../../components/ui/Header';
 import SideBar from '../../components/ui/sideBar';
 import type { recipeForm } from '../../types/recipes';
 import generateImageLinkFromFile from '../../services/cloudinary';
-import { createRecipe, fetchRecipe } from '../../services/recipes';
+import { fetchRecipe, updateRecipe } from '../../services/recipes';
 import { toast } from 'sonner';
 import BigLoader from '../../components/ui/BigLoader';
 import { convertFileToBase64, isFileSupportedFileType } from '../../utils/fileHelpers';
@@ -22,8 +22,8 @@ const emptyRecipe = {
 	visibility: 'public',
 	cookingTime: 1,
 	portions: 1,
-	ingredients: [{ name: '', quantity: '' }],
-	instructions: [{ step: 1, description: '' }],
+	ingredients: [{ _id: '', name: '', quantity: '' }],
+	instructions: [{ _id: '', step: 1, description: '' }],
 };
 
 export default function EditRecipe() {
@@ -34,7 +34,7 @@ export default function EditRecipe() {
 	const [file, setFile] = useState<FileList | null>(null);
 	const [isBigLoaderLoading, setIsBigLoaderLoading] = useState(false);
 	const navigate = useNavigate();
-	const params = useParams();
+	const { recipeID } = useParams();
 
 	function handleSideBarToggle() {
 		setSidebarOpen(!sidebarOpen);
@@ -42,9 +42,19 @@ export default function EditRecipe() {
 
 	async function getRecipeData() {
 		try {
-			const response = await fetchRecipe(params.recipeID!);
-			setRecipeForm(response.data);
-			console.log(recipeForm);
+			const response = await fetchRecipe(recipeID!);
+			setRecipeForm((prev) => ({
+				...prev,
+				category: response.data.category,
+				cookingTime: response.data.cookingTime,
+				description: response.data.description,
+				difficulty: response.data.difficulty,
+				image: response.data.image,
+				portions: response.data.portions,
+				title: response.data.title,
+				ingredients: response.data.ingredients.map(({ _id, ...ingredient }: any) => ingredient),
+				instructions: response.data.instructions.map(({ _id, ...instruction }: any) => instruction),
+			}));
 		} catch (error) {
 			console.log(error);
 		}
@@ -53,13 +63,13 @@ export default function EditRecipe() {
 	async function handleSubmit() {
 		try {
 			const newImage = await generateImageLinkFromFile(file);
-			const dataToSend = { ...recipeForm, image: newImage };
-			const response = await createRecipe(dataToSend);
-			toast.success('Receita criada com sucesso!');
+			let dataToSend = { ...recipeForm, image: newImage };
+			const response = await updateRecipe(recipeID!, dataToSend);
+			toast.success('Receita atualizada com sucesso!');
 			setIsBigLoaderLoading(true);
 			if (response) {
 				setTimeout(() => {
-					navigate(`/recipes/${response.edited._id}`);
+					navigate(`/recipes/${recipeID!}`);
 					setIsBigLoaderLoading(false);
 				}, 1000);
 			}
@@ -146,7 +156,11 @@ export default function EditRecipe() {
 
 	useEffect(() => {
 		getRecipeData();
-	}, [params.recipeID]);
+	}, [recipeID]);
+
+	useEffect(() => {
+		console.log(recipeForm);
+	}, [recipeForm]);
 
 	return (
 		<>
