@@ -1,6 +1,6 @@
 import { Eye, EyeOff, Save, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import { getUserData, updateUser } from '../../services/user';
+import { fetchUserData, updateUser } from '../../services/user';
 import { toast } from 'sonner';
 
 export type profileEditModalProps = {
@@ -52,9 +52,9 @@ export default function ProfileEditModal({ userID, isModalOpen, toggleModal }: p
 		}
 	}
 
-	async function fetchProfile(userID: string) {
+	async function getProfileData(userID: string) {
 		try {
-			const response = await getUserData(userID);
+			const response = await fetchUserData(userID);
 			setProfileEditForm((prev) => ({
 				...prev,
 				name: response.user.name ?? prev.name,
@@ -68,7 +68,7 @@ export default function ProfileEditModal({ userID, isModalOpen, toggleModal }: p
 
 	useEffect(() => {
 		if (isModalOpen && userID) {
-			fetchProfile(userID);
+			getProfileData(userID);
 		}
 	}, [isModalOpen, userID]);
 
