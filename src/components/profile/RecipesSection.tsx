@@ -22,7 +22,7 @@ export default function RecipesSection({ isLoggedInUserProfileOwner, userID }: {
 		setIsLoading(true);
 		setCreatedRecipes([]);
 		try {
-			const data = await fetchUserCreatedRecipes(userID, page);
+			const data = await fetchUserLikedRecipes(userID, page);
 			const pageLimit = Math.ceil(data.total / data.limit);
 			setLikedRecipes(data.data);
 			setRecipesLength((prev) => ({ ...prev, liked: data.total }));
@@ -38,7 +38,7 @@ export default function RecipesSection({ isLoggedInUserProfileOwner, userID }: {
 		setIsLoading(true);
 		setCreatedRecipes([]);
 		try {
-			const data = await fetchUserLikedRecipes(userID, page);
+			const data = await fetchUserCreatedRecipes(userID, page);
 			const pageLimit = Math.ceil(data.total / data.limit);
 			setCreatedRecipes(data.data);
 			setRecipesLength((prev) => ({ ...prev, created: data.total }));
