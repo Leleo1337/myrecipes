@@ -1,4 +1,4 @@
-import { ArrowLeft, Settings, Share2 } from 'lucide-react';
+import { ArrowLeft, Edit, Share2 } from 'lucide-react';
 import { Link } from 'react-router';
 import type { recipeHeaderProps } from '../../types/components/recipes';
 import { toast } from 'sonner';
@@ -20,6 +20,18 @@ export default function RecipeHeader({ recipeID, isCreatedByLoggedInUser }: reci
 						<span className='font-semibold'>Voltar</span>
 					</Link>
 					<div className='flex items-center gap-4'>
+						<div>
+							{isCreatedByLoggedInUser && (
+								<Link
+									className='text-gray-600 hover:text-gray-800'
+									to={`/recipes/${recipeID}/edit`}>
+									<Edit
+										size={20}
+										className='text-gray-600 hover:text-emerald-600 transiton ease-in duration-100'
+									/>
+								</Link>
+							)}
+						</div>
 						<div
 							className='cursor-pointer'
 							onClick={handleCopyCurrentUrl}>
@@ -28,13 +40,6 @@ export default function RecipeHeader({ recipeID, isCreatedByLoggedInUser }: reci
 								className='text-gray-600 hover:text-emerald-600 transiton ease-in duration-100'
 							/>
 						</div>
-						{isCreatedByLoggedInUser && (
-							<Link
-								className='text-gray-600 hover:text-gray-800'
-								to={`/recipes/${recipeID}/edit`}>
-								<Settings />
-							</Link>
-						)}
 					</div>
 				</div>
 			</div>
