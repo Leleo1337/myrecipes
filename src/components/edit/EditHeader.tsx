@@ -20,8 +20,8 @@ export default function EditHeader({ submitForm, deleteRecipe }: editHeaderProps
 					<div className='flex gap-4 items-center'>
 						<button
 							onClick={deleteRecipe}
-							className='cursor-pointer hover:text-red-500'>
-							<Trash size={20}/>
+							className='cursor-pointer text-red-500 hover:text-red-600 transition ease-in duration-75'>
+							<Trash size={20} />
 						</button>
 						<button
 							onClick={submitForm}
