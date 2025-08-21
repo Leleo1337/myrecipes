@@ -24,7 +24,7 @@ export default function Recipe() {
 
 	if (!user) throw new Error('Erro ao buscar usuario');
 
-	const isRecipeCreatedByLoggedInUser = currentRecipe?.createdBy == user.userID;
+	const isRecipeCreatedByLoggedInUser = currentRecipe?.createdBy._id == user.userID;
 
 	async function fetchRecipe() {
 		const recipeID = params.id!;
