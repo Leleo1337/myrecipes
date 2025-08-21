@@ -85,10 +85,6 @@ export default function ProfileEditModal({ userID, isModalOpen, toggleModal }: p
 		};
 	}, [isModalOpen]);
 
-	useEffect(() => {
-		console.log(profileEditForm);
-	}, [profileEditForm]);
-
 	return (
 		<>
 			<div
