@@ -27,7 +27,6 @@ export type recipeStep = {
 export type recipeIngredient = {
 	_id?: string;
 	quantity: string;
-	unit: string;
 	ingredient: string;
 };
 
@@ -35,7 +34,6 @@ export type recipeIngredientList = {
 	ingredients: {
 		_id?: string;
 		quantity: string;
-		unit: string;
 		name: string;
 	}[];
 };

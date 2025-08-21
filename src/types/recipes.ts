@@ -10,7 +10,6 @@ export type recipeForm = {
 	ingredients: {
 		name: string;
 		quantity: string;
-		unit: string;
 	}[];
 	instructions: {
 		step: number;
@@ -30,7 +29,6 @@ export type recipe = {
 	ingredients: {
 		name: string;
 		quantity: string;
-		unit: string;
 	}[];
 	instructions: {
 		step: number;
