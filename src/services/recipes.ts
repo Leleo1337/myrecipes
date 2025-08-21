@@ -29,6 +29,24 @@ export async function fetchRecipe(recipeID: string) {
 	}
 }
 
+export async function updateRecipe(recipeID: string | undefined, formData: any) {
+	try {
+		const response = await api.patch(`/api/v1/recipes/${recipeID}/`, formData);
+		return response.data;
+	} catch (err) {
+		throw err;
+	}
+}
+
+export async function deleteRecipe(recipeID: string) {
+	try {
+		const response = await api.delete(`/api/v1/recipes/${recipeID}`);
+		return response.data;
+	} catch (err) {
+		throw err;
+	}
+}
+
 export async function createRecipe(data: recipeForm) {
 	try {
 		const response = await api.post(`/api/v1/recipes/`, data);
