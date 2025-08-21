@@ -10,7 +10,7 @@ export async function likeRecipe(recipeID: string) {
 	}
 }
 
-export async function getRecipeLikes(recipeID: string) {
+export async function fetchRecipeLikes(recipeID: string) {
 	try {
 		const response = await api.get(`/api/v1/recipes/${recipeID}/like/count`);
 		return response.data;

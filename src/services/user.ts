@@ -1,6 +1,6 @@
 import api from './api';
 
-export async function getLoggedInUserData() {
+export async function fetchLoggedInUserData() {
 	try {
 		const userData = await api.get(`/api/v1/user/me`);
 		return userData.data.user;
@@ -10,7 +10,7 @@ export async function getLoggedInUserData() {
 	}
 }
 
-export async function getUserData(userID: string | undefined) {
+export async function fetchUserData(userID: string | undefined) {
 	try {
 		const userData = await api.get(`/api/v1/user/${userID}`);
 		return userData.data;

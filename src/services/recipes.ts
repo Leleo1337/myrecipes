@@ -1,7 +1,7 @@
 import type { recipeForm } from '../types/recipes';
 import api from './api';
 
-export async function getFeaturedRecipes() {
+export async function fetchFeaturedRecipes() {
 	try {
 		const response = await api.get(`/api/v1/recipes/featured`);
 		return response.data.data;
@@ -10,7 +10,7 @@ export async function getFeaturedRecipes() {
 	}
 }
 
-export async function getAllRecipes(page?: number) {
+export async function fetchAllRecipes(page?: number) {
 	const pageIndex = page || 1;
 	try {
 		const response = await api.get(`/api/v1/recipes?page=${pageIndex}`);
@@ -20,7 +20,7 @@ export async function getAllRecipes(page?: number) {
 	}
 }
 
-export async function getRecipe(recipeID: string) {
+export async function fetchRecipe(recipeID: string) {
 	try {
 		const response = await api.get(`/api/v1/recipes/${recipeID}`);
 		return response.data;
@@ -38,7 +38,7 @@ export async function createRecipe(data: recipeForm) {
 	}
 }
 
-export async function getUserCreatedRecipes(userID: string, page?: number) {
+export async function fetchUserCreatedRecipes(userID: string, page?: number) {
 	const pageIndex = page || 1;
 	try {
 		const response = await api.get(`/api/v1/user/${userID}/created?page=${pageIndex}`);
@@ -48,7 +48,7 @@ export async function getUserCreatedRecipes(userID: string, page?: number) {
 	}
 }
 
-export async function getUserLikedRecipes(userID: string, page?: number) {
+export async function fetchUserLikedRecipes(userID: string, page?: number) {
 	const pageIndex = page || 1;
 	try {
 		const response = await api.get(`/api/v1/user/${userID}/liked?page=${pageIndex}`);
