@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import UserContext from '../context/user';
-import { getLoggedInUserData } from '../services/user';
+import { fetchLoggedInUserData } from '../services/user';
 import AuthContext from '../context/auth';
 import { removeToken } from '../services/auth';
 import type { UserDataType } from '../types/context';
@@ -10,9 +10,9 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
 	const [token, setToken] = useState<string | null>(null);
 	const auth = useContext(AuthContext);
 
-	async function fetchUser() {
+	async function getUserData() {
 		try {
-			const data = await getLoggedInUserData();
+			const data = await fetchLoggedInUserData();
 			setUser({ userID: data._id, profilePicture: data.profilePicture, username: data.name });
 		} catch (error) {
 			removeToken();
@@ -22,7 +22,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
 
 	useEffect(() => {
 		if (!token) return;
-		fetchUser();
+		getUserData();
 	}, [token]);
 
 	useEffect(() => {

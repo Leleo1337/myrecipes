@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router';
 import { toast } from 'sonner';
 import UserContext from '../../context/user';
 import type { recipe } from '../../types/recipes';
-import { getRecipe } from '../../services/recipes';
+import { fetchRecipe } from '../../services/recipes';
 import Header from '../../components/ui/Header';
 import SideBar from '../../components/ui/sideBar';
 import RecipeHeader from '../../components/recipe/RecipeHeader';
@@ -26,11 +26,11 @@ export default function Recipe() {
 
 	const isRecipeCreatedByLoggedInUser = currentRecipe?.createdBy._id == user.userID;
 
-	async function fetchRecipe() {
+	async function getRecipeData() {
 		const recipeID = params.id!;
 		setIsPageLoading(true);
 		try {
-			const recipe = await getRecipe(recipeID);
+			const recipe = await fetchRecipe(recipeID);
 			setCurrentRecipe(recipe.data);
 			setIsPageLoading(false);
 		} catch (error) {
@@ -41,7 +41,7 @@ export default function Recipe() {
 	}
 
 	useEffect(() => {
-		fetchRecipe();
+		getRecipeData();
 	}, []);
 
 	if (isPageLoading || !currentRecipe) {

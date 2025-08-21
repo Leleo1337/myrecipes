@@ -4,7 +4,7 @@ import Avatar from 'react-avatar';
 import AuthContext from '../../context/auth';
 import { Link } from 'react-router';
 import type { recipeStatsProps } from '../../types/components/recipes';
-import { fetchHasUserLiked, getRecipeLikes, likeRecipe } from '../../services/likes';
+import { fetchHasUserLiked, fetchRecipeLikes, likeRecipe } from '../../services/likes';
 import { toast } from 'sonner';
 
 export default function RecipeStats({ recipeID, cookingTime, portions, difficulty, createdBy, commentsCount }: recipeStatsProps) {
@@ -19,7 +19,7 @@ export default function RecipeStats({ recipeID, cookingTime, portions, difficult
 		try {
 			setLike(!like)
 			const response = await likeRecipe(recipeID);
-			const likesCount = await getRecipeLikes(recipeID);
+			const likesCount = await fetchRecipeLikes(recipeID);
 			setLikesCount(likesCount.likesCount);
 			if (response.state === 'liked') {
 				toast.success(response.msg);
@@ -31,7 +31,7 @@ export default function RecipeStats({ recipeID, cookingTime, portions, difficult
 		}
 	}
 	async function setLikeStates() {
-		const likes = await getRecipeLikes(recipeID);
+		const likes = await fetchRecipeLikes(recipeID);
 		const hasUserLiked = await fetchHasUserLiked(recipeID);
 		setLikesCount(likes.likesCount);
 		setLike(hasUserLiked.hasLiked);

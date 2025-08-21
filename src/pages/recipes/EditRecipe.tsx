@@ -4,7 +4,7 @@ import Header from '../../components/ui/Header';
 import SideBar from '../../components/ui/sideBar';
 import type { recipeForm } from '../../types/recipes';
 import generateImageLinkFromFile from '../../services/cloudinary';
-import { createRecipe, getRecipe } from '../../services/recipes';
+import { createRecipe, fetchRecipe } from '../../services/recipes';
 import { toast } from 'sonner';
 import BigLoader from '../../components/ui/BigLoader';
 import { convertFileToBase64, isFileSupportedFileType } from '../../utils/fileHelpers';
@@ -40,9 +40,9 @@ export default function EditRecipe() {
 		setSidebarOpen(!sidebarOpen);
 	}
 
-	async function fetchRecipe() {
+	async function getRecipeData() {
 		try {
-			const response = await getRecipe(params.recipeID!);
+			const response = await fetchRecipe(params.recipeID!);
 			setRecipeForm(response.data);
 			console.log(recipeForm);
 		} catch (error) {
@@ -107,7 +107,7 @@ export default function EditRecipe() {
 	}
 
 	function addIngredient() {
-		setRecipeForm((prev) => ({ ...prev, ingredients: [...prev.ingredients, { name: '', quantity: ''}] }));
+		setRecipeForm((prev) => ({ ...prev, ingredients: [...prev.ingredients, { name: '', quantity: '' }] }));
 	}
 
 	function removeIngredient(index: number) {
@@ -145,7 +145,7 @@ export default function EditRecipe() {
 	}
 
 	useEffect(() => {
-		fetchRecipe();
+		getRecipeData();
 	}, [params.recipeID]);
 
 	return (

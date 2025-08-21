@@ -6,7 +6,7 @@ import LargeFeaturedRecipe from '../../components/recipes/LargeFeaturedRecipe';
 import SmallFeaturedRecipeCard from '../../components/recipes/SmallFeaturedRecipe';
 import RecipeCard from '../../components/recipes/RecipeCard';
 import type { recipe } from '../../types/recipes';
-import { getAllRecipes, getFeaturedRecipes } from '../../services/recipes';
+import { fetchAllRecipes, fetchFeaturedRecipes } from '../../services/recipes';
 import PaginationButtons from '../../components/ui/PaginationButtons';
 
 export default function Recipes() {
@@ -17,12 +17,12 @@ export default function Recipes() {
 	const [pageIndex, setPageIndex] = useState<number>(1);
 	const [pageLimit, setPageLimit] = useState(0);
 
-	async function fetchRecipes(page?: number) {
+	async function getRecipes(page?: number) {
 		setIsloading(true);
 		setRecipes([]);
 		try {
-			const recipes = await getAllRecipes(page);
-			const featuredRecipes = await getFeaturedRecipes();
+			const recipes = await fetchAllRecipes(page);
+			const featuredRecipes = await fetchFeaturedRecipes();
 			const pageLimit = Math.ceil(recipes.total / recipes.limit);
 			setPageLimit(pageLimit);
 			setRecipes(recipes.data);
@@ -51,7 +51,7 @@ export default function Recipes() {
 	}
 
 	useEffect(() => {
-		fetchRecipes(pageIndex);
+		getRecipes(pageIndex);
 	}, [pageIndex]);
 
 	return (

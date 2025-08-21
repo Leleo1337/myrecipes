@@ -3,7 +3,7 @@ import { useContext, useEffect, useState } from 'react';
 import AuthContext from '../../context/auth';
 import UserContext from '../../context/user';
 import type { commentProps } from '../../types/components/comments';
-import { createComment, getRecipeComments } from '../../services/comments';
+import { createComment, fetchRecipeComments } from '../../services/comments';
 import { Link, useParams } from 'react-router';
 import { toast } from 'sonner';
 import Avatar from 'react-avatar';
@@ -38,16 +38,16 @@ export default function RecipeComments() {
 		try {
 			await createComment(commentFormData, params.id);
 			setCommentFormData({ text: '' });
-			fetchComments(pageIndex);
+			getRecipeComments(pageIndex);
 		} catch (err: any) {
 			toast.error(err.response.data.msg);
 		}
 	}
 
-	async function fetchComments(page: number) {
+	async function getRecipeComments(page: number) {
 		setIsCommentsLoading(true);
 		const recipeID = params.id!;
-		const comments = await getRecipeComments(recipeID, page);
+		const comments = await fetchRecipeComments(recipeID, page);
 		const pageLimit = Math.ceil(comments.total / comments.limit);
 		setCommentsLength(comments.total);
 		setPageLimit(pageLimit);
@@ -65,11 +65,11 @@ export default function RecipeComments() {
 	}
 
 	useEffect(() => {
-		fetchComments(pageIndex);
+		getRecipeComments(pageIndex);
 	}, [pageIndex]);
 
 	useEffect(() => {
-		fetchComments(pageIndex);
+		getRecipeComments(pageIndex);
 	}, []);
 
 	return (

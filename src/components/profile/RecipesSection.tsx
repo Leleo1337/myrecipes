@@ -3,7 +3,7 @@ import RecipeCard from '../recipes/RecipeCard';
 import { useEffect, useState } from 'react';
 import type { RecipeCardProps } from '../../types/components/recipes';
 import { useNavigate } from 'react-router';
-import { getUserCreatedRecipes, getUserLikedRecipes } from '../../services/recipes';
+import { fetchUserCreatedRecipes, fetchUserLikedRecipes } from '../../services/recipes';
 import { toast } from 'sonner';
 import PaginationButtons from '../ui/PaginationButtons';
 
@@ -22,7 +22,7 @@ export default function RecipesSection({ isLoggedInUserProfileOwner, userID }: {
 		setIsLoading(true);
 		setCreatedRecipes([]);
 		try {
-			const data = await getUserLikedRecipes(userID, page);
+			const data = await fetchUserCreatedRecipes(userID, page);
 			const pageLimit = Math.ceil(data.total / data.limit);
 			setLikedRecipes(data.data);
 			setRecipesLength((prev) => ({ ...prev, liked: data.total }));
@@ -38,7 +38,7 @@ export default function RecipesSection({ isLoggedInUserProfileOwner, userID }: {
 		setIsLoading(true);
 		setCreatedRecipes([]);
 		try {
-			const data = await getUserCreatedRecipes(userID, page);
+			const data = await fetchUserLikedRecipes(userID, page);
 			const pageLimit = Math.ceil(data.total / data.limit);
 			setCreatedRecipes(data.data);
 			setRecipesLength((prev) => ({ ...prev, created: data.total }));

@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import Header from '../../components/ui/Header';
 import SideBar from '../../components/ui/sideBar';
 import UserContext from '../../context/user';
-import { getUserData } from '../../services/user';
+import { fetchUserData } from '../../services/user';
 import { useNavigate, useParams } from 'react-router';
 import { toast } from 'sonner';
 import ProfileHeader from '../../components/profile/ProfileHeader';
@@ -33,9 +33,9 @@ export default function Profile() {
 
 	const isLoggedInUserProfileOwner = profileData._id == user.userID;
 
-	async function fetchProfile() {
+	async function getProfileData() {
 		try {
-			const data = await getUserData(params.userID);
+			const data = await fetchUserData(params.userID);
 			setProfileData(data.user);
 			setRecipesData(data.recipes);
 		} catch (error) {
@@ -46,7 +46,7 @@ export default function Profile() {
 	}
 
 	useEffect(() => {
-		fetchProfile();
+		getProfileData();
 	}, [params.userID]);
 
 	return (
@@ -74,7 +74,7 @@ export default function Profile() {
 					likedRecipesCount={recipesData.likedCount}
 					likesReceivedCount={recipesData.likesReceived}
 					isProfileOnwer={isLoggedInUserProfileOwner}
-					onProfileChange={fetchProfile}
+					onProfileChange={getProfileData}
 				/>
 				<RecipesSection
 					isLoggedInUserProfileOwner={isLoggedInUserProfileOwner}
