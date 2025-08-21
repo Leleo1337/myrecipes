@@ -11,7 +11,7 @@ import { convertFileToBase64, isFileSupportedFileType } from '../../utils/fileHe
 import CreateHeader from '../../components/create/createHeader';
 import AddInstructionForm from '../../components/create/AddInstructionForm';
 import AddIngredientForm from '../../components/create/AddIngredientForm';
-import BaseInfoForm from '../../components/create/baseInfoForm';
+import BasicInfoForm from '../../components/create/BasicInfoForm';
 
 const emptyRecipe = {
 	image: '',
@@ -141,7 +141,7 @@ export default function Create() {
 				<BigLoader color='emerald' />
 			) : (
 				<main className='relative w-full px-4 pb-12 top-40'>
-					<BaseInfoForm
+					<BasicInfoForm
 						recipeForm={recipeForm}
 						isImageLoading={isImageLoading}
 						publicForm={publicForm}

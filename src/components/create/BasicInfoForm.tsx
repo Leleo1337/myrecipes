@@ -1,7 +1,7 @@
 import { Clock, Eye, EyeOff, ImageIcon, Loader2, Users2 } from 'lucide-react';
 import type { recipeForm } from '../../types/recipes';
 
-export type BaseInfoFormProps = {
+export type basicInfoFormTypes = {
 	recipeForm: recipeForm;
 	handleFileUpload: (File: FileList | null) => Promise<void>;
 	isImageLoading: boolean;
@@ -10,7 +10,7 @@ export type BaseInfoFormProps = {
 	publicForm: boolean;
 };
 
-export default function BaseInfoForm({ isImageLoading, handleFileUpload, recipeForm, handleChange, handleSetPublicForm, publicForm }: BaseInfoFormProps) {
+export default function BasicInfoForm({ isImageLoading, handleFileUpload, recipeForm, handleChange, handleSetPublicForm, publicForm }: basicInfoFormTypes) {
 	return (
 		<>
 			<section className='container max-w-[900px] mx-auto py-6 px-4 md:px-6 bg-white border border-slate-300 rounded-md shadow-xs'>
