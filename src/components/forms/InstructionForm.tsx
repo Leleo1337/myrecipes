@@ -8,7 +8,7 @@ export type addInstructionFormProps = {
 	removeInstruction: (index: number) => void;
 };
 
-export default function AddInstructionForm({ recipeForm, addInstruction, handleInstructionChange, removeInstruction }: addInstructionFormProps) {
+export default function InstructionForm({ recipeForm, addInstruction, handleInstructionChange, removeInstruction }: addInstructionFormProps) {
 	return (
 		<>
 			<section className='container max-w-[900px] mx-auto py-6 px-4 md:px-6 bg-white border border-slate-300 rounded-md shadow-xs mt-8'>

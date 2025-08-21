@@ -8,7 +8,7 @@ export type addIngredientFormProps = {
 	handleIngredientChange: (index: number, field: any, value: any) => void;
 };
 
-export default function AddIngredientForm({ recipeForm, addIngredient, removeIngredient, handleIngredientChange }: addIngredientFormProps) {
+export default function IngredientForm({ recipeForm, addIngredient, removeIngredient, handleIngredientChange }: addIngredientFormProps) {
 	return (
 		<>
 			<section className='container max-w-[900px] mx-auto py-6 px-4 md:px-6 bg-white border border-slate-300 rounded-md shadow-xs mt-8'>
@@ -42,7 +42,7 @@ export default function AddIngredientForm({ recipeForm, addIngredient, removeIng
 						<div className='flex flex-col w-full gap-0.5'>
 							<label className='text-xs text-gray-500 font-semibold'>quantidade</label>
 							<input
-								type='number'
+								type='text'
 								name='quantity'
 								id='quantity'
 								autoComplete='off'
@@ -50,18 +50,6 @@ export default function AddIngredientForm({ recipeForm, addIngredient, removeIng
 								value={ingredient.quantity}
 								onChange={(e) => handleIngredientChange(index, 'quantity', e.target.value)}
 								required
-								className='px-4 py-2.5 border rounded-md bg-slate-50 border-slate-300 placeholder:text-sm placeholder:text-gray-300'
-							/>
-						</div>
-						<div className='flex flex-col w-full gap-0.5'>
-							<label className='text-xs text-gray-500 font-semibold'>unidade</label>
-							<input
-								type='text'
-								name='unit'
-								id='unit'
-								placeholder='colheres de sopa'
-								value={ingredient.unit}
-								onChange={(e) => handleIngredientChange(index, 'unit', e.target.value)}
 								className='px-4 py-2.5 border rounded-md bg-slate-50 border-slate-300 placeholder:text-sm placeholder:text-gray-300'
 							/>
 						</div>
