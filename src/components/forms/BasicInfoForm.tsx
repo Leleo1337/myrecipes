@@ -151,7 +151,7 @@ export default function BasicInfoForm({ isImageLoading, handleFileUpload, recipe
 						</div>
 					</div>
 					<div
-						className={`relative w-full transition duration-75 ease-in border-2 border-dashed rounded-md cursor-pointer h-60 md:h-80 bg-slate-50 hover:bg-slate-100 ${recipeForm.image ? 'border-emerald-500' : 'border-slate-300'}`}>
+						className={`relative w-full transition duration-75 ease-in group border-2 border-dashed rounded-md cursor-pointer h-60 md:h-80 bg-slate-50 hover:bg-slate-100  ${recipeForm.image ? 'border-emerald-500' : 'border-slate-300'}`}>
 						<input
 							onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFileUpload(e.target.files)}
 							type='file'
@@ -163,9 +163,10 @@ export default function BasicInfoForm({ isImageLoading, handleFileUpload, recipe
 							className='relative flex flex-col items-center justify-center w-full h-full cursor-pointer '>
 							<img
 								src={recipeForm.image}
-								className='object-cover w-full h-full rounded-md brightness-60'
+								className='object-cover w-full h-full transition-all duration-100 ease-in rounded-md group-hover:brightness-50'
 							/>
-							<div className={`absolute flex items-center flex-col justify-center gap-4 text-gray-500 ${recipeForm.image && 'text-white'}`}>
+							<div
+								className={`${recipeForm.image && 'opacity-0'} absolute flex items-center flex-col justify-center gap-4 text-gray-500 ${recipeForm.image && 'text-white'} group-hover:opacity-100 transtion-all ease-in duration-100`}>
 								{isImageLoading ? (
 									<Loader2
 										size={64}
