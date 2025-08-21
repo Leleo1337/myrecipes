@@ -8,10 +8,10 @@ import { createRecipe } from '../../services/recipes';
 import { toast } from 'sonner';
 import BigLoader from '../../components/ui/BigLoader';
 import { convertFileToBase64, isFileSupportedFileType } from '../../utils/fileHelpers';
-import CreateHeader from '../../components/create/createHeader';
-import AddInstructionForm from '../../components/create/AddInstructionForm';
-import AddIngredientForm from '../../components/create/AddIngredientForm';
-import BasicInfoForm from '../../components/create/BasicInfoForm';
+import AddInstructionForm from '../../components/forms/AddInstructionForm';
+import AddIngredientForm from '../../components/forms/AddIngredientForm';
+import BasicInfoForm from '../../components/forms/BasicInfoForm';
+import CreateHeader from '../../components/create/CreateHeader';
 
 const emptyRecipe = {
 	image: '',
@@ -26,7 +26,7 @@ const emptyRecipe = {
 	instructions: [{ step: 1, description: '' }],
 };
 
-export default function Create() {
+export default function CreateRecipe() {
 	const [sidebarOpen, setSidebarOpen] = useState(false);
 	const [recipeForm, setRecipeForm] = useState<recipeForm>(emptyRecipe);
 	const [publicRecipe, setPublicRecipe] = useState(true);
@@ -81,7 +81,7 @@ export default function Create() {
 	function toggleVisibility() {
 		setRecipeForm((prev) => ({ ...prev, visibility: prev.visibility === 'public' ? 'private' : 'public' }));
 		setPublicRecipe(!publicRecipe);
-		console.log(recipeForm.visibility)
+		console.log(recipeForm.visibility);
 	}
 
 	function handleIngredientChange(index: number, field: string, value: string) {
