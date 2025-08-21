@@ -4,6 +4,7 @@ export type recipeForm = {
 	description: string;
 	category: string;
 	difficulty: string;
+	visibility: string;
 	cookingTime: number;
 	portions: number;
 	ingredients: {
