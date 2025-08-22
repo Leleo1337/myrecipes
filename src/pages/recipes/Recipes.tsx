@@ -6,13 +6,15 @@ import LargeFeaturedRecipe from '../../components/recipes/LargeFeaturedRecipe';
 import SmallFeaturedRecipeCard from '../../components/recipes/SmallFeaturedRecipe';
 import RecipeCard from '../../components/recipes/RecipeCard';
 import type { recipe } from '../../types/recipes';
-import { fetchAllRecipes, fetchFeaturedRecipes } from '../../services/recipes';
+import { fetchAllRecipes, fetchFeaturedRecipes, fetchRecipeSearch } from '../../services/recipes';
 import PaginationButtons from '../../components/ui/PaginationButtons';
 
 export default function Recipes() {
 	const [sidebarOpen, setSidebarOpen] = useState(false);
 	const [featured, setFeatured] = useState<recipe[]>([]);
 	const [recipes, setRecipes] = useState<recipe[]>([]);
+	const [activeFilter, setActiveFilter] = useState('');
+	const [searchQuery, setSearchQuery] = useState('');
 	const [isLoading, setIsloading] = useState(false);
 	const [pageIndex, setPageIndex] = useState<number>(1);
 	const [pageLimit, setPageLimit] = useState(0);
@@ -50,6 +52,24 @@ export default function Recipes() {
 		}
 	}
 
+	async function handleSearch(query?: string) {
+		const filters: any = {};
+		filters.query = query;
+		filters.category = activeFilter;
+
+		const response = await fetchRecipeSearch(filters);
+		setRecipes(response);
+	}
+
+	useEffect(() => {
+		if (searchQuery === '' && activeFilter === '') {
+			getRecipes();
+			return;
+		}
+		const timeout = setTimeout(() => handleSearch(searchQuery), 500);
+		return () => clearTimeout(timeout);
+	}, [searchQuery, activeFilter]);
+
 	useEffect(() => {
 		getRecipes(pageIndex);
 	}, [pageIndex]);
@@ -69,7 +89,7 @@ export default function Recipes() {
 				/>
 				<Header toggleSide={handleSideBarToggle} />
 			</header>
-			<main className='container max-w-[1400px] mx-auto px-4 relative top-18'>
+			<main className='container max-w-[1400px] mx-auto px-4 relative top-18 pb-12'>
 				<section className='pb-8'>
 					<div className='flex items-center gap-1 py-4'>
 						<div className='relative p-2 text-white bg-emerald-600 bottom-1 rounded-xl'>
@@ -105,6 +125,7 @@ export default function Recipes() {
 									type='text'
 									name='search'
 									id='search'
+									onChange={(e) => setSearchQuery(e.target.value)}
 									className='w-full p-4 pl-12 bg-gray-100 border border-gray-300 rounded-2xl outline-0 focus:ring focus:ring-emerald-600/60 '
 								/>
 								<Search className='absolute text-gray-500 top-4 left-4' />
@@ -113,26 +134,29 @@ export default function Recipes() {
 								<div className='flex items-center gap-4'>
 									<label
 										htmlFor='filter'
-										className='hidden sm:block'>
+										className={`hidden sm:block ${activeFilter === '' ? 'text-gray-600' : 'text-emerald-600'}`}>
 										<Filter />
 									</label>
 									<select
-										className='w-full px-6 py-4 border border-gray-300 md:w-auto rounded-2xl'
+										className={`w-full px-6 py-4 border md:w-auto rounded-2xl outline-0 ${activeFilter === '' ? 'border-gray-300' : 'border-emerald-600'}`}
 										name='filter'
-										id='filter'>
-										<option defaultChecked>Todas</option>
-										<option value=''>Café da manha</option>
-										<option value=''>Almoço</option>
-										<option value=''>Jantar</option>
-										<option value=''>Entrada</option>
-										<option value=''>Prato Principal</option>
-										<option value=''>Sobremesa</option>
-										<option value=''>Bebida</option>
-										<option value=''>Lanche</option>
+										id='filter'
+										value={activeFilter}
+										onChange={(e) => setActiveFilter(e.target.value)}>
+										<option
+											defaultChecked
+											value=''>
+											Todas
+										</option>
+										<option value='cafe da manha'>Café da manha</option>
+										<option value='almoço'>Almoço</option>
+										<option value='jantar'>Jantar</option>
+										<option value='entrada'>Entrada</option>
+										<option value='sobremesa'>Sobremesa</option>
+										<option value='bebida'>Bebida</option>
+										<option value='lanche'>Lanche</option>
+										<option value='outro'>Outro</option>
 									</select>
-									<div>
-										<button className='w-full px-8 py-4 text-white cursor-pointer md:w-auto bg-emerald-600 rounded-2xl hover:bg-emerald-700'>Buscar</button>
-									</div>
 								</div>
 							</div>
 						</div>
