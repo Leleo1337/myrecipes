@@ -18,14 +18,9 @@ export default function RecipeStats({ recipeID, cookingTime, portions, difficult
 	async function handleSetLike() {
 		try {
 			setLike(!like)
-			const response = await likeRecipe(recipeID);
+			await likeRecipe(recipeID);
 			const likesCount = await fetchRecipeLikes(recipeID);
 			setLikesCount(likesCount.likesCount);
-			if (response.state === 'liked') {
-				toast.success(response.msg);
-			} else {
-				toast.error(response.msg);
-			}
 		} catch (error) {
 			toast.error('Algo deu errado ao curtir a mensagem.');
 		}
