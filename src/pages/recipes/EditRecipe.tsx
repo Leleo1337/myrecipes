@@ -4,7 +4,7 @@ import Header from '../../components/ui/Header';
 import SideBar from '../../components/ui/sideBar';
 import type { recipeForm } from '../../types/recipes';
 import generateImageLinkFromFile from '../../services/cloudinary';
-import { fetchRecipe, updateRecipe } from '../../services/recipes';
+import { deleteRecipe, fetchRecipe, updateRecipe } from '../../services/recipes';
 import { toast } from 'sonner';
 import BigLoader from '../../components/ui/BigLoader';
 import { convertFileToBase64, isFileSupportedFileType } from '../../utils/fileHelpers';
@@ -12,6 +12,7 @@ import AddInstructionForm from '../../components/forms/InstructionForm';
 import AddIngredientForm from '../../components/forms/IngredientForm';
 import BasicInfoForm from '../../components/forms/BasicInfoForm';
 import EditHeader from '../../components/edit/EditHeader';
+import DeleteRecipeModal from '../../components/edit/DeleteRecipeModal';
 
 const emptyRecipe = {
 	image: '',
@@ -29,6 +30,7 @@ const emptyRecipe = {
 export default function EditRecipe() {
 	const [sidebarOpen, setSidebarOpen] = useState(false);
 	const [recipeForm, setRecipeForm] = useState<recipeForm>(emptyRecipe);
+	const [deleteModalOpen, setDeleteModalOpen] = useState(false);
 	const [publicRecipe, setPublicRecipe] = useState(true);
 	const [isImageLoading, setIsImageLoading] = useState(false);
 	const [file, setFile] = useState<FileList | null>(null);
@@ -79,8 +81,14 @@ export default function EditRecipe() {
 		}
 	}
 
-	function handleDelete() {
-		console.log('deletei');
+	async function handleDelete() {
+		try {
+			await deleteRecipe(recipeID)
+			toast.success('Receita deletada com sucesso')
+			navigate('/recipes')
+		} catch (error) {
+			
+		}
 	}
 
 	async function handleFileUpload(fileObj: FileList | null) {
@@ -177,34 +185,41 @@ export default function EditRecipe() {
 				/>
 				<EditHeader
 					submitForm={handleSubmit}
-					deleteRecipe={handleDelete}
+					openModal={() => setDeleteModalOpen(true)}
 				/>
 			</header>
 			{isBigLoaderLoading ? (
 				<BigLoader color='emerald' />
 			) : (
-				<main className='relative w-full px-4 pb-12 top-40'>
-					<BasicInfoForm
-						recipeForm={recipeForm}
-						isImageLoading={isImageLoading}
-						publicForm={publicRecipe}
-						handleChange={handleChange}
-						handleFileUpload={handleFileUpload}
-						handleSetPublicForm={toggleVisibility}
+				<>
+					<DeleteRecipeModal
+						isModalOpen={deleteModalOpen}
+						toggleModal={() => setDeleteModalOpen(!deleteModalOpen)}
+						onDelete={handleDelete}
 					/>
-					<AddIngredientForm
-						addIngredient={addIngredient}
-						removeIngredient={removeIngredient}
-						handleIngredientChange={handleIngredientChange}
-						recipeForm={recipeForm}
-					/>
-					<AddInstructionForm
-						addInstruction={addInstruction}
-						removeInstruction={removeInstruction}
-						handleInstructionChange={handleInstructionChange}
-						recipeForm={recipeForm}
-					/>
-				</main>
+					<main className='relative w-full px-4 pb-12 top-40'>
+						<BasicInfoForm
+							recipeForm={recipeForm}
+							isImageLoading={isImageLoading}
+							publicForm={publicRecipe}
+							handleChange={handleChange}
+							handleFileUpload={handleFileUpload}
+							handleSetPublicForm={toggleVisibility}
+						/>
+						<AddIngredientForm
+							addIngredient={addIngredient}
+							removeIngredient={removeIngredient}
+							handleIngredientChange={handleIngredientChange}
+							recipeForm={recipeForm}
+						/>
+						<AddInstructionForm
+							addInstruction={addInstruction}
+							removeInstruction={removeInstruction}
+							handleInstructionChange={handleInstructionChange}
+							recipeForm={recipeForm}
+						/>
+					</main>
+				</>
 			)}
 		</>
 	);
