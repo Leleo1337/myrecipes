@@ -47,7 +47,7 @@ export async function updateRecipe(recipeID: string | undefined, formData: any) 
 	}
 }
 
-export async function deleteRecipe(recipeID: string) {
+export async function deleteRecipe(recipeID: string | undefined) {
 	try {
 		const response = await api.delete(`/api/v1/recipes/${recipeID}`);
 		return response.data;
