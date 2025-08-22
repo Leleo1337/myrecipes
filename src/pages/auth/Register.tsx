@@ -1,13 +1,15 @@
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router';
 import { toast } from 'sonner';
 import { ArrowLeft, ChefHat, Eye, EyeOff, LockKeyholeIcon, Mail, User } from 'lucide-react';
 import type { registerForm } from '../../types/auth';
 import { register } from '../../services/auth';
 import BigLoader from '../../components/ui/BigLoader';
+import AuthContext from '../../context/auth';
 
 export default function Register() {
 	const navigate = useNavigate();
+	const auth = useContext(AuthContext);
 	const [inputTypes, setInputType] = useState({
 		password: 'password',
 		passwordConfirmation: 'password',
@@ -41,6 +43,13 @@ export default function Register() {
 			setError(error.response.data.msg);
 		}
 	}
+
+	useEffect(() => {
+		if (auth?.token) {
+			navigate('/recipes');
+			toast.message('Usuario já autenticado!')
+		}
+	}, [auth?.token]);
 
 	return (
 		<>
