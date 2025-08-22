@@ -29,6 +29,15 @@ export async function fetchRecipe(recipeID: string) {
 	}
 }
 
+export async function fetchRecipeSearch(filters: { query?: string; category?: string }) {
+	try {
+		const response = await api.get(`/api/v1/recipes/search`, { params: filters });
+		return response.data.data;
+	} catch (err) {
+		throw err;
+	}
+}
+
 export async function updateRecipe(recipeID: string | undefined, formData: any) {
 	try {
 		const response = await api.patch(`/api/v1/recipes/${recipeID}/`, formData);
