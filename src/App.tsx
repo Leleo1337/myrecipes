@@ -17,7 +17,7 @@ function App() {
 		<>
 			<Toaster
 				richColors
-				position='top-center'
+				position='top-right'
 			/>
 			<BrowserRouter basename='/'>
 				<Routes>
