@@ -2,11 +2,11 @@ import { ArrowLeft, Save, Trash } from 'lucide-react';
 import { Link } from 'react-router';
 
 export type editHeaderProps = {
-	deleteRecipe: () => void;
+	openModal: () => void;
 	submitForm: () => void;
 };
 
-export default function EditHeader({ submitForm, deleteRecipe }: editHeaderProps) {
+export default function EditHeader({ submitForm, openModal }: editHeaderProps) {
 	return (
 		<>
 			<div className='fixed w-full bg-white border-b shadow border-slate-300 top-12 md:top-16 z-2'>
@@ -19,7 +19,7 @@ export default function EditHeader({ submitForm, deleteRecipe }: editHeaderProps
 					</Link>
 					<div className='flex gap-4 items-center'>
 						<button
-							onClick={deleteRecipe}
+							onClick={openModal}
 							className='cursor-pointer text-red-500 hover:text-red-600 transition ease-in duration-75'>
 							<Trash size={20} />
 						</button>
