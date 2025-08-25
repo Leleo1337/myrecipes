@@ -13,6 +13,7 @@ import AddIngredientForm from '../../components/forms/IngredientForm';
 import BasicInfoForm from '../../components/forms/BasicInfoForm';
 import EditHeader from '../../components/edit/EditHeader';
 import DeleteRecipeModal from '../../components/edit/DeleteRecipeModal';
+import { translateJoiError } from '../../utils/translateJoiError';
 
 const emptyRecipe = {
 	image: '',
@@ -76,19 +77,17 @@ export default function EditRecipe() {
 				}, 1000);
 			}
 			setRecipeForm(emptyRecipe);
-		} catch (error: any) {
-			toast.error(error.response.data.msg);
+		} catch (err: any) {
+			toast.error(translateJoiError(err.errors[0].type, err.errors[0].field, err.errors[0].limit));
 		}
 	}
 
 	async function handleDelete() {
 		try {
-			await deleteRecipe(recipeID)
-			toast.success('Receita deletada com sucesso')
-			navigate('/recipes')
-		} catch (error) {
-			
-		}
+			await deleteRecipe(recipeID);
+			toast.success('Receita deletada com sucesso');
+			navigate('/recipes');
+		} catch (error) {}
 	}
 
 	async function handleFileUpload(fileObj: FileList | null) {
@@ -164,7 +163,7 @@ export default function EditRecipe() {
 	useEffect(() => {
 		getRecipeData();
 	}, [recipeID]);
-	
+
 	return (
 		<>
 			{sidebarOpen && (

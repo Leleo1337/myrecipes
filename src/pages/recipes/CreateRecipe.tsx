@@ -12,6 +12,7 @@ import AddInstructionForm from '../../components/forms/InstructionForm';
 import AddIngredientForm from '../../components/forms/IngredientForm';
 import BasicInfoForm from '../../components/forms/BasicInfoForm';
 import CreateHeader from '../../components/create/CreateHeader';
+import { translateJoiError } from '../../utils/translateJoiError';
 
 const emptyRecipe = {
 	image: '',
@@ -53,8 +54,9 @@ export default function CreateRecipe() {
 				}, 1000);
 			}
 			setRecipeForm(emptyRecipe);
-		} catch (error: any) {
-			toast.error(error.response.data.msg);
+		} catch (err: any) {
+			console.log(err);
+			toast.error(translateJoiError(err.errors[0].type, err.errors[0].field, err.errors[0].limit));
 		}
 	}
 
