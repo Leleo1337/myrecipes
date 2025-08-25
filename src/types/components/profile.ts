@@ -10,3 +10,17 @@ export type ProfileHeaderProps = {
 	isProfileOnwer: boolean;
 	onProfileChange: () => void;
 };
+
+export type profileEditModalProps = {
+	userID: string;
+	isModalOpen: boolean;
+	toggleModal: () => void;
+};
+
+export type profileEditFormTypes = {
+	name: string;
+	bio: string;
+	email: string;
+	currentPassword?: string;
+	newPassword?: string;
+};
