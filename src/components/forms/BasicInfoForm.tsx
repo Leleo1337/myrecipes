@@ -162,7 +162,7 @@ export default function BasicInfoForm({ isImageLoading, handleFileUpload, recipe
 							htmlFor='image'
 							className='relative flex flex-col items-center justify-center w-full h-full cursor-pointer '>
 							<img
-								src={recipeForm.image}
+								src={recipeForm.image ? recipeForm.image : undefined}
 								className='object-cover w-full h-full transition-all duration-100 ease-in rounded-md group-hover:brightness-50'
 							/>
 							<div
