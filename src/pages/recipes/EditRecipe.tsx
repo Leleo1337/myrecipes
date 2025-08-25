@@ -114,7 +114,6 @@ export default function EditRecipe() {
 	function toggleVisibility() {
 		setRecipeForm((prev) => ({ ...prev, visibility: prev.visibility === 'public' ? 'private' : 'public' }));
 		setPublicRecipe(!publicRecipe);
-		console.log(recipeForm.visibility);
 	}
 
 	function handleIngredientChange(index: number, field: string, value: string) {
@@ -165,11 +164,7 @@ export default function EditRecipe() {
 	useEffect(() => {
 		getRecipeData();
 	}, [recipeID]);
-
-	useEffect(() => {
-		console.log(recipeForm);
-	}, [recipeForm]);
-
+	
 	return (
 		<>
 			{sidebarOpen && (
