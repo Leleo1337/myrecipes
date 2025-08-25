@@ -1,9 +1,6 @@
 import { ArrowLeft, Save } from 'lucide-react';
 import { Link } from 'react-router';
-
-export type createHeaderProps = {
-	submitForm: () => void;
-};
+import type { createHeaderProps } from '../../types/components/UI';
 
 export default function CreateHeader({ submitForm }: createHeaderProps) {
 	return (

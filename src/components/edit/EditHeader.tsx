@@ -1,10 +1,6 @@
 import { ArrowLeft, Save, Trash } from 'lucide-react';
 import { Link } from 'react-router';
-
-export type editHeaderProps = {
-	openModal: () => void;
-	submitForm: () => void;
-};
+import type { editHeaderProps } from '../../types/components/UI';
 
 export default function EditHeader({ submitForm, openModal }: editHeaderProps) {
 	return (

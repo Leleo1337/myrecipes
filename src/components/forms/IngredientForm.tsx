@@ -1,12 +1,5 @@
 import { Plus, X } from 'lucide-react';
-import type { recipeForm } from '../../types/recipes';
-
-export type addIngredientFormProps = {
-	recipeForm: recipeForm;
-	addIngredient: () => void;
-	removeIngredient: (index: number) => void;
-	handleIngredientChange: (index: number, field: any, value: any) => void;
-};
+import type { addIngredientFormProps } from '../../types/components/forms';
 
 export default function IngredientForm({ recipeForm, addIngredient, removeIngredient, handleIngredientChange }: addIngredientFormProps) {
 	return (
@@ -46,7 +39,7 @@ export default function IngredientForm({ recipeForm, addIngredient, removeIngred
 								name='quantity'
 								id='quantity'
 								autoComplete='off'
-								placeholder='2'
+								placeholder='200g'
 								value={ingredient.quantity}
 								onChange={(e) => handleIngredientChange(index, 'quantity', e.target.value)}
 								required

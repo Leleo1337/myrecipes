@@ -1,8 +1,4 @@
-export type deleteRecipeModalProps = {
-	isModalOpen: boolean;
-	toggleModal: () => void;
-	onDelete: () => void;
-};
+import type { deleteRecipeModalProps } from "../../types/components/UI";
 
 export default function DeleteRecipeModal({ isModalOpen, toggleModal, onDelete }: deleteRecipeModalProps) {
 	return (

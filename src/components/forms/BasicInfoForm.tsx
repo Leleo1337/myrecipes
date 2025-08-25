@@ -1,14 +1,5 @@
 import { Clock, Eye, EyeOff, ImageIcon, Loader2, Users2 } from 'lucide-react';
-import type { recipeForm } from '../../types/recipes';
-
-export type basicInfoFormTypes = {
-	recipeForm: recipeForm;
-	handleFileUpload: (File: FileList | null) => Promise<void>;
-	isImageLoading: boolean;
-	handleChange: (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement> | React.ChangeEvent<HTMLSelectElement>) => void;
-	handleSetPublicForm: () => void;
-	publicForm: boolean;
-};
+import type { basicInfoFormTypes } from '../../types/components/forms';
 
 export default function BasicInfoForm({ isImageLoading, handleFileUpload, recipeForm, handleChange, handleSetPublicForm, publicForm }: basicInfoFormTypes) {
 	return (
