@@ -2,20 +2,7 @@ import { Eye, EyeOff, Save, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { fetchUserData, updateUser } from '../../services/user';
 import { toast } from 'sonner';
-
-export type profileEditModalProps = {
-	userID: string;
-	isModalOpen: boolean;
-	toggleModal: () => void;
-};
-
-export type profileEditFormTypes = {
-	name: string;
-	bio: string;
-	email: string;
-	currentPassword?: string;
-	newPassword?: string;
-};
+import type { profileEditFormTypes, profileEditModalProps } from '../../types/components/profile';
 
 const baseForm = {
 	name: '',
@@ -25,9 +12,14 @@ const baseForm = {
 	bio: '',
 };
 
+export type inputTypesProps = {
+	current: 'password' | 'text';
+	new: 'password' | 'text';
+};
+
 export default function ProfileEditModal({ userID, isModalOpen, toggleModal }: profileEditModalProps) {
 	const [profileEditForm, setProfileEditForm] = useState<profileEditFormTypes>(baseForm);
-	const [inputTypes, setInputTypes] = useState<{ current: 'password' | 'text'; new: 'password' | 'text' }>({ current: 'password', new: 'password' });
+	const [inputTypes, setInputTypes] = useState<inputTypesProps>({ current: 'password', new: 'password' });
 
 	function handleChange(e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) {
 		const key = e.target.name;
@@ -47,8 +39,7 @@ export default function ProfileEditModal({ userID, isModalOpen, toggleModal }: p
 			toggleModal();
 			setProfileEditForm(baseForm);
 		} catch (error: any) {
-			toast.error(error.response.data.msg);
-			console.log('erro:', error);
+			toast.error(error.response.errors[0].msg);
 		}
 	}
 
@@ -62,7 +53,7 @@ export default function ProfileEditModal({ userID, isModalOpen, toggleModal }: p
 				bio: response.user.bio ?? prev.bio,
 			}));
 		} catch (error: any) {
-			toast.error(error.msg);
+			toast.error(error.response.errors[0].msg);
 		}
 	}
 
