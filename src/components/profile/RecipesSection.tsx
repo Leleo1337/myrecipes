@@ -27,8 +27,8 @@ export default function RecipesSection({ isLoggedInUserProfileOwner, userID }: {
 			setLikedRecipes(data.data);
 			setRecipesLength((prev) => ({ ...prev, liked: data.total }));
 			setPageLimit((prev) => ({ ...prev, liked: { index: pageLimit } }));
-		} catch (error) {
-			toast.error('algo deu errado');
+		} catch (error: any) {
+			toast.error(error.response.data.errors[0].msg);
 		} finally {
 			setIsLoading(false);
 		}
@@ -43,8 +43,8 @@ export default function RecipesSection({ isLoggedInUserProfileOwner, userID }: {
 			setCreatedRecipes(data.data);
 			setRecipesLength((prev) => ({ ...prev, created: data.total }));
 			setPageLimit((prev) => ({ ...prev, created: { index: pageLimit } }));
-		} catch (error) {
-			toast.error('algo deu errado');
+		} catch (error: any) {
+			toast.error(error.response.data.errors[0].msg);
 		} finally {
 			setIsLoading(false);
 		}

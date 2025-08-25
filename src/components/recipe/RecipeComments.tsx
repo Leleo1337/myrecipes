@@ -40,7 +40,7 @@ export default function RecipeComments() {
 			setCommentFormData({ text: '' });
 			getRecipeComments(pageIndex);
 		} catch (err: any) {
-			toast.error(err.response.data.msg);
+			toast.error(err.response.errors[0].msg);
 		}
 	}
 
