@@ -131,12 +131,6 @@ export default function SideBar({ toggle, open }: sideBarProps) {
 												<span className='text-xs'>{'email'}</span>
 											</div>
 										</div>
-										<Link
-											to={'/profile'}
-											className='flex items-center'>
-											<User size={20} />
-											<span className='text-sm'>Profile</span>
-										</Link>
 									</div>
 									<div>
 										<button
