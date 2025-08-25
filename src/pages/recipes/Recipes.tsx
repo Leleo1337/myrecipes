@@ -125,6 +125,7 @@ export default function Recipes() {
 									type='text'
 									name='search'
 									id='search'
+									autoComplete='off'
 									onChange={(e) => setSearchQuery(e.target.value)}
 									className='w-full p-4 pl-12 bg-gray-100 border border-gray-300 rounded-2xl outline-0 focus:ring focus:ring-emerald-600/60 '
 								/>
