@@ -30,7 +30,6 @@ export default function RecipeStats({ recipeID, cookingTime, portions, difficult
 		const hasUserLiked = await fetchHasUserLiked(recipeID);
 		setLikesCount(likes.likesCount);
 		setLike(hasUserLiked.hasLiked);
-		console.log(hasUserLiked);
 	}
 
 	useEffect(() => {
