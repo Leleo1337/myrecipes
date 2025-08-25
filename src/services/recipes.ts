@@ -42,8 +42,8 @@ export async function updateRecipe(recipeID: string | undefined, formData: any) 
 	try {
 		const response = await api.patch(`/api/v1/recipes/${recipeID}/`, formData);
 		return response.data;
-	} catch (err) {
-		throw err;
+	} catch (err: any) {
+		throw err.response.data;
 	}
 }
 
@@ -60,8 +60,8 @@ export async function createRecipe(data: recipeForm) {
 	try {
 		const response = await api.post(`/api/v1/recipes/`, data);
 		return response.data;
-	} catch (err) {
-		throw err;
+	} catch (err: any) {
+		throw err.response.data;
 	}
 }
 
