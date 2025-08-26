@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import Header from '../../components/ui/Header';
 import SideBar from '../../components/ui/sideBar';
@@ -13,13 +13,14 @@ import AddIngredientForm from '../../components/create/forms/IngredientForm';
 import BasicInfoForm from '../../components/create/forms/BasicInfoForm';
 import CreateHeader from '../../components/create/CreateHeader';
 import { translateJoiError } from '../../utils/translateJoiError';
+import VideoForm from '../../components/create/forms/VideoForm';
 
 const emptyRecipe = {
 	image: '',
 	title: '',
 	description: '',
 	category: 'cafe da manha',
-	url: '',
+	videoUrl: '',
 	difficulty: 'facil',
 	visibility: 'public',
 	cookingTime: 1,
@@ -42,6 +43,7 @@ export default function CreateRecipe() {
 	}
 
 	async function handleSubmit() {
+		console.log(recipeForm)
 		try {
 			const newImage = await generateImageLinkFromFile(file);
 			const dataToSend = { ...recipeForm, image: newImage };
@@ -131,6 +133,9 @@ export default function CreateRecipe() {
 		setRecipeForm((prev) => ({ ...prev, instructions: updated }));
 	}
 
+	useEffect(() => {
+		console.log(recipeForm);
+	}, [recipeForm]);
 	return (
 		<>
 			{sidebarOpen && (
@@ -158,7 +163,7 @@ export default function CreateRecipe() {
 						handleFileUpload={handleFileUpload}
 						handleSetPublicForm={toggleVisibility}
 					/>
-					
+					<VideoForm onVideoLoad={(id: string) => setRecipeForm((prev) => ({ ...prev, videoUrl: id }))} />
 					<AddIngredientForm
 						addIngredient={addIngredient}
 						removeIngredient={removeIngredient}
