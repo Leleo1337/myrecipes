@@ -14,6 +14,7 @@ import BasicInfoForm from '../../components/create/forms/BasicInfoForm';
 import EditHeader from '../../components/edit/EditHeader';
 import DeleteRecipeModal from '../../components/edit/DeleteRecipeModal';
 import { translateJoiError } from '../../utils/translateJoiError';
+import VideoForm from '../../components/create/forms/VideoForm';
 
 const emptyRecipe = {
 	image: '',
@@ -21,7 +22,7 @@ const emptyRecipe = {
 	description: '',
 	category: 'cafe da manha',
 	difficulty: 'facil',
-	url: '',
+	videoUrl: '',
 	visibility: 'public',
 	cookingTime: 1,
 	portions: 1,
@@ -55,6 +56,7 @@ export default function EditRecipe() {
 				difficulty: response.data.difficulty,
 				image: response.data.image,
 				portions: response.data.portions,
+				videoUrl: response.data.videoUrl,
 				title: response.data.title,
 				ingredients: response.data.ingredients.map(({ _id, ...ingredient }: any) => ingredient),
 				instructions: response.data.instructions.map(({ _id, ...instruction }: any) => instruction),
@@ -192,7 +194,7 @@ export default function EditRecipe() {
 						toggleModal={() => setDeleteModalOpen(!deleteModalOpen)}
 						onDelete={handleDelete}
 					/>
-					<main className='relative w-full px-4 pb-12 top-40'>
+					<main className='relative container max-w-[900px] mx-auto px-4 pb-12 top-40'>
 						<BasicInfoForm
 							recipeForm={recipeForm}
 							isImageLoading={isImageLoading}
@@ -200,6 +202,10 @@ export default function EditRecipe() {
 							handleChange={handleChange}
 							handleFileUpload={handleFileUpload}
 							handleSetPublicForm={toggleVisibility}
+						/>
+						<VideoForm
+							formVideoID={recipeForm.videoUrl}
+							onVideoLoad={(id: string) => setRecipeForm((prev) => ({ ...prev, videoUrl: id }))}
 						/>
 						<AddIngredientForm
 							addIngredient={addIngredient}
