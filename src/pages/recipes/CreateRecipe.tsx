@@ -43,7 +43,6 @@ export default function CreateRecipe() {
 	}
 
 	async function handleSubmit() {
-		console.log(recipeForm)
 		try {
 			const newImage = await generateImageLinkFromFile(file);
 			const dataToSend = { ...recipeForm, image: newImage };

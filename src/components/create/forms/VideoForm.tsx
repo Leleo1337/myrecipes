@@ -42,7 +42,6 @@ export default function VideoForm({ onVideoLoad, formVideoID }: videoFormTypes) 
             setVideoUrl(`https://www.youtube.com/watch?v=${formVideoID}`)
 			setIsVideoLoaded(true);
 		}
-        console.log(formVideoID)
 	}, [formVideoID]);
 
 	return (
