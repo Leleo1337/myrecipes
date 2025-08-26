@@ -7,6 +7,7 @@ export type recipeForm = {
 	visibility: string;
 	cookingTime: number;
 	portions: number;
+	url: string;
 	ingredients: {
 		name: string;
 		quantity: string;
@@ -26,6 +27,7 @@ export type recipe = {
 	difficulty: 'facil' | 'medio' | 'dificil';
 	cookingTime: number;
 	portions: number;
+	url: string;
 	ingredients: {
 		name: string;
 		quantity: string;
