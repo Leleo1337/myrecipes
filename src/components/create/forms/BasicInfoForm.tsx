@@ -1,10 +1,10 @@
 import { Clock, Eye, EyeOff, ImageIcon, Loader2, Users2 } from 'lucide-react';
-import type { basicInfoFormTypes } from '../../types/components/forms';
+import type { basicInfoFormTypes } from '../../../types/components/forms';
 
 export default function BasicInfoForm({ isImageLoading, handleFileUpload, recipeForm, handleChange, handleSetPublicForm, publicForm }: basicInfoFormTypes) {
 	return (
 		<>
-			<section className='container max-w-[900px] mx-auto py-6 px-4 md:px-6 bg-white border border-slate-300 rounded-md shadow-xs'>
+			<section className='px-4 py-6 mx-auto bg-white border rounded-md shadow-xs md:px-6 border-slate-300'>
 				<h1 className='pb-4 text-xl font-semibold'>Informações Básicas</h1>
 				<div className='flex flex-col gap-4'>
 					<div className='flex flex-col gap-1'>

@@ -1,5 +1,5 @@
 import { Plus, X } from 'lucide-react';
-import type { addInstructionFormProps } from '../../types/components/forms';
+import type { addInstructionFormProps } from '../../../types/components/forms';
 
 export default function InstructionForm({ recipeForm, addInstruction, handleInstructionChange, removeInstruction }: addInstructionFormProps) {
 	return (

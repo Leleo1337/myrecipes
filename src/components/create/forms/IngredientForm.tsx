@@ -1,11 +1,11 @@
 import { Plus, X } from 'lucide-react';
-import type { addIngredientFormProps } from '../../types/components/forms';
+import type { addIngredientFormProps } from '../../../types/components/forms';
 
 export default function IngredientForm({ recipeForm, addIngredient, removeIngredient, handleIngredientChange }: addIngredientFormProps) {
 	return (
 		<>
 			<section className='container max-w-[900px] mx-auto py-6 px-4 md:px-6 bg-white border border-slate-300 rounded-md shadow-xs mt-8'>
-				<div className='flex pb-8 flex-col sm:flex-row sm:items-center sm:justify-between gap-4'>
+				<div className='flex flex-col gap-4 pb-8 sm:flex-row sm:items-center sm:justify-between'>
 					<h1 className='text-2xl font-semibold'>Ingredientes</h1>
 					<button
 						className='flex gap-1 cursor-pointer text-emerald-600 hover:text-emerald-700'
@@ -17,9 +17,9 @@ export default function IngredientForm({ recipeForm, addIngredient, removeIngred
 				{recipeForm.ingredients.map((ingredient, index) => (
 					<div
 						key={index}
-						className='flex flex-col md:flex-row items-start md:items-center gap-4 p-4'>
+						className='flex flex-col items-start gap-4 p-4 md:flex-row md:items-center'>
 						<div className='flex flex-col w-full gap-0.5'>
-							<label className='text-xs text-gray-500 font-semibold'>Ingrediente</label>
+							<label className='text-xs font-semibold text-gray-500'>Ingrediente</label>
 							<input
 								type='text'
 								name='ingredient'
@@ -33,7 +33,7 @@ export default function IngredientForm({ recipeForm, addIngredient, removeIngred
 							/>
 						</div>
 						<div className='flex flex-col w-full gap-0.5'>
-							<label className='text-xs text-gray-500 font-semibold'>quantidade</label>
+							<label className='text-xs font-semibold text-gray-500'>quantidade</label>
 							<input
 								type='text'
 								name='quantity'
