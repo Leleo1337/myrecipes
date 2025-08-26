@@ -87,7 +87,7 @@ export default function Recipe() {
 								/>
 							</div>
 						</div>
-						{currentRecipe.url && <RecipeVideo url={currentRecipe.url} />}
+						{currentRecipe.videoUrl && <RecipeVideo url={currentRecipe.videoUrl} />}
 						<div className='flex flex-col grid-cols-2 gap-8 mt-8 sm:grid gap-y-6'>
 							<RecipeIngredients ingredients={currentRecipe.ingredients} />
 							<RecipeInstructions instructions={currentRecipe.instructions} />
