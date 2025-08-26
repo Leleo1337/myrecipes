@@ -8,9 +8,9 @@ import { createRecipe } from '../../services/recipes';
 import { toast } from 'sonner';
 import BigLoader from '../../components/ui/BigLoader';
 import { convertFileToBase64, isFileSupportedFileType } from '../../utils/fileHelpers';
-import AddInstructionForm from '../../components/forms/InstructionForm';
-import AddIngredientForm from '../../components/forms/IngredientForm';
-import BasicInfoForm from '../../components/forms/BasicInfoForm';
+import AddInstructionForm from '../../components/create/forms/InstructionForm';
+import AddIngredientForm from '../../components/create/forms/IngredientForm';
+import BasicInfoForm from '../../components/create/forms/BasicInfoForm';
 import CreateHeader from '../../components/create/CreateHeader';
 import { translateJoiError } from '../../utils/translateJoiError';
 
@@ -19,6 +19,7 @@ const emptyRecipe = {
 	title: '',
 	description: '',
 	category: 'cafe da manha',
+	url: '',
 	difficulty: 'facil',
 	visibility: 'public',
 	cookingTime: 1,
@@ -148,7 +149,7 @@ export default function CreateRecipe() {
 			{isBigLoaderLoading ? (
 				<BigLoader color='emerald' />
 			) : (
-				<main className='relative w-full px-4 pb-12 top-40'>
+				<main className='relative container max-w-[900px] mx-auto px-4 pb-12 top-40'>
 					<BasicInfoForm
 						recipeForm={recipeForm}
 						isImageLoading={isImageLoading}
@@ -157,6 +158,7 @@ export default function CreateRecipe() {
 						handleFileUpload={handleFileUpload}
 						handleSetPublicForm={toggleVisibility}
 					/>
+					
 					<AddIngredientForm
 						addIngredient={addIngredient}
 						removeIngredient={removeIngredient}

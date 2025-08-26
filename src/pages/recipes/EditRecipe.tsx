@@ -8,9 +8,9 @@ import { deleteRecipe, fetchRecipe, updateRecipe } from '../../services/recipes'
 import { toast } from 'sonner';
 import BigLoader from '../../components/ui/BigLoader';
 import { convertFileToBase64, isFileSupportedFileType } from '../../utils/fileHelpers';
-import AddInstructionForm from '../../components/forms/InstructionForm';
-import AddIngredientForm from '../../components/forms/IngredientForm';
-import BasicInfoForm from '../../components/forms/BasicInfoForm';
+import AddInstructionForm from '../../components/create/forms/InstructionForm';
+import AddIngredientForm from '../../components/create/forms/IngredientForm';
+import BasicInfoForm from '../../components/create/forms/BasicInfoForm';
 import EditHeader from '../../components/edit/EditHeader';
 import DeleteRecipeModal from '../../components/edit/DeleteRecipeModal';
 import { translateJoiError } from '../../utils/translateJoiError';
@@ -21,6 +21,7 @@ const emptyRecipe = {
 	description: '',
 	category: 'cafe da manha',
 	difficulty: 'facil',
+	url: '',
 	visibility: 'public',
 	cookingTime: 1,
 	portions: 1,
