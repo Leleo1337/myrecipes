@@ -13,6 +13,7 @@ import RecipeStats from '../../components/recipe/RecipeStats';
 import RecipeIngredients from '../../components/recipe/RecipeIngredients';
 import RecipeInstructions from '../../components/recipe/RecipeInstructions';
 import RecipeComments from '../../components/recipe/RecipeComments';
+import RecipeVideo from '../../components/recipe/RecipeVideo';
 
 export default function Recipe() {
 	const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -86,6 +87,7 @@ export default function Recipe() {
 								/>
 							</div>
 						</div>
+						{currentRecipe.url && <RecipeVideo url={currentRecipe.url} />}
 						<div className='flex flex-col grid-cols-2 gap-8 mt-8 sm:grid gap-y-6'>
 							<RecipeIngredients ingredients={currentRecipe.ingredients} />
 							<RecipeInstructions instructions={currentRecipe.instructions} />
