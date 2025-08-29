@@ -73,7 +73,7 @@ export default function Profile() {
 					createdRecipesCount={recipesData.createdCount}
 					likedRecipesCount={recipesData.likedCount}
 					likesReceivedCount={recipesData.likesReceived}
-					isProfileOnwer={isLoggedInUserProfileOwner}
+					isProfileOwner={isLoggedInUserProfileOwner}
 					onProfileChange={getProfileData}
 				/>
 				<RecipesSection

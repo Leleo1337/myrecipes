@@ -21,6 +21,6 @@ export type profileHeaderProps = {
 	createdRecipesCount: number;
 	likedRecipesCount: number;
 	likesReceivedCount: number;
-	isProfileOnwer: boolean;
+	isProfileOwner: boolean;
 	onProfileChange: () => void;
 };

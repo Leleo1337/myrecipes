@@ -18,7 +18,7 @@ export default function ProfileHeader({
 	createdRecipesCount,
 	likedRecipesCount,
 	likesReceivedCount,
-	isProfileOnwer,
+	isProfileOwner,
 	onProfileChange,
 }: profileHeaderProps) {
 	const [isModalOpen, setIsModalOpen] = useState(false);
@@ -70,7 +70,7 @@ export default function ProfileHeader({
 									className='object-cover w-full h-full rounded-full'
 								/>
 							)}
-							{isProfileOnwer && (
+							{isProfileOwner && (
 								<div className='absolute bottom-0 right-0 p-1 text-white transition duration-100 ease-in rounded-full cursor-pointer z-2 bg-emerald-600 hover:bg-emerald-700'>
 									<label
 										className='w-full h-full p-0 m-0 cursor-pointer'
@@ -89,7 +89,7 @@ export default function ProfileHeader({
 						<div className='flex-1 space-y-1'>
 							<div className='flex items-center gap-4'>
 								<h1 className='text-3xl font-semibold'>{name}</h1>
-								{isProfileOnwer && (
+								{isProfileOwner && (
 									<Edit
 										size={16}
 										onClick={() => setIsModalOpen(!isModalOpen)}
