@@ -22,5 +22,10 @@ export type profileHeaderProps = {
 	likedRecipesCount: number;
 	likesReceivedCount: number;
 	isProfileOwner: boolean;
+	socialLinks: {
+		tiktok: string;
+		facebook: string;
+		instagram: string;
+	};
 	onProfileChange: () => void;
 };

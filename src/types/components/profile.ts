@@ -21,6 +21,11 @@ export type profileEditFormTypes = {
 	name: string;
 	bio: string;
 	email: string;
+	socialLinks: {
+		tiktok: string;
+		instagram: string;
+		facebook: string;
+	};
 	currentPassword?: string;
 	newPassword?: string;
 };
