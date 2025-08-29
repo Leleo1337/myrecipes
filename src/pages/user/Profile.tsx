@@ -14,8 +14,8 @@ export default function Profile() {
 		profilePicture: '',
 		name: '',
 		email: '',
-		bio: '	!',
-		socialLinks: { instragram: '', facebook: '', discord: '' },
+		bio: '',
+		socialLinks: { tiktok: '', instagram: '', facebook: '' },
 	});
 	const [recipesData, setRecipesData] = useState({
 		createdCount: 1,
@@ -69,6 +69,7 @@ export default function Profile() {
 					name={profileData.name}
 					bio={profileData.bio}
 					email={profileData.email}
+					socialLinks={profileData.socialLinks}
 					profilePicture={profileData.profilePicture}
 					createdRecipesCount={recipesData.createdCount}
 					likedRecipesCount={recipesData.likedCount}

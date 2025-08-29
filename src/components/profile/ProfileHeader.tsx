@@ -4,10 +4,12 @@ import { isFileSupportedFileType } from '../../utils/fileHelpers';
 import generateImageLinkFromFile from '../../services/cloudinary';
 import { updateUser } from '../../services/user';
 import { toast } from 'sonner';
+import { CiFacebook, CiInstagram } from 'react-icons/ci';
 import { useContext, useState } from 'react';
 import UserContext from '../../context/user';
 import type { profileHeaderProps } from '../../types/components/home';
 import ProfileEditModal from './ProfileEditModal';
+import { FaFacebook, FaInstagram, FaTiktok } from 'react-icons/fa';
 
 export default function ProfileHeader({
 	userID,
@@ -19,6 +21,7 @@ export default function ProfileHeader({
 	likedRecipesCount,
 	likesReceivedCount,
 	isProfileOwner,
+	socialLinks,
 	onProfileChange,
 }: profileHeaderProps) {
 	const [isModalOpen, setIsModalOpen] = useState(false);
@@ -99,6 +102,41 @@ export default function ProfileHeader({
 							</div>
 							<p className='text-gray-500'>{email ? email : name}</p>
 							<p>{bio}</p>
+							<div className='flex gap-2'>
+								{socialLinks.tiktok && (
+									<a
+										href={socialLinks.tiktok}
+										target='_blank'
+										className='flex'>
+										<FaTiktok
+											size={20}
+											className='text-gray-600 hover:text-[#69C9D0] transition-colors'
+										/>
+									</a>
+								)}
+								{socialLinks.instagram && (
+									<a
+										target='_blank'
+										href={socialLinks.instagram}
+										className='flex items-center'>
+										<FaInstagram
+											size={20}
+											className='text-gray-700 transition-colors hover:text-pink-500'
+										/>
+									</a>
+								)}
+								{socialLinks.facebook && (
+									<a
+										href={socialLinks.facebook}
+										target='_blank'
+										className='flex'>
+										<FaFacebook
+											size={20}
+											className='text-gray-700 hover:text-[#1877F2] transition-colors'
+										/>
+									</a>
+								)}
+							</div>
 						</div>
 					</div>
 					<div className='grid grid-cols-3 pt-4 sm:pt-0 sm:gap-4'>

@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { fetchUserData, updateUser } from '../../services/user';
 import { toast } from 'sonner';
 import type { profileEditFormTypes, profileEditModalProps } from '../../types/components/profile';
+import { translateJoiError } from '../../utils/translateJoiError';
 
 const baseForm = {
 	name: '',
@@ -10,6 +11,11 @@ const baseForm = {
 	currentPassword: '',
 	newPassword: '',
 	bio: '',
+	socialLinks: {
+		tiktok: '',
+		instagram: '',
+		facebook: '',
+	},
 };
 
 export type inputTypesProps = {
@@ -25,7 +31,11 @@ export default function ProfileEditModal({ userID, isModalOpen, toggleModal }: p
 		const key = e.target.name;
 		const value = e.target.value;
 
-		setProfileEditForm((prev) => ({ ...prev, [key]: value }));
+		if (key === 'tiktok' || key === 'instagram' || key === 'facebook') {
+			setProfileEditForm((prev) => ({ ...prev, socialLinks: { ...prev.socialLinks, [key]: value } }));
+		} else {
+			setProfileEditForm((prev) => ({ ...prev, [key]: value }));
+		}
 	}
 
 	async function handleSubmit() {
@@ -39,7 +49,11 @@ export default function ProfileEditModal({ userID, isModalOpen, toggleModal }: p
 			toggleModal();
 			setProfileEditForm(baseForm);
 		} catch (error: any) {
-			toast.error(error.response.errors[0].msg);
+			if (error.response.data.errors) {
+				toast.error(translateJoiError(error.response.data.errors[0].type, error.response.data.errors[0].field));
+			} else {
+				toast.error(error.response.data.msg);
+			}
 		}
 	}
 
@@ -51,9 +65,14 @@ export default function ProfileEditModal({ userID, isModalOpen, toggleModal }: p
 				name: response.user.name ?? prev.name,
 				email: response.user.email ?? prev.email,
 				bio: response.user.bio ?? prev.bio,
+				socialLinks: {
+					tiktok: response.user.socialLinks.tiktok,
+					instagram: response.user.socialLinks.instagram,
+					facebook: response.user.socialLinks.facebook,
+				},
 			}));
 		} catch (error: any) {
-			toast.error(error.response.errors[0].msg);
+			toast.error(translateJoiError(error.response.data.errors[0].type, error.response.data.errors[0].field));
 		}
 	}
 
@@ -195,14 +214,16 @@ export default function ProfileEditModal({ userID, isModalOpen, toggleModal }: p
 							<div className='flex flex-col gap-4 sm:flex-row'>
 								<div className='flex flex-col w-full'>
 									<label
-										htmlFor='discord'
+										htmlFor='tiktok'
 										className='text-sm font-semibold text-gray-600'>
-										Discord
+										Tiktok
 									</label>
 									<input
+										onChange={handleChange}
+										value={profileEditForm.socialLinks.tiktok}
 										type='text'
-										id='discord'
-										name='discord'
+										id='tiktok'
+										name='tiktok'
 										className='w-full px-4 py-2 border border-gray-300 rounded-md focus:ring ring-emerald-600 outline-0'
 									/>
 								</div>
@@ -213,6 +234,8 @@ export default function ProfileEditModal({ userID, isModalOpen, toggleModal }: p
 										Instagram
 									</label>
 									<input
+										onChange={handleChange}
+										value={profileEditForm.socialLinks.instagram}
 										type='text'
 										id='instagram'
 										name='instagram'
@@ -226,6 +249,8 @@ export default function ProfileEditModal({ userID, isModalOpen, toggleModal }: p
 										Facebook
 									</label>
 									<input
+										onChange={handleChange}
+										value={profileEditForm.socialLinks.facebook}
 										type='text'
 										id='facebook'
 										name='facebook'
