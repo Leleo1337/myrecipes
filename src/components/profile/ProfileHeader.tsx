@@ -102,7 +102,7 @@ export default function ProfileHeader({
 							<p className='text-gray-500'>{email ? email : name}</p>
 							<p>{bio}</p>
 							<div className='flex gap-2'>
-								{socialLinks.tiktok && (
+								{socialLinks && socialLinks.tiktok && (
 									<a
 										href={socialLinks.tiktok}
 										target='_blank'
@@ -113,7 +113,7 @@ export default function ProfileHeader({
 										/>
 									</a>
 								)}
-								{socialLinks.instagram && (
+								{socialLinks && socialLinks.instagram && (
 									<a
 										target='_blank'
 										href={socialLinks.instagram}
@@ -124,7 +124,7 @@ export default function ProfileHeader({
 										/>
 									</a>
 								)}
-								{socialLinks.facebook && (
+								{socialLinks && socialLinks.facebook && (
 									<a
 										href={socialLinks.facebook}
 										target='_blank'
