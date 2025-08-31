@@ -4,7 +4,6 @@ import { isFileSupportedFileType } from '../../utils/fileHelpers';
 import generateImageLinkFromFile from '../../services/cloudinary';
 import { updateUser } from '../../services/user';
 import { toast } from 'sonner';
-import { CiFacebook, CiInstagram } from 'react-icons/ci';
 import { useContext, useState } from 'react';
 import UserContext from '../../context/user';
 import type { profileHeaderProps } from '../../types/components/home';
