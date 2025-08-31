@@ -66,9 +66,9 @@ export default function ProfileEditModal({ userID, isModalOpen, toggleModal }: p
 				email: response.user.email ?? prev.email,
 				bio: response.user.bio ?? prev.bio,
 				socialLinks: {
-					tiktok: response.user.socialLinks.tiktok,
-					instagram: response.user.socialLinks.instagram,
-					facebook: response.user.socialLinks.facebook,
+					tiktok: response.user.socialLinks?.tiktok ?? prev.socialLinks.tiktok,
+					instagram: response.user.socialLinks?.instagram ?? prev.socialLinks.instagram,
+					facebook: response.user.socialLinks?.facebook ?? prev.socialLinks.facebook,
 				},
 			}));
 		} catch (error: any) {
