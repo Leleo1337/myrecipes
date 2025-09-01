@@ -1,5 +1,6 @@
 export type commentProps = {
-	_id?: string;
+	_id: string;
+	recipeID: string
 	createdBy: {
 		_id: string;
 		name: string;
@@ -7,4 +8,5 @@ export type commentProps = {
 	};
 	createdAt: string;
 	text: string;
+	fetchComments: (page: number) => Promise<void>
 };
