@@ -145,9 +145,12 @@ export default function RecipeComments() {
 						currentComments.map((comment) => (
 							<RecipeComment
 								key={comment._id}
+								_id={comment._id}
+								recipeID={comment.recipeID}
 								createdBy={comment.createdBy}
 								createdAt={comment.createdAt}
 								text={comment.text}
+								fetchComments={getRecipeComments}
 							/>
 						))
 					) : (
