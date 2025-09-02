@@ -61,7 +61,7 @@ export default function RecipeCard({
 										<img
 											src={createdBy.profilePicture}
 											alt='user pfp'
-											className='w-7 h-7 mr-2 text-xs rounded-full outline-1 outline-black/20'
+											className='mr-2 text-xs rounded-full w-7 h-7 outline-1 outline-black/20'
 										/>
 									) : (
 										<Avatar
