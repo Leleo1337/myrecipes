@@ -56,7 +56,7 @@ export default function ProfileHeader({
 				isModalOpen={isModalOpen}
 				toggleModal={() => setIsModalOpen(!isModalOpen)}
 			/>
-			<section className='container px-4 py-6 mx-auto bg-white border rounded-md shadow-xs md:px-6 border-slate-300'>
+			<section className='px-4 py-6 mx-auto bg-white border rounded-md shadow-xs md:px-6 border-slate-300'>
 				<div className='justify-between gap-4 sm:flex'>
 					<div className='flex items-center gap-4'>
 						<div className='relative z-0 flex items-center justify-center w-25 h-25 bg-primary-100'>
@@ -89,13 +89,13 @@ export default function ProfileHeader({
 							)}
 						</div>
 						<div className='flex-1 space-y-1'>
-							<div className='flex items-center gap-4'>
+							<div className='relative flex items-center gap-4 lg:static'>
 								<h1 className='text-3xl font-semibold'>{name}</h1>
 								{isProfileOwner && (
 									<Edit
 										size={16}
 										onClick={() => setIsModalOpen(!isModalOpen)}
-										className='transition duration-100 ease-in cursor-pointer hover:scale-105 hover:text-emerald-600'
+										className='absolute right-0 transition duration-100 ease-in cursor-pointer lg:static bottom-8 hover:scale-105 hover:text-emerald-600'
 									/>
 								)}
 							</div>

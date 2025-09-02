@@ -80,7 +80,7 @@ export default function RecipesSection({ isLoggedInUserProfileOwner, userID }: {
 	}, [pageIndex.liked.index, userID]);
 
 	return (
-		<section className='container p-4 mx-auto mt-4 bg-white border rounded-md shadow-xs md:px-6 border-slate-300'>
+		<section className='p-4 mx-auto mt-4 bg-white border rounded-md shadow-xs  md:px-6 border-slate-300'>
 			<div className='border-b border-gray-300'>
 				<div className='flex gap-8'>
 					<button
