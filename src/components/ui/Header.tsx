@@ -26,7 +26,7 @@ export default function Header({ toggleSide }: headerProps) {
 
 	return (
 		<div className='fixed top-0 w-full bg-white z-2 drop-shadow'>
-			<div className='container max-w-[1400px] mx-auto md:flex justify-between items-center py-2 pb-3 px-4'>
+			<div className='container max-w-[1400px] items-center justify-between px-4 py-2 pb-3 mx-auto md:flex'>
 				<div className='flex items-center justify-between gap-2'>
 					<div className='flex items-center'>
 						<div className='p-2 bg-emerald-600 rounded-xl'>
@@ -95,8 +95,8 @@ export default function Header({ toggleSide }: headerProps) {
 				</div>
 				<div className='hidden md:flex'>
 					{isAuthenticated ? (
-						<div className='flex items-center gap-4'>
-							<div className='items-center w-full px-3 border h-9 lg:flex bg-emerald-600/10 border-emerald-600/10 rounded-xl'>
+						<div className='flex items-center gap-2'>
+							<div className='items-center hidden w-full px-3 border h-9 lg:flex bg-emerald-600/10 border-emerald-600/10 rounded-xl'>
 								<div>
 									{profilePicture ? (
 										<img
@@ -113,7 +113,7 @@ export default function Header({ toggleSide }: headerProps) {
 									)}
 								</div>
 								<div className='flex flex-col'>
-									<span className='text-sm font-semibold'>{username}</span>
+									<span className='text-xs font-semibold'>{username}</span>
 								</div>
 							</div>
 							<div>
